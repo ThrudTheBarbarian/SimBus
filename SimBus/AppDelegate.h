@@ -12,6 +12,9 @@
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
+// The main app window
+@property (strong) IBOutlet NSWindow *window;
+
 // The object that handles plugins
 @property (strong, nonatomic) PluginController *            pluginController;
 

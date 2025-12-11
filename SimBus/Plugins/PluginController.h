@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 \*****************************************************************************/
 - (void) loadPlugins;
 
+// The list of classes, one per plugin, that implement our protocol
+@property (strong, nonatomic) NSMutableArray<Class> *           classes;
 @end
 
 NS_ASSUME_NONNULL_END

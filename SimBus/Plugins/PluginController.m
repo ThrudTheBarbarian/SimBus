@@ -9,8 +9,6 @@
 #import "PluginProtocol.h"
 
 @interface PluginController()
-// The list of classes, one per plugin, that implement our protocol
-@property (strong, nonatomic) NSMutableArray<Class> *           classes;
 @end
 
 @implementation PluginController

@@ -1,17 +1,15 @@
 //
-//  ClockPlugin.h
+//  AddItemController.h
 //  SimBus
 //
 //  Created by ThrudTheBarbarian on 11/12/2025.
 //
 
-#import <Foundation/Foundation.h>
-#import "PluginProtocol.h"
+#import <Cocoa/Cocoa.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ClockPlugin : NSObject <Plugin>
-
+@interface AddItemController : NSWindowController
 
 @end
 

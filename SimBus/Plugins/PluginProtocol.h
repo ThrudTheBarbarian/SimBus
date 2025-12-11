@@ -12,6 +12,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol Plugin <NSObject>
 
+/*****************************************************************************\
+|* Return the name to use for this plugin
+\*****************************************************************************/
++ (NSString *) pluginName;
+
+/*****************************************************************************\
+|* Return a list of signals of interest to this plugin
+\*****************************************************************************/
 - (NSArray<BusSignal *> *) signals;
 
 @end
