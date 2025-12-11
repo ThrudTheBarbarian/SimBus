@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F4C225412EEB54720056FD0A /* Clock.sb in CopyFiles */ = {isa = PBXBuildFile; fileRef = F4C225312EEB53140056FD0A /* Clock.sb */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F4C2254F2EEB56920056FD0A /* Common.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4C225472EEB56920056FD0A /* Common.framework */; };
+		F4C225512EEB56920056FD0A /* Common.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F4C225472EEB56920056FD0A /* Common.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		F40767BB2EEB030F0061A1D7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -21,17 +27,93 @@
 			remoteGlobalIDString = F40767A72EEB030D0061A1D7;
 			remoteInfo = SimBus;
 		};
+		F4C2253E2EEB54570056FD0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F40767A02EEB030D0061A1D7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F4C225302EEB53140056FD0A;
+			remoteInfo = Clock;
+		};
+		F4C2254D2EEB56920056FD0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F40767A02EEB030D0061A1D7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F4C225462EEB56920056FD0A;
+			remoteInfo = Common;
+		};
+		F4C2255E2EEB57930056FD0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F40767A02EEB030D0061A1D7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F4C225462EEB56920056FD0A;
+			remoteInfo = Common;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F4C225402EEB545E0056FD0A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				F4C225412EEB54720056FD0A /* Clock.sb in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4C225502EEB56920056FD0A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F4C225512EEB56920056FD0A /* Common.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		F40767A82EEB030D0061A1D7 /* SimBus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimBus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F40767BA2EEB030F0061A1D7 /* SimBusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimBusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F40767C42EEB030F0061A1D7 /* SimBusUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimBusUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4C225312EEB53140056FD0A /* Clock.sb */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Clock.sb; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4C225472EEB56920056FD0A /* Common.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Common.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		F4C2253A2EEB53E20056FD0A /* Exceptions for "SimBus" folder in "SimBus" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Plugins/ClockPlugin/ClockPlugin.m,
+			);
+			target = F40767A72EEB030D0061A1D7 /* SimBus */;
+		};
+		F4C2253B2EEB53E20056FD0A /* Exceptions for "SimBus" folder in "Clock" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Plugins/ClockPlugin/ClockPlugin.m,
+			);
+			target = F4C225302EEB53140056FD0A /* Clock */;
+		};
+		F4C225552EEB56920056FD0A /* Exceptions for "Common" folder in "Common" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			publicHeaders = (
+				BusSignal.h,
+				Common.h,
+			);
+			target = F4C225462EEB56920056FD0A /* Common */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		F40767AA2EEB030D0061A1D7 /* SimBus */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F4C2253A2EEB53E20056FD0A /* Exceptions for "SimBus" folder in "SimBus" target */,
+				F4C2253B2EEB53E20056FD0A /* Exceptions for "SimBus" folder in "Clock" target */,
+			);
 			path = SimBus;
 			sourceTree = "<group>";
 		};
@@ -45,6 +127,14 @@
 			path = SimBusUITests;
 			sourceTree = "<group>";
 		};
+		F4C225482EEB56920056FD0A /* Common */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F4C225552EEB56920056FD0A /* Exceptions for "Common" folder in "Common" target */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +142,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4C2254F2EEB56920056FD0A /* Common.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,6 +160,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F4C2252E2EEB53140056FD0A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4C225442EEB56920056FD0A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -78,6 +183,7 @@
 				F40767AA2EEB030D0061A1D7 /* SimBus */,
 				F40767BD2EEB030F0061A1D7 /* SimBusTests */,
 				F40767C72EEB030F0061A1D7 /* SimBusUITests */,
+				F4C225482EEB56920056FD0A /* Common */,
 				F40767A92EEB030D0061A1D7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,11 +194,23 @@
 				F40767A82EEB030D0061A1D7 /* SimBus.app */,
 				F40767BA2EEB030F0061A1D7 /* SimBusTests.xctest */,
 				F40767C42EEB030F0061A1D7 /* SimBusUITests.xctest */,
+				F4C225312EEB53140056FD0A /* Clock.sb */,
+				F4C225472EEB56920056FD0A /* Common.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		F4C225422EEB56920056FD0A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		F40767A72EEB030D0061A1D7 /* SimBus */ = {
@@ -102,10 +220,14 @@
 				F40767A42EEB030D0061A1D7 /* Sources */,
 				F40767A52EEB030D0061A1D7 /* Frameworks */,
 				F40767A62EEB030D0061A1D7 /* Resources */,
+				F4C225402EEB545E0056FD0A /* CopyFiles */,
+				F4C225502EEB56920056FD0A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F4C2253F2EEB54570056FD0A /* PBXTargetDependency */,
+				F4C2254E2EEB56920056FD0A /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				F40767AA2EEB030D0061A1D7 /* SimBus */,
@@ -163,6 +285,49 @@
 			productReference = F40767C42EEB030F0061A1D7 /* SimBusUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		F4C225302EEB53140056FD0A /* Clock */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F4C225322EEB53140056FD0A /* Build configuration list for PBXNativeTarget "Clock" */;
+			buildPhases = (
+				F4C2252D2EEB53140056FD0A /* Sources */,
+				F4C2252E2EEB53140056FD0A /* Frameworks */,
+				F4C2252F2EEB53140056FD0A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F4C2255F2EEB57930056FD0A /* PBXTargetDependency */,
+			);
+			name = Clock;
+			packageProductDependencies = (
+			);
+			productName = Clock;
+			productReference = F4C225312EEB53140056FD0A /* Clock.sb */;
+			productType = "com.apple.product-type.bundle";
+		};
+		F4C225462EEB56920056FD0A /* Common */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F4C225522EEB56920056FD0A /* Build configuration list for PBXNativeTarget "Common" */;
+			buildPhases = (
+				F4C225422EEB56920056FD0A /* Headers */,
+				F4C225432EEB56920056FD0A /* Sources */,
+				F4C225442EEB56920056FD0A /* Frameworks */,
+				F4C225452EEB56920056FD0A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				F4C225482EEB56920056FD0A /* Common */,
+			);
+			name = Common;
+			packageProductDependencies = (
+			);
+			productName = Common;
+			productReference = F4C225472EEB56920056FD0A /* Common.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -183,6 +348,12 @@
 						CreatedOnToolsVersion = 16.3;
 						TestTargetID = F40767A72EEB030D0061A1D7;
 					};
+					F4C225302EEB53140056FD0A = {
+						CreatedOnToolsVersion = 16.3;
+					};
+					F4C225462EEB56920056FD0A = {
+						CreatedOnToolsVersion = 16.3;
+					};
 				};
 			};
 			buildConfigurationList = F40767A32EEB030D0061A1D7 /* Build configuration list for PBXProject "SimBus" */;
@@ -202,6 +373,8 @@
 				F40767A72EEB030D0061A1D7 /* SimBus */,
 				F40767B92EEB030F0061A1D7 /* SimBusTests */,
 				F40767C32EEB030F0061A1D7 /* SimBusUITests */,
+				F4C225302EEB53140056FD0A /* Clock */,
+				F4C225462EEB56920056FD0A /* Common */,
 			);
 		};
 /* End PBXProject section */
@@ -222,6 +395,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F40767C22EEB030F0061A1D7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4C2252F2EEB53140056FD0A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4C225452EEB56920056FD0A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -252,6 +439,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F4C2252D2EEB53140056FD0A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4C225432EEB56920056FD0A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -264,6 +465,21 @@
 			isa = PBXTargetDependency;
 			target = F40767A72EEB030D0061A1D7 /* SimBus */;
 			targetProxy = F40767C52EEB030F0061A1D7 /* PBXContainerItemProxy */;
+		};
+		F4C2253F2EEB54570056FD0A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F4C225302EEB53140056FD0A /* Clock */;
+			targetProxy = F4C2253E2EEB54570056FD0A /* PBXContainerItemProxy */;
+		};
+		F4C2254E2EEB56920056FD0A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F4C225462EEB56920056FD0A /* Common */;
+			targetProxy = F4C2254D2EEB56920056FD0A /* PBXContainerItemProxy */;
+		};
+		F4C2255F2EEB57930056FD0A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F4C225462EEB56920056FD0A /* Common */;
+			targetProxy = F4C2255E2EEB57930056FD0A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -503,6 +719,110 @@
 			};
 			name = Release;
 		};
+		F4C225332EEB53140056FD0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S9DMW7WK55;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = ClockPlugin;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = info.azoth.SimBus.Clock;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				WRAPPER_EXTENSION = sb;
+			};
+			name = Debug;
+		};
+		F4C225342EEB53140056FD0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S9DMW7WK55;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = ClockPlugin;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = info.azoth.SimBus.Clock;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				WRAPPER_EXTENSION = sb;
+			};
+			name = Release;
+		};
+		F4C225532EEB56920056FD0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = S9DMW7WK55;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = gnu17;
+				PRODUCT_BUNDLE_IDENTIFIER = info.azoth.SimBus.Common;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		F4C225542EEB56920056FD0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = S9DMW7WK55;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = gnu17;
+				PRODUCT_BUNDLE_IDENTIFIER = info.azoth.SimBus.Common;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -538,6 +858,24 @@
 			buildConfigurations = (
 				F40767D52EEB030F0061A1D7 /* Debug */,
 				F40767D62EEB030F0061A1D7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F4C225322EEB53140056FD0A /* Build configuration list for PBXNativeTarget "Clock" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4C225332EEB53140056FD0A /* Debug */,
+				F4C225342EEB53140056FD0A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F4C225522EEB56920056FD0A /* Build configuration list for PBXNativeTarget "Common" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4C225532EEB56920056FD0A /* Debug */,
+				F4C225542EEB56920056FD0A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
