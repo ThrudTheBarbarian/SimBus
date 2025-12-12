@@ -25,10 +25,13 @@
         {
         _clk        = 1;
         _signals    = [NSMutableArray new];
-        [_signals addObject:[BusSignal withName:@"clk"
-                                          width:6
+        
+        BusSignal *clk = [BusSignal withName:@"clk"
+                                          width:1
                                            type:SIGNAL_CLOCK_SRC
-                                       expanded:YES]];
+                                       expanded:NO];
+        clk.defaultColour = [NSColor redColor];
+        [_signals addObject:clk];
                                         
         }
     return self;

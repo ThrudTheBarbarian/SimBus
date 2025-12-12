@@ -17,7 +17,7 @@
                      type:(SignalType)type
                  expanded:(BOOL)expanded
     {
-    BusSignal *signal  = BusSignal.new;
+    BusSignal *signal   = BusSignal.new;
     signal.name         = name;
     signal.width        = width;
     signal.type         = type;
@@ -31,7 +31,7 @@
                     width:(uint32_t)width
                   andType:(SignalType)type;
     {
-    BusSignal *signal  = BusSignal.new;
+    BusSignal *signal   = BusSignal.new;
     signal.name         = name;
     signal.width        = width;
     signal.type         = type;
@@ -41,7 +41,7 @@
 
 + (instancetype) withName:(NSString *)name andType:(SignalType)type
     {
-    BusSignal *signal  = BusSignal.new;
+    BusSignal *signal   = BusSignal.new;
     signal.name         = name;
     signal.width        = 1;
     signal.type         = type;

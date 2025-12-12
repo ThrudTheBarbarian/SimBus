@@ -14,14 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SignalsItem : NSCollectionViewItem
 
 /*****************************************************************************\
-|* Set the plugin instance and configure the view
+|* Set the plugin instance
 \*****************************************************************************/
 - (void) setPlugin:(id<Plugin>)plugin;
 
-/*****************************************************************************\
-|* Return the size that a given item's view should be
-\*****************************************************************************/
-- (NSSize) calculatedViewSize;
 
 @end
 

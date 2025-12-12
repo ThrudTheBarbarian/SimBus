@@ -5,7 +5,7 @@
 //  Created by ThrudTheBarbarian on 11/12/2025.
 //
 
-#import <Foundation/Foundation.h>
+#import <AppKit/AppKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -58,6 +58,11 @@ typedef enum
 |* Property: whether the signal is currently expanded if is > 1bit
 \*****************************************************************************/
 @property (assign, nonatomic) bool                  expanded;
+
+/*****************************************************************************\
+|* Property: colour to draw this signal in
+\*****************************************************************************/
+@property (strong, nonatomic) NSColor *             defaultColour;
 @end
 
 NS_ASSUME_NONNULL_END

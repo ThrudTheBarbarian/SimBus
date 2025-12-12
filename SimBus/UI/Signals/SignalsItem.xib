@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="260" height="346"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="haN-Ep-DMl">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="haN-Ep-DMl">
                     <rect key="frame" x="9" y="322" width="242" height="16"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="16" id="1iA-tJ-Kew"/>

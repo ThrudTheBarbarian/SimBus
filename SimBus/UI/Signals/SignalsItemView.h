@@ -6,11 +6,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "PluginProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SignalsItemView : NSView
 
+@property (strong, nonatomic) id<Plugin>            plugin;
 @end
 
 NS_ASSUME_NONNULL_END
