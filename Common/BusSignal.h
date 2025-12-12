@@ -29,6 +29,11 @@ typedef enum
 \*****************************************************************************/
 + (instancetype) withName:(NSString *)name
                     width:(uint32_t)width
+                     type:(SignalType)type
+                 expanded:(BOOL)expanded;
+
++ (instancetype) withName:(NSString *)name
+                    width:(uint32_t)width
                   andType:(SignalType)type;
 
 + (instancetype) withName:(NSString *)name
@@ -48,6 +53,11 @@ typedef enum
 |* Property: type of this signal
 \*****************************************************************************/
 @property (assign, nonatomic) SignalType            type;
+
+/*****************************************************************************\
+|* Property: whether the signal is currently expanded if is > 1bit
+\*****************************************************************************/
+@property (assign, nonatomic) bool                  expanded;
 @end
 
 NS_ASSUME_NONNULL_END

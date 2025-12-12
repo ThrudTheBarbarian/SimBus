@@ -6,11 +6,12 @@
 //
 
 #import <Common/Common.h>
-
 #import "ClockPlugin.h"
 
+#define PLUGIN_NAME         @"Clock source"
+
 @interface ClockPlugin()
-@property (assign, nonatomic) int                      clk;
+@property (assign, nonatomic) int                               clk;
 @end
 
 @implementation ClockPlugin
@@ -22,7 +23,13 @@
     {
     if (self = [super init])
         {
-        _clk = 1;
+        _clk        = 1;
+        _signals    = [NSMutableArray new];
+        [_signals addObject:[BusSignal withName:@"clk"
+                                          width:6
+                                           type:SIGNAL_CLOCK_SRC
+                                       expanded:YES]];
+                                        
         }
     return self;
     }
@@ -32,18 +39,16 @@
 \*****************************************************************************/
 + (NSString *) pluginName
     {
-    return @"Clock source";
+    return PLUGIN_NAME;
     }
-
 
 /*****************************************************************************\
-|* Return a list of signals of interest to this plugin
+|* Return the name to use for this plugin
 \*****************************************************************************/
-- (NSArray<BusSignal *> *) signals
+- (NSString *) pluginName
     {
-    return @[
-            [BusSignal withName:@"clk" andType:SIGNAL_CLOCK_SRC]
-            ];
+    return PLUGIN_NAME;
     }
+
 
 @end

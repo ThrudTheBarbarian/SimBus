@@ -8,9 +8,6 @@
 #import "AppDelegate.h"
 #import "PluginController.h"
 
-@interface AppDelegate ()
-
-@end
 
 @implementation AppDelegate
 

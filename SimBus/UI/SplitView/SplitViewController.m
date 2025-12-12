@@ -5,6 +5,7 @@
 //  Created by ThrudTheBarbarian on 11/12/2025.
 //
 
+#import "Notifications.h"
 #import "SplitViewController.h"
 
 #define MIN_X       200.0f
@@ -54,6 +55,11 @@ constrainSplitPosition:(CGFloat) proposedPosition
         proposedPosition = MIN_X;
     if (proposedPosition > MAX_X)
         proposedPosition = MAX_X;
+    
+    NSNotificationCenter *nc = NSNotificationCenter.defaultCenter;
+    [nc postNotificationName:kSignalsWidthChangedNotification
+                      object:@(proposedPosition)];
+    
     return proposedPosition;
     }
 

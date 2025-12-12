@@ -6,10 +6,12 @@
 //
 
 #import <AppKit/AppKit.h>
+#import "PluginProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SignalsDataSource : NSObject <NSCollectionViewDataSource>
+@interface SignalsDataSource : NSObject <NSCollectionViewDataSource,
+                                         NSCollectionViewDelegate>
 
 /*****************************************************************************\
 |* Return the number of items in this collection. In our case, the number
@@ -26,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Properties
 
-@property (strong, nonatomic) NSMutableArray *              items;
+@property (strong, nonatomic) NSMutableArray<id<Plugin>> *          items;
 @end
 
 NS_ASSUME_NONNULL_END

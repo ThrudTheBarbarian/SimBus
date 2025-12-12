@@ -1,27 +1,27 @@
 //
-//  PluginProtocol.h
+//  SignalsItem.h
 //  SimBus
 //
-//  Created by ThrudTheBarbarian on 11/12/2025.
+//  Created by ThrudTheBarbarian on 12/12/2025.
 //
 
-#import <Foundation/Foundation.h>
-#import <Common/Common.h>
+#import <Cocoa/Cocoa.h>
+
+#import "PluginProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol Plugin <NSObject>
+@interface SignalsItem : NSCollectionViewItem
 
 /*****************************************************************************\
-|* Return the name to use for this plugin, both instance and class
+|* Set the plugin instance and configure the view
 \*****************************************************************************/
-+ (NSString *) pluginName;
-- (NSString *) pluginName;
+- (void) setPlugin:(id<Plugin>)plugin;
 
 /*****************************************************************************\
-|* Return a list of signals of interest to this plugin
+|* Return the size that a given item's view should be
 \*****************************************************************************/
-- (NSArray<BusSignal *> *) signals;
+- (NSSize) calculatedViewSize;
 
 @end
 

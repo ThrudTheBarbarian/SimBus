@@ -6,6 +6,7 @@
 //
 
 #import "AddItemController.h"
+#import "Notifications.h"
 #import "PluginController.h"
 #import "PluginProtocol.h"
 
@@ -48,8 +49,20 @@
 \*****************************************************************************/
 - (IBAction)addItemPressed:(id)sender
     {
-    NSLog(@"tag: %d", (int) _options.selectedItem.tag);
     [self.window orderOut:self];
+    
+    // Create a new instance of the item, only done here so we can pass it
+    // around easily as a single object.
+    PluginController *pc        = PluginController.sharedInstance;
+    int tag                     = (int) _options.selectedItem.tag;
+    if ((tag >= 0) && (tag < pc.classes.count))
+        {
+        Class klass                 = pc.classes[tag];
+        id<Plugin> instance         = klass.new;
+    
+        NSNotificationCenter *nc    = NSNotificationCenter.defaultCenter;
+        [nc postNotificationName:kAddItemNotification object:instance];
+        }
     }
 
 @end

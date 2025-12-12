@@ -707,7 +707,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="188" height="158"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="dqO-5Z-yWP">
-                                                        <size key="itemSize" width="50" height="50"/>
+                                                        <size key="itemSize" width="200" height="100"/>
                                                     </collectionViewFlowLayout>
                                                     <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <connections>
@@ -795,7 +795,11 @@
         </window>
         <customObject id="6Z3-cq-S59" customClass="MenuBarController"/>
         <customObject id="CQp-K0-hCw" customClass="SplitViewController"/>
-        <customObject id="OuQ-C5-4Oe" customClass="SignalsDataSource"/>
+        <customObject id="OuQ-C5-4Oe" customClass="SignalsDataSource">
+            <connections>
+                <outlet property="itemsView" destination="Lpm-ql-m91" id="I95-jv-p3O"/>
+            </connections>
+        </customObject>
     </objects>
     <resources>
         <image name="NSTouchBarAddDetailTemplate" width="20" height="20"/>
