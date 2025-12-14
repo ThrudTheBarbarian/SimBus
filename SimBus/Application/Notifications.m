@@ -7,5 +7,6 @@
 
 #import "Notifications.h"
 
-NSString * const kAddItemNotification               = @"add-item-notification";
+NSString * const kAddItemNotification               = @"add-item";
 NSString * const kSignalsWidthChangedNotification   = @"signals-width-changed";
+NSString * const kSignalsReconfiguredNotification   = @"signals-reconfigured";

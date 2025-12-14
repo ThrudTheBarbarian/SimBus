@@ -9,3 +9,4 @@
 
 extern NSString * const kAddItemNotification;
 extern NSString * const kSignalsWidthChangedNotification;
+extern NSString * const kSignalsReconfiguredNotification;

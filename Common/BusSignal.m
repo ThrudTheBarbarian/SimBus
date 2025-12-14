@@ -49,4 +49,32 @@
     return signal;
     }
 
+/*****************************************************************************\
+|* Determine the colour based on type or whether it's been set
+\*****************************************************************************/
+- (NSColor *) colour
+    {
+    if (_colour)
+        return _colour;
+    
+    switch (_type)
+        {
+        case SIGNAL_CLOCK_SINK:
+            return [NSColor colorWithDeviceRed:0 green:0.9 blue:0 alpha:1.0];
+        case SIGNAL_CLOCK_SRC:
+            return [NSColor colorWithDeviceRed:0 green:0.8 blue:0 alpha:1.0];
+        case SIGNAL_ADDRESS:
+            return [NSColor colorWithDeviceRed:1.0 green:0.988 blue:0.475 alpha:1.0];
+        case SIGNAL_DATA:
+            return [NSColor colorWithDeviceRed:1.0 green:0.576 blue:0 alpha:1.0];
+        case SIGNAL_BUS:
+            return [NSColor colorWithDeviceRed:0.831 green:0.984 blue:.475 alpha:1.0];
+        case SIGNAL_INPUT:
+            return [NSColor colorWithDeviceRed:0.462 green:0.839 blue:1.0 alpha:1.0];
+        case SIGNAL_OUTPUT:
+            return [NSColor colorWithDeviceRed:0 green:0.992 blue:1.0 alpha:1.0];
+        default:
+            return [NSColor colorWithDeviceRed:0 green:0.588 blue:1.0 alpha:1.0];
+        }
+    }
 @end

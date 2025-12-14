@@ -42,27 +42,32 @@ typedef enum
 /*****************************************************************************\
 |* Property: bit width of the signal
 \*****************************************************************************/
-@property (assign, nonatomic) uint32_t              width;
+@property (assign, nonatomic) uint32_t                  width;
 
 /*****************************************************************************\
 |* Property: name of the signal
 \*****************************************************************************/
-@property (strong, nonatomic) NSString *            name;
+@property (strong, nonatomic) NSString *                name;
+
+/*****************************************************************************\
+|* Property: stem of an expanded signal
+\*****************************************************************************/
+@property (strong, nonatomic, nullable) NSString *      expandedStem;
 
 /*****************************************************************************\
 |* Property: type of this signal
 \*****************************************************************************/
-@property (assign, nonatomic) SignalType            type;
+@property (assign, nonatomic) SignalType                type;
 
 /*****************************************************************************\
 |* Property: whether the signal is currently expanded if is > 1bit
 \*****************************************************************************/
-@property (assign, nonatomic) bool                  expanded;
+@property (assign, nonatomic) bool                      expanded;
 
 /*****************************************************************************\
 |* Property: colour to draw this signal in
 \*****************************************************************************/
-@property (strong, nonatomic) NSColor *             defaultColour;
+@property (strong, nonatomic, nullable) NSColor *       colour;
 @end
 
 NS_ASSUME_NONNULL_END

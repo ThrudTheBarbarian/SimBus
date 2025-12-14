@@ -5,6 +5,7 @@
 //  Created by ThrudTheBarbarian on 11/12/2025.
 //
 
+#import "Common.h"
 #import "Notifications.h"
 #import "PluginProtocol.h"
 #import "SignalsDataSource.h"
@@ -37,8 +38,14 @@
 
         // Listen for the splitview being resized
         [nc addObserver:self
-               selector:@selector(_splitViewWasResized:)
+               selector:@selector(_signalsNeedLayout:)
                    name:kSignalsWidthChangedNotification
+                 object:nil];
+
+        // Listen for the user expanding/collapsing a signal
+        [nc addObserver:self
+               selector:@selector(_signalsNeedLayout:)
+                   name:kSignalsReconfiguredNotification
                  object:nil];
         }
     return self;
@@ -128,12 +135,11 @@
         id <Plugin> item    = _items[idx];
         CGFloat height      = 45;
         for (BusSignal *signal in item.signals)
-            height += 15 * (signal.expanded ? signal.width + 1 : 1);
+            height += SIGNAL_VSPACE * (signal.expanded ? signal.width + 1 : 1);
         size = NSMakeSize(_splitWidth, height);
         }
     else
         NSLog(@"Cannot find size for item at %@", indexPath);
-    
     return size;
     }
     
@@ -150,11 +156,11 @@
 /*****************************************************************************\
 |* One of our item-views was resized, re-layout
 \*****************************************************************************/
-- (void) _collectionItemHeightChanged:(NSNotification *)n
+- (void) _signalsNeedLayout:(NSNotification *)n
     {
     NSCollectionViewFlowLayout *layout  = _itemsView.collectionViewLayout;
     [layout invalidateLayout];
     }
-    
+      
     
 @end
