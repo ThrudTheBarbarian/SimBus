@@ -6,7 +6,7 @@
 //
 
 #import "Box.h"
-#import "BusSignal.h"
+#import "SBSignal.h"
 #import "Defines.h"
 #import "Notifications.h"
 #import "SignalsItemView.h"
@@ -14,7 +14,7 @@
 @interface SignalsItemView()
 
 // The relationship mapping between the location and the signal
-@property(strong, nonatomic) NSMutableDictionary<Box *, BusSignal*> *     map;
+@property(strong, nonatomic) NSMutableDictionary<Box *, SBSignal*> *     map;
 
 @end
 
@@ -104,7 +104,7 @@
         CGFloat W = self.frame.size.width;
         
         // Draw a line underneath the text
-        [NSColor.blackColor set];
+        [NSColor.whiteColor set];
         NSBezierPath *path = [NSBezierPath bezierPath];
         [path moveToPoint:NSMakePoint(x, y-1)];
         [path lineToPoint:NSMakePoint(x+w, y-1)];
@@ -119,13 +119,13 @@
                                     
         // For each signal, get the colour for that signal and draw
         // a line up to the name of the signal
-        NSArray<BusSignal *> * signals = _plugin.signals;
+        NSArray<SBSignal *> * signals = _plugin.signals;
         CGFloat Y           = y-5;
         CGFloat lastY       = 0;
         CGFloat X           = x + 4;
         NSSize size         = NSMakeSize(SIGNAL_VSPACE, SIGNAL_VSPACE);
         
-        for (BusSignal *signal in signals)
+        for (SBSignal *signal in signals)
             {
             CGFloat triangle    = 0;
             attribs = @{NSForegroundColorAttributeName:signal.colour,
@@ -207,7 +207,7 @@
             Y -= SIGNAL_VSPACE;
             }
         
-        [NSColor.blackColor set];
+        [NSColor.whiteColor set];
         path = [NSBezierPath bezierPath];
         [path moveToPoint:NSMakePoint(X, y-1)];
         [path lineToPoint:NSMakePoint(X, lastY)];

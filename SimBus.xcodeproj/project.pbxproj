@@ -86,8 +86,8 @@
 		F4C2253A2EEB53E20056FD0A /* Exceptions for "SimBus" folder in "SimBus" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Common/Bus/BusSignal.m,
 				Common/Bus/SBEvent.m,
+				Common/Bus/SBSignal.m,
 				Common/Common.docc,
 				Common/Engine/SBEngine.m,
 				Plugins/ClockPlugin/ClockPlugin.m,
@@ -104,18 +104,18 @@
 		F4C227892EEF3CD20056FD0A /* Exceptions for "SimBus" folder in "Common" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Common/Bus/BusSignal.h,
-				Common/Bus/BusSignal.m,
 				Common/Bus/SBEvent.h,
 				Common/Bus/SBEvent.m,
+				Common/Bus/SBSignal.h,
+				Common/Bus/SBSignal.m,
 				Common/Common.docc,
 				Common/Common.h,
 				Common/Engine/SBEngine.h,
 				Common/Engine/SBEngine.m,
 			);
 			publicHeaders = (
-				Common/Bus/BusSignal.h,
 				Common/Bus/SBEvent.h,
+				Common/Bus/SBSignal.h,
 				Common/Common.h,
 				Common/Engine/SBEngine.h,
 			);

@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ClockPlugin : NSObject <Plugin>
 
 // List of signals in the clock plugin
-@property (strong, nonatomic) NSMutableArray<BusSignal *> *     signals;
+@property (strong, nonatomic) NSMutableArray<SBSignal *> *      signals;
 
 // The engine that the clock plugin uses
 @property (strong, nonatomic) SBEngine *                        engine;

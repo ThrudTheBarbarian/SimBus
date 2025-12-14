@@ -26,10 +26,10 @@
         _clk        = 1;
         _signals    = [NSMutableArray new];
         
-        BusSignal *sig = [BusSignal withName:@"clk.src"
-                                          width:1
-                                           type:SIGNAL_CLOCK_SRC
-                                       expanded:NO];
+        SBSignal *sig = [SBSignal withName:@"clk"
+                                     width:1
+                                      type:SIGNAL_CLOCK_SRC
+                                  expanded:NO];
         [_signals addObject:sig];
         }
     return self;

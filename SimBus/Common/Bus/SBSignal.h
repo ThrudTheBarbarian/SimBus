@@ -1,5 +1,5 @@
 //
-//  BusSignal.h
+//  SBSignal.h
 //  Common
 //
 //  Created by ThrudTheBarbarian on 11/12/2025.
@@ -22,7 +22,7 @@ typedef enum
     SIGNAL_MAX              // Maximum signal value
     } SignalType;
 
-@interface BusSignal : NSObject
+@interface SBSignal : NSObject
 
 /*****************************************************************************\
 |* Convenience initialisers 

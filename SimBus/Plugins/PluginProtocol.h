@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 /*****************************************************************************\
 |* Return a list of signals of interest to this plugin
 \*****************************************************************************/
-- (NSArray<BusSignal *> *) signals;
+- (NSArray<SBSignal *> *) signals;
 
 /*****************************************************************************\
 |* Tell the plugin which engine it is associated with

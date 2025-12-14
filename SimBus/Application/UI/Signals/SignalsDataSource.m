@@ -38,7 +38,7 @@
 
         // Listen for the splitview being resized
         [nc addObserver:self
-               selector:@selector(_signalsNeedLayout:)
+               selector:@selector(_splitViewWasResized:)
                    name:kSignalsWidthChangedNotification
                  object:nil];
 
@@ -134,7 +134,7 @@
 		{
         id <Plugin> item    = _items[idx];
         CGFloat height      = 45;
-        for (BusSignal *signal in item.signals)
+        for (SBSignal *signal in item.signals)
             height += SIGNAL_VSPACE * (signal.expanded ? signal.width + 1 : 1);
         size = NSMakeSize(_splitWidth, height);
         }
