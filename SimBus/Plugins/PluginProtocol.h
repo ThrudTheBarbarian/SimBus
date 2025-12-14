@@ -23,6 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
 \*****************************************************************************/
 - (NSArray<BusSignal *> *) signals;
 
+/*****************************************************************************\
+|* Tell the plugin which engine it is associated with
+\*****************************************************************************/
+- (void) setEngine:(SBEngine *)engine;
+
 @end
 
 NS_ASSUME_NONNULL_END

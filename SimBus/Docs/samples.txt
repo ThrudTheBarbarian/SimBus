@@ -1,0 +1,79 @@
+Storing samples
+===============
+
+When we run a simulation, the goal is to be able to run for a sufficient time
+that we can get meaningful results from the simualtion. The worst-case for this
+is probably audio output chips, which would need maybe ~1 minute's worth of
+time to be simulated to be useful
+
+So the target is 60 seconds of data being produced / stored / rendered.
+
+
+Bit method:
+-----------
+
+If we use a structure like:
+
+struct
+    {
+    uint32_t cron;          // Timestamp of signal
+    uint8_t signals[14];    // 112 bits of signal value
+    uint8_t valid[14];      // 112 bits of signal-valid data
+    }
+
+... then we're limited to 112 bits of signal, mapped over the set provided
+by the plugins, but we're only using 32 bytes per sample, and those samples
+aren't necessarily uniform in time.
+
+Assuming a 20MHz clock, we would have 20M samples per second, so 20 * 32 * 60
+MB needed for the entire 60 second period, or ~ 39 GB of RAM.
+
+Pros: simple to understand, fairly easy to implement, doesn't take much space
+Cons: could be slow, lots of bit-shifting
+    
+
+Value-change method:
+--------------------
+Alternatively if we just use per-signal delta-changes, and if we assume that
+roughly 1/4 of the signals will toggle per clock, we would need (for 112 signals)
+
+    20 * 112 * 4 / 4 * 60 = ~135GB of RAM for 60 secs of 112 signals.
+    
+We don't need the mask because we assume all signals are undefined until driven
+and the first delay is the time until it's first driven
+
+We can also have typed value-changes, so instead of storing 32 uint32_t's all
+the same value, for a 32-bit signal, instead we have a structure looking like:
+
+struct
+    {
+    uint32_t cron;          // Timestamp of signal-change
+    uint32_t val;           // New value
+    }
+    
+... meaning we only need to store 64 bits for that signal to change, not the
+    32x32bits. Same goes for 16-bit and 8-bit busses.
+    
+Pros: simple to implement, faster since it only tracks changes and no bit-shifts
+      easier to customise signal-count
+Cons: more memory,
+
+
+Practica:
+---------
+
+The more-typical use-case is not for audio-generation though, it's more likely
+to be running for several thousand nanosecs, or maybe 1/60 second for a video
+frame or something, so the numbers look more like:
+
+bits:       20 * 32 / 60                => 11 MB
+changes     20 * 112 * 4 / 4 / 60       => 37 MB
+
+
+
+Summary:
+--------
+
+Best algorithm is one that works well for most of the time and can cope with the
+outlier case. We ought to go for the value-change method, especially since the
+main cost there is RAM, and this machine has 512 GB of it :)

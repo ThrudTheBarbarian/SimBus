@@ -1,0 +1,28 @@
+How this thing works in reasonable time
+
+- Let's say we want to sample at a given resolution - say 5ns
+- Unless we really have signals at that resolution (unlikely) it's a waste to
+  just send out a sample-request every tick of that clock.
+
+- Instead, ask each plugin what time it's next event is at, given an input
+  time for 'now'. Plugin can return
+    - absolute time from now
+    - time from next-clock-hi or next-clock-lo
+    - time before next-clock-hi or next-clock-lo
+    - on change-of-value for any signal in list of signals
+
+- Engine aggregates the requests, then "run-length" encodes everything up until
+  that point (or shortly before) and starts ticking until there's sufficient
+  time until the next one, or there's no more events left, at which point we
+  lather, rinse, repeat
+
+- To support next-clock-xx, engine needs to know which signal is the clock,
+  but we do know that because we have typed signals. Need to have a clock
+  or it's an error condition.
+
+- All signals start out as undefined ('x') then turn into 1|0 or a hex value
+  at the point they're driven by something. Signals can have pull-ups or pull-
+  downs applied to them.
+  
+  
+    

@@ -68,6 +68,10 @@ typedef enum
 |* Property: colour to draw this signal in
 \*****************************************************************************/
 @property (strong, nonatomic, nullable) NSColor *       colour;
+
+/*****************************************************************************\
+|* Property: current signal value
+\*****************************************************************************/
 @end
 
 NS_ASSUME_NONNULL_END

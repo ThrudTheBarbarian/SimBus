@@ -7,7 +7,7 @@
 
 #import "Box.h"
 #import "BusSignal.h"
-#import "Common.h"
+#import "Defines.h"
 #import "Notifications.h"
 #import "SignalsItemView.h"
 

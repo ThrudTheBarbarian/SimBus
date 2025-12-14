@@ -5,7 +5,7 @@
 //  Created by ThrudTheBarbarian on 11/12/2025.
 //
 
-#import "Common.h"
+#import "Defines.h"
 #import "Notifications.h"
 #import "PluginProtocol.h"
 #import "SignalsDataSource.h"

@@ -8,9 +8,7 @@
 #ifndef Common_h
 #define Common_h
 
-
 // The vertical drawing space for a signal
 #define SIGNAL_VSPACE 20
-
 
 #endif /* Common_h */
