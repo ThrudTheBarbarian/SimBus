@@ -693,17 +693,17 @@
                     <splitView arrangesAllSubviews="NO" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D45-Xh-T94">
                         <rect key="frame" x="0.0" y="0.0" width="1139" height="731"/>
                         <subviews>
-                            <customView ambiguous="YES" id="Qdt-kx-k5p">
+                            <customView id="Qdt-kx-k5p">
                                 <rect key="frame" x="0.0" y="0.0" width="192" height="731"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
-                                    <scrollView wantsLayer="YES" ambiguous="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Qt-E3-ZCI">
+                                    <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Qt-E3-ZCI">
                                         <rect key="frame" x="0.0" y="0.0" width="190" height="731"/>
-                                        <clipView key="contentView" ambiguous="YES" id="wv5-0i-GHL">
+                                        <clipView key="contentView" id="wv5-0i-GHL">
                                             <rect key="frame" x="1" y="1" width="188" height="729"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <collectionView ambiguous="YES" id="Lpm-ql-m91">
+                                                <collectionView id="Lpm-ql-m91">
                                                     <rect key="frame" x="0.0" y="0.0" width="188" height="158"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="dqO-5Z-yWP">
@@ -727,10 +727,10 @@
                                     </scrollView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="4Qt-E3-ZCI" secondAttribute="bottom" id="Rxt-kY-Oel"/>
-                                    <constraint firstItem="4Qt-E3-ZCI" firstAttribute="top" secondItem="Qdt-kx-k5p" secondAttribute="top" id="bR0-YT-NZf"/>
-                                    <constraint firstItem="4Qt-E3-ZCI" firstAttribute="leading" secondItem="Qdt-kx-k5p" secondAttribute="leading" id="eoY-49-DHw"/>
-                                    <constraint firstAttribute="trailing" secondItem="4Qt-E3-ZCI" secondAttribute="trailing" id="le7-OL-pF6"/>
+                                    <constraint firstAttribute="trailing" secondItem="4Qt-E3-ZCI" secondAttribute="trailing" constant="2" id="2Zx-WN-Utf"/>
+                                    <constraint firstItem="4Qt-E3-ZCI" firstAttribute="top" secondItem="Qdt-kx-k5p" secondAttribute="top" id="Y4B-u3-Y4N"/>
+                                    <constraint firstAttribute="bottom" secondItem="4Qt-E3-ZCI" secondAttribute="bottom" id="exl-M2-ywb"/>
+                                    <constraint firstItem="4Qt-E3-ZCI" firstAttribute="leading" secondItem="Qdt-kx-k5p" secondAttribute="leading" id="feh-62-v0u"/>
                                 </constraints>
                             </customView>
                             <customView fixedFrame="YES" id="3Br-0s-b49">
