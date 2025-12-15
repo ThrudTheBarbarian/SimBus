@@ -26,3 +26,16 @@ How this thing works in reasonable time
   
   
     
+Engine config:
+
+- Have "trigger condition" and "termination condition"
+- trigger can be one of:
+    - none
+    - when [signal] is [asserted/deasserted/toggled] [number] times
+    - when [signal] has value [hex]
+    - after [num] [clocks/seconds]
+
+- termination condition must be one of:
+    - when [signal] is [asserted/deasserted/toggled] [number] times
+    - when [signal] has value [hex]
+    - after [num] [clocks/seconds]

@@ -778,20 +778,35 @@
                             <action selector="addButtonWasClicked:" target="6Z3-cq-S59" id="g6H-1j-GrP"/>
                         </connections>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="582495E8-161D-4AC0-A7EE-84F29132211E" label="Settings" paletteLabel="Settings" image="gearshape" catalog="system" sizingBehavior="auto" id="qlO-4f-CIW">
+                        <nil key="toolTip"/>
+                        <button key="view" imageHugsTitle="YES" id="rmG-cW-ehC">
+                            <rect key="frame" x="9" y="14" width="33" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="gearshape" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="bxP-0F-UhO">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="settingsButtonWasClicked:" target="6Z3-cq-S59" id="ZMd-Zf-k8B"/>
+                            </connections>
+                        </button>
+                    </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
-                    <toolbarItem reference="d4V-lI-ZRn"/>
-                    <toolbarItem reference="yAd-L5-pdB"/>
-                    <toolbarItem reference="HzW-h8-fj1"/>
                     <toolbarItem reference="bLc-OY-rul"/>
                     <toolbarItem reference="FX9-UU-hY8"/>
                     <toolbarItem reference="9Pw-ze-aGb"/>
+                    <toolbarItem reference="yAd-L5-pdB"/>
+                    <toolbarItem reference="d4V-lI-ZRn"/>
+                    <toolbarItem reference="HzW-h8-fj1"/>
+                    <toolbarItem reference="qlO-4f-CIW"/>
                 </defaultToolbarItems>
             </toolbar>
             <connections>
                 <outlet property="delegate" destination="Voe-Tx-rLC" id="top-28-M4D"/>
             </connections>
-            <point key="canvasLocation" x="395.5" y="350.5"/>
+            <point key="canvasLocation" x="-206" y="348"/>
         </window>
         <customObject id="6Z3-cq-S59" customClass="MenuBarController"/>
         <customObject id="CQp-K0-hCw" customClass="SplitViewController"/>
@@ -803,6 +818,7 @@
     </objects>
     <resources>
         <image name="NSTouchBarAddDetailTemplate" width="20" height="20"/>
+        <image name="gearshape" catalog="system" width="16" height="16"/>
         <image name="pause" catalog="system" width="9" height="13"/>
         <image name="play" catalog="system" width="12" height="13"/>
         <image name="restart" catalog="system" width="12" height="13"/>

@@ -8,9 +8,12 @@
 #import "AddItemController.h"
 #import "AppDelegate.h"
 #import "MenuBarController.h"
+#import "SettingsViewController.h"
 
 @interface MenuBarController()
-@property (strong, nonatomic) AddItemController *       add;
+@property (strong, nonatomic) AddItemController *           add;
+@property (strong, nonatomic) SettingsViewController *      svc;
+@property (strong, nonatomic) NSPopover *                   pop;
 @end
 
 @implementation MenuBarController
@@ -40,7 +43,7 @@
     }
 
 /*****************************************************************************\
-|* Toolbar item clicked: reset
+|* Toolbar item clicked: add item
 \*****************************************************************************/
 - (IBAction)addButtonWasClicked:(id)sender
     {
@@ -55,4 +58,26 @@
     [_add.window makeKeyAndOrderFront:nil];
     }
 
+/*****************************************************************************\
+|* Toolbar item clicked: configure engine
+\*****************************************************************************/
+- (IBAction)settingsButtonWasClicked:(id)sender
+    {
+    if (_pop == nil)
+        _pop = [NSPopover new];
+    
+    if (_svc == nil)
+        {
+        _svc = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController"
+                                                        bundle:[NSBundle mainBundle]];
+        [_svc loadView];
+        }
+    _pop.contentSize = NSMakeSize(500, 500);
+    _pop.contentViewController = _svc;
+    _pop.animates = YES;
+    
+    NSButton *btn       = (NSButton *)sender;
+    NSView *superview   = btn.superview;
+    [_pop showRelativeToRect:btn.frame ofView:superview preferredEdge:NSMinYEdge];
+    }
 @end
