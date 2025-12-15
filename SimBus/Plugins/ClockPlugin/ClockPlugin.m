@@ -8,10 +8,13 @@
 #import <Common/Common.h>
 #import "ClockPlugin.h"
 
+#import "ClockUI.h"
+
 #define PLUGIN_NAME         @"Clock source"
 
 @interface ClockPlugin()
 @property (assign, nonatomic) int                               clk;
+@property (strong, nonatomic) ClockUI *                         vc;
 @end
 
 @implementation ClockPlugin
@@ -49,6 +52,25 @@
 - (NSString *) pluginName
     {
     return PLUGIN_NAME;
+    }
+
+/*****************************************************************************\
+|* Give the plugin a reference to the popover used for any configuration and
+|* make it perform the open-popover configuration action
+\*****************************************************************************/
+- (void) activatePopover:(NSPopover *)popover forView:(NSView *)view
+    {    
+    // Create the view controller for the NSPopover if needed
+    if (_vc == nil)
+        {
+        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+        _vc = [[ClockUI alloc] initWithNibName:@"ClockUI" bundle:bundle];
+        [_vc loadView];
+        }
+        
+    [popover setContentSize:NSMakeSize(500, 700)];
+    [popover setContentViewController:_vc];
+    [popover showRelativeToRect:[view frame] ofView:view.superview preferredEdge:NSMaxXEdge];
     }
 
 

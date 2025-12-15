@@ -16,24 +16,33 @@
             <rect key="frame" x="0.0" y="0.0" width="260" height="346"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="haN-Ep-DMl">
-                    <rect key="frame" x="9" y="322" width="242" height="16"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="16" id="1iA-tJ-Kew"/>
-                    </constraints>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="haN-Ep-DMl">
+                    <rect key="frame" x="9" y="322" width="220" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="iKU-kF-Lmm">
                         <font key="font" usesAppearanceFont="YES"/>
                         <color key="textColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jio-oS-qF9">
+                    <rect key="frame" x="235" y="325" width="18" height="10"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="inline" bezelStyle="inline" image="gearshape.fill" catalog="system" imagePosition="only" alignment="center" inset="2" id="prl-UR-eE4">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="11" name=".SFNS-Semibold"/>
+                    </buttonCell>
+                    <color key="contentTintColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    <connections>
+                        <action selector="configurationButtonClicked:" target="Hz6-mo-xeY" id="5dF-Vr-ltg"/>
+                    </connections>
+                </button>
             </subviews>
-            <constraints>
-                <constraint firstAttribute="trailing" secondItem="haN-Ep-DMl" secondAttribute="trailing" constant="11" id="Iku-aj-egl"/>
-                <constraint firstItem="haN-Ep-DMl" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="11" id="NdG-sX-P0W"/>
-                <constraint firstItem="haN-Ep-DMl" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="8" id="k5Z-io-FBi"/>
-            </constraints>
-            <point key="canvasLocation" x="29" y="191"/>
+            <connections>
+                <outlet property="cfgBtn" destination="Jio-oS-qF9" id="N0c-vG-xyX"/>
+                <outlet property="popup" destination="ZPN-al-cQ7" id="awb-Bx-F7E"/>
+            </connections>
+            <point key="canvasLocation" x="-381" y="75"/>
         </customView>
         <collectionViewItem id="I80-Qh-2D0" customClass="SignalsItem">
             <connections>
@@ -41,5 +50,9 @@
                 <outlet property="view" destination="Hz6-mo-xeY" id="c9O-9o-h8e"/>
             </connections>
         </collectionViewItem>
+        <popover id="ZPN-al-cQ7"/>
     </objects>
+    <resources>
+        <image name="gearshape.fill" catalog="system" width="16" height="16"/>
+    </resources>
 </document>

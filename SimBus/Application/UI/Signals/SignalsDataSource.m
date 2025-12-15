@@ -5,9 +5,10 @@
 //  Created by ThrudTheBarbarian on 11/12/2025.
 //
 
+#import <Common/Common.h>
+
 #import "Defines.h"
 #import "Notifications.h"
-#import "PluginProtocol.h"
 #import "SignalsDataSource.h"
 #import "SignalsItem.h"
 
@@ -105,6 +106,7 @@
 - (void) _itemWasAdded:(NSNotification *)n
     {
     [_items addObject:n.object];
+    [[SBEngine sharedInstance] addPlugin:n.object];
     [_itemsView reloadData];
     }
 

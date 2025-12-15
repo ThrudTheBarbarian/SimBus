@@ -90,7 +90,11 @@
 				Common/Bus/SBSignal.m,
 				Common/Common.docc,
 				Common/Engine/SBEngine.m,
+				Common/Engine/SBValues.m,
 				Plugins/ClockPlugin/ClockPlugin.m,
+				Plugins/ClockPlugin/ClockUI.m,
+				Plugins/ClockPlugin/ClockUI.xib,
+				Plugins/PluginController.m,
 			);
 			target = F40767A72EEB030D0061A1D7 /* SimBus */;
 		};
@@ -98,6 +102,8 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Plugins/ClockPlugin/ClockPlugin.m,
+				Plugins/ClockPlugin/ClockUI.m,
+				Plugins/ClockPlugin/ClockUI.xib,
 			);
 			target = F4C225302EEB53140056FD0A /* Clock */;
 		};
@@ -112,12 +118,20 @@
 				Common/Common.h,
 				Common/Engine/SBEngine.h,
 				Common/Engine/SBEngine.m,
+				Common/Engine/SBValues.h,
+				Common/Engine/SBValues.m,
+				Plugins/PluginController.h,
+				Plugins/PluginController.m,
+				Plugins/PluginProtocol.h,
 			);
 			publicHeaders = (
 				Common/Bus/SBEvent.h,
 				Common/Bus/SBSignal.h,
 				Common/Common.h,
 				Common/Engine/SBEngine.h,
+				Common/Engine/SBValues.h,
+				Plugins/PluginController.h,
+				Plugins/PluginProtocol.h,
 			);
 			target = F4C225462EEB56920056FD0A /* Common */;
 		};

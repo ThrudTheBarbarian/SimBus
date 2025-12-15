@@ -14,8 +14,13 @@
 @interface SignalsItemView()
 
 // The relationship mapping between the location and the signal
-@property(strong, nonatomic) NSMutableDictionary<Box *, SBSignal*> *     map;
+@property(strong, nonatomic) NSMutableDictionary<Box *, SBSignal*> *    map;
 
+// The configuration button in the top right
+@property(strong, nonatomic) IBOutlet NSButton *                        cfgBtn;
+
+// The popover controller
+@property(strong, nonatomic) IBOutlet NSPopover *                       popup;
 @end
 
 @implementation SignalsItemView
@@ -215,6 +220,21 @@
         }
     }
         
+/*****************************************************************************\
+|* Handle the configuration button being clicked
+\*****************************************************************************/
+- (IBAction)configurationButtonClicked:(id)sender
+    {
+    if ([sender isKindOfClass:[NSButton class]])
+        {
+        // Get the point in window co-ordinates
+//        NSRect f    = [(NSButton *)sender frame];
+//        NSPoint p   = NSMakePoint(NSMidX(f), NSMidY(f));
+//        p 	        = [self convertPoint:p toView:nil];
+        [_plugin activatePopover:_popup forView:sender];
+        }
+    }
+
 /*****************************************************************************\
 |* We got a mouse-click
 \*****************************************************************************/

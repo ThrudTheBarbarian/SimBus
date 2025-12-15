@@ -48,7 +48,7 @@
 	/**********************************************************************\
 	|* Register and load all the plugins
 	\**********************************************************************/	
-	NSString* path = [[NSBundle bundleForClass:self.class] builtInPlugInsPath];
+	NSString* path = [[NSBundle mainBundle] builtInPlugInsPath];
 	//NSLog(@"Looking in %@ for plugins", path);
 	
 	if (path)

@@ -7,6 +7,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class SBEngine;
 @class SignalsDataSource;
 @class PluginController;
 
@@ -17,6 +18,9 @@
 
 // The object that handles plugins
 @property (strong, nonatomic) PluginController *            pluginController;
+
+// The object that runs the simulation
+@property (strong, nonatomic) SBEngine *                    engine;
 
 // The object managing the busItems in the signals list
 @property (strong, nonatomic) IBOutlet SignalsDataSource *  signalsDataSource;

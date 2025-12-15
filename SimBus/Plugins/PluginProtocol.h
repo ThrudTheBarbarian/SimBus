@@ -5,10 +5,12 @@
 //  Created by ThrudTheBarbarian on 11/12/2025.
 //
 
-#import <Foundation/Foundation.h>
-#import <Common/Common.h>
+#import <AppKit/AppKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+
+@class SBEngine;
+@class SBSignal;
 
 @protocol Plugin <NSObject>
 
@@ -27,6 +29,12 @@ NS_ASSUME_NONNULL_BEGIN
 |* Tell the plugin which engine it is associated with
 \*****************************************************************************/
 - (void) setEngine:(SBEngine *)engine;
+
+/*****************************************************************************\
+|* Give the plugin a reference to the popover used for any configuration and
+|* make it perform the open-popover configuration action
+\*****************************************************************************/
+- (void) activatePopover:(NSPopover *)popover forView:(NSView *)view;
 
 @end
 

@@ -5,6 +5,8 @@
 //  Created by ThrudTheBarbarian on 11/12/2025.
 //
 
+#import <Common/Common.h>
+
 #import "AppDelegate.h"
 #import "PluginController.h"
 
@@ -18,6 +20,8 @@
     {
     _pluginController = [PluginController sharedInstance];
     [_pluginController loadPlugins];
+    
+    _engine = [SBEngine sharedInstance];
     }
 
 

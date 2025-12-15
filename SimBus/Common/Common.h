@@ -14,7 +14,10 @@ FOUNDATION_EXPORT double CommonVersionNumber;
 FOUNDATION_EXPORT const unsigned char CommonVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <Common/PublicHeader.h>
+#import <Common/PluginController.h>
+#import <Common/PluginProtocol.h>
 #import <Common/SBEngine.h>
 #import <Common/SBEvent.h>
 #import <Common/SBSignal.h>
+#import <Common/SBValues.h>
 
