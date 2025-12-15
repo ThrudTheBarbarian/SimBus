@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SettingsViewController : NSViewController
 
+/*****************************************************************************\
+|* Populate the signals into the UI
+\*****************************************************************************/
+- (void)populateFields;
 
 // Link to the popup so we can terminate it
 @property (weak, nonatomic) NSPopover *                    popover;

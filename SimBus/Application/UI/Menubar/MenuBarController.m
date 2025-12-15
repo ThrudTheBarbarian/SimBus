@@ -70,9 +70,10 @@
         {
         _svc = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController"
                                                         bundle:[NSBundle mainBundle]];
-        [_svc loadView];
+        [_svc view];
         }
     _svc.popover = _pop;
+    [_svc populateFields];
     
     _pop.contentSize = NSMakeSize(480, 392);
     _pop.contentViewController = _svc;

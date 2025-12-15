@@ -53,6 +53,18 @@
     }
 
 /*****************************************************************************\
+|* Return a list of signals
+\*****************************************************************************/
+- (NSArray<SBSignal *> *) signals
+    {
+    NSMutableArray<SBSignal *> *signals = NSMutableArray.new;
+    for (id<Plugin> plugin in _plugins)
+        for (SBSignal *signal in plugin.signals)
+            [signals addObject:signal];
+    return signals;
+    }
+    
+/*****************************************************************************\
 |* Find the signal for a given name by iterating through the list
 \*****************************************************************************/
 - (nullable SBSignal *) signalForName:(NSString *)name

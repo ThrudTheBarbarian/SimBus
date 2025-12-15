@@ -41,12 +41,31 @@
 
 @implementation SettingsViewController
 
-- (void)viewDidLoad
+/*****************************************************************************\
+|* Populate the signals into the UI
+\*****************************************************************************/
+- (void)populateFields
     {
-    [super viewDidLoad];
-    // Do view setup here.
+    // Get a list of signals that the engine knows about and populate
+    // the pulldowns
+    SBEngine *engine = [SBEngine sharedInstance];
+
+    [_triggerTimesSignals removeAllItems];
+    [_triggerValueSignals removeAllItems];
+    [_termTimesSignals removeAllItems];
+    [_termValueSignals removeAllItems];
+    for(SBSignal *signal in engine.signals)
+        {
+        [_triggerTimesSignals addItemWithTitle:signal.name];
+        [_triggerValueSignals addItemWithTitle:signal.name];
+        [_termTimesSignals addItemWithTitle:signal.name];
+        [_termValueSignals addItemWithTitle:signal.name];
+        }
     }
 
+/*****************************************************************************\
+|* Handle the radio-button behaviour of the two sections
+\*****************************************************************************/
 - (IBAction)triggerRadioChanged:(id)sender
     {
     [_triggerNone setState:NSControlStateValueOff];
@@ -64,11 +83,17 @@
     [sender setState:NSControlStateValueOn];
     }
     
+/*****************************************************************************\
+|* User cancelled the dialog
+\*****************************************************************************/
 - (IBAction)cancelPressed:(id)sender
     {
     [_popover performClose:self];
     }
 
+/*****************************************************************************\
+|* Populate the values into the Engine
+\*****************************************************************************/
 - (IBAction)useValuesPressed:(id)sender
     {
     SBEngine *engine = [SBEngine sharedInstance];
