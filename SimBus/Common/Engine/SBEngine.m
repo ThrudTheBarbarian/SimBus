@@ -51,4 +51,17 @@
     
     [plugin setEngine:self];
     }
+
+/*****************************************************************************\
+|* Find the signal for a given name by iterating through the list
+\*****************************************************************************/
+- (nullable SBSignal *) signalForName:(NSString *)name
+    {
+    for (id<Plugin> plugin in _plugins)
+        for (SBSignal *signal in plugin.signals)
+            if ([name isEqualToString:signal.name])
+                return signal;
+    return nil;
+    }
+
 @end

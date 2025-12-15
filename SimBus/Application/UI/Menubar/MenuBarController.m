@@ -72,7 +72,9 @@
                                                         bundle:[NSBundle mainBundle]];
         [_svc loadView];
         }
-    _pop.contentSize = NSMakeSize(500, 500);
+    _svc.popover = _pop;
+    
+    _pop.contentSize = NSMakeSize(480, 392);
     _pop.contentViewController = _svc;
     _pop.animates = YES;
     
