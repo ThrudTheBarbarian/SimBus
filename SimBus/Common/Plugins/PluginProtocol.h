@@ -31,10 +31,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) setEngine:(SBEngine *)engine;
 
 /*****************************************************************************\
-|* Give the plugin a reference to the popover used for any configuration and
-|* make it perform the open-popover configuration action
+|* Return the view controller used
 \*****************************************************************************/
-- (void) activatePopover:(NSPopover *)popover forView:(NSView *)view;
+- (NSViewController *)uiViewControllerForPopover:(NSPopover *)popover;
 
 @end
 

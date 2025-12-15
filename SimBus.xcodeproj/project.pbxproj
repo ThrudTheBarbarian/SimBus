@@ -91,10 +91,10 @@
 				Common/Common.docc,
 				Common/Engine/SBEngine.m,
 				Common/Engine/SBValues.m,
+				Common/Plugins/PluginController.m,
 				Plugins/ClockPlugin/ClockPlugin.m,
 				Plugins/ClockPlugin/ClockUI.m,
 				Plugins/ClockPlugin/ClockUI.xib,
-				Plugins/PluginController.m,
 			);
 			target = F40767A72EEB030D0061A1D7 /* SimBus */;
 		};
@@ -120,9 +120,9 @@
 				Common/Engine/SBEngine.m,
 				Common/Engine/SBValues.h,
 				Common/Engine/SBValues.m,
-				Plugins/PluginController.h,
-				Plugins/PluginController.m,
-				Plugins/PluginProtocol.h,
+				Common/Plugins/PluginController.h,
+				Common/Plugins/PluginController.m,
+				Common/Plugins/PluginProtocol.h,
 			);
 			publicHeaders = (
 				Common/Bus/SBEvent.h,
@@ -130,8 +130,8 @@
 				Common/Common.h,
 				Common/Engine/SBEngine.h,
 				Common/Engine/SBValues.h,
-				Plugins/PluginController.h,
-				Plugins/PluginProtocol.h,
+				Common/Plugins/PluginController.h,
+				Common/Plugins/PluginProtocol.h,
 			);
 			target = F4C225462EEB56920056FD0A /* Common */;
 		};

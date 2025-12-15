@@ -17,6 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 // The engine that the clock plugin uses
 @property (strong, nonatomic) SBEngine *                        engine;
+
+// Properties for the plugin
+@property(assign, nonatomic) int                                period;
+@property(assign, nonatomic) int                                duty;
+
 @end
 
 NS_ASSUME_NONNULL_END

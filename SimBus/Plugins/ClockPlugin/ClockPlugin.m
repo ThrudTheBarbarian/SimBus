@@ -58,7 +58,7 @@
 |* Give the plugin a reference to the popover used for any configuration and
 |* make it perform the open-popover configuration action
 \*****************************************************************************/
-- (void) activatePopover:(NSPopover *)popover forView:(NSView *)view
+- (NSViewController *)uiViewControllerForPopover:(NSPopover *)popover;
     {    
     // Create the view controller for the NSPopover if needed
     if (_vc == nil)
@@ -66,11 +66,12 @@
         NSBundle *bundle = [NSBundle bundleForClass:[self class]];
         _vc = [[ClockUI alloc] initWithNibName:@"ClockUI" bundle:bundle];
         [_vc loadView];
+        [_vc setPlugin:self];
         }
         
-    [popover setContentSize:NSMakeSize(500, 700)];
-    [popover setContentViewController:_vc];
-    [popover showRelativeToRect:[view frame] ofView:view.superview preferredEdge:NSMaxXEdge];
+    [popover setContentSize:NSMakeSize(319, 216)];
+    [_vc setPopover:popover];
+    return _vc;
     }
 
 

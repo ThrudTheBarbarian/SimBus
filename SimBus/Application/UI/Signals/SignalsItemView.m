@@ -227,12 +227,14 @@
     {
     if ([sender isKindOfClass:[NSButton class]])
         {
-        // Get the point in window co-ordinates
-//        NSRect f    = [(NSButton *)sender frame];
-//        NSPoint p   = NSMakePoint(NSMidX(f), NSMidY(f));
-//        p 	        = [self convertPoint:p toView:nil];
-        [_plugin activatePopover:_popup forView:sender];
-        }
+        NSButton *btn        = (NSButton *)sender;
+        NSViewController *vc = [_plugin uiViewControllerForPopover:_popup];
+        
+        [_popup setContentViewController:vc];
+        [_popup showRelativeToRect:[btn frame]
+                            ofView:btn.superview
+                     preferredEdge:NSMaxXEdge];
+       }
     }
 
 /*****************************************************************************\
