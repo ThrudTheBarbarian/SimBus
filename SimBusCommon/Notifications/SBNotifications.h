@@ -10,3 +10,4 @@
 extern NSString * const kAddItemNotification;
 extern NSString * const kModulesWidthChangedNotification;
 extern NSString * const kModulesReconfiguredNotification;
+extern NSString * const kClockChangedNotification;

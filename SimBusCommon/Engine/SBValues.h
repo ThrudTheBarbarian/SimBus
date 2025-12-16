@@ -15,18 +15,6 @@ typedef enum
     Value_multi     = 2
     } ValueSize;
 
-
-/*****************************************************************************\
-|* For 1-bit values we just store the time at which the value changes. There
-|* is an implicit value of 'undefined' at the start of the simulation until
-|* the value is driven to either 0 or 1. If a plugin has a pull-up/down
-|* assigned to a signal, it will drive from time 0
-\*****************************************************************************/
-typedef struct
-    {
-    uint32_t cron;          // Timestamp in ns
-    } Value1Bit;
-
 /*****************************************************************************\
 |* For multi-bit values we store the time at which the value changes and the
 |* value at that time. There is an implicit value of 'undefined' at the start
@@ -58,15 +46,22 @@ typedef struct
 - (NSUInteger) count;
 
 /*****************************************************************************\
-|* Add a 1-bit record
+|* For 1-bit values we just store the time at which the value changes. There
+|* is an implicit value of 'undefined' at the start of the simulation until
+|* the value is driven to either 0 or 1. If a plugin has a pull-up/down
+|* assigned to a signal, it will drive from time 0
 \*****************************************************************************/
-- (void) append1Bit:(Value1Bit)sample;
+- (void) append1Bit:(uint32_t)when;
 
 /*****************************************************************************\
 |* Add a 32-bit record
 \*****************************************************************************/
 - (void) append32Bit:(Value32Bit)sample;
 
+/*****************************************************************************\
+|* Clear all the values
+\*****************************************************************************/
+- (void) clear;
 
 
 /*****************************************************************************\

@@ -22,6 +22,8 @@ typedef enum
     SIGNAL_MAX              // Maximum signal value
     } SignalType;
 
+@class SBValues;
+
 @interface SBSignal : NSObject
 
 /*****************************************************************************\
@@ -70,8 +72,9 @@ typedef enum
 @property (strong, nonatomic, nullable) NSColor *       colour;
 
 /*****************************************************************************\
-|* Property: current signal value
+|* Property: current (last) and historic signal values
 \*****************************************************************************/
+@property (strong, nonatomic) SBValues *                values;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class SBEngine;
 @class SBSignal;
+@class SBEvent;
 
 @protocol SBPlugin <NSObject>
 
@@ -34,6 +35,18 @@ NS_ASSUME_NONNULL_BEGIN
 |* Return the view controller used
 \*****************************************************************************/
 - (NSViewController *)uiViewControllerForPopover:(NSPopover *)popover;
+
+/*****************************************************************************\
+|* Allow the plugin to add events into the list of events for a clock-cycle
+\*****************************************************************************/
+- (void) addEventsTo:(NSMutableArray<SBEvent *> *)list;
+
+/*****************************************************************************\
+|* Tell the plugin to process the event that it previously added
+\*****************************************************************************/
+- (void) process:(SBEvent *)event
+     withSignals:(NSArray<SBSignal *> *)signals
+              at:(uint32_t)cron;
 
 @end
 

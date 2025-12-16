@@ -27,18 +27,18 @@
 \*****************************************************************************/
 - (NSUInteger) count
     {
-    int size = (_type == Value_1bit) ? sizeof(Value1Bit) : sizeof(Value32Bit);
+    int size = (_type == Value_1bit) ? sizeof(uint32_t) : sizeof(Value32Bit);
     return _data.length / size;
     }
     
 /*****************************************************************************\
 |* Add a 1-bit record
 \*****************************************************************************/
-- (void) append1Bit:(Value1Bit)sample
+- (void) append1Bit:(uint32_t)sample
     {
-    [_data appendBytes:&sample length:sizeof(Value1Bit)];
+    [_data appendBytes:&sample length:sizeof(uint32_t)];
     }
-    
+        
 /*****************************************************************************\
 |* Add a 32-bit record
 \*****************************************************************************/
@@ -46,5 +46,13 @@
     {
     [_data appendBytes:&sample length:sizeof(Value32Bit)];
     }
-    
+
+/*****************************************************************************\
+|* Clear all the values
+\*****************************************************************************/
+- (void) clear
+    {
+    _data.length = 0;
+    }
+
 @end

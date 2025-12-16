@@ -18,6 +18,19 @@
 @implementation ClockUI
 
 /*****************************************************************************\
+|* Pull data from the model
+\*****************************************************************************/
+- (void) viewDidLoad
+    {
+    [_ns setIntValue:_plugin.period];
+    double ns   = (double)_plugin.period / 1000000000.0f;
+    double freq = (1.0 / ns) / 1000000.0;
+    NSString *mhz = [NSString stringWithFormat:@"%6.3f", freq];
+    [_mhz setStringValue:mhz];
+    [_duty setIntValue:_plugin.duty];
+    }
+    
+/*****************************************************************************\
 |* The user pressed cancel
 \*****************************************************************************/
 - (IBAction)cancelPressed:(id)sender
@@ -32,6 +45,14 @@
     {
     [_plugin setPeriod:[_ns intValue]];
     [_plugin setDuty:[_duty intValue]];
+
+    NSNotificationCenter *nc = NSNotificationCenter.defaultCenter;
+    [nc postNotificationName:kClockChangedNotification
+                      object:self
+                    userInfo:@{ @"period"   : @(_ns.intValue),
+                                @"duty"     : @(_duty.intValue)
+                              }];
+
     [_popover performClose:self];
     }
     

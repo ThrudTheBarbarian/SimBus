@@ -58,36 +58,54 @@ typedef enum
 \*****************************************************************************/
 - (NSArray<SBSignal *> *) signals;
 
+/*****************************************************************************\
+|* Reset the engine for a new run
+\*****************************************************************************/
+- (void) reset;
+
+/*****************************************************************************\
+|* Perform a simulation run
+\*****************************************************************************/
+- (void) run;
+
 #pragma mark - Properties
 
 /*****************************************************************************\
 |* Settings
 \*****************************************************************************/
-@property (assign, nonatomic) TriggerMode               triggerMode;
-@property (assign, nonatomic) TermMode                  termMode;
+@property (assign, nonatomic) TriggerMode                   triggerMode;
+@property (assign, nonatomic) TermMode                      termMode;
+    
+@property (strong, nonatomic, nullable) SBSignal *          triggerOnceSignal;
+@property (assign, nonatomic) SimCondition                  triggerOnceCondition;
+@property (assign, nonatomic) NSInteger                     triggerOnceCount;
+    
+@property (strong, nonatomic, nullable) SBSignal *          triggerWhenSignal;
+@property (assign, nonatomic) NSInteger                     triggerWhenValue;
+    
+@property (assign, nonatomic) NSInteger                     triggerAfterCount;
+@property (assign, nonatomic) SimUnit                       triggerAfterUnit;
+    
+    
+@property (strong, nonatomic, nullable) SBSignal *          termOnceSignal;
+@property (assign, nonatomic) SimCondition                  termOnceCondition;
+@property (assign, nonatomic) NSInteger                     termOnceCount;
+    
+@property (strong, nonatomic, nullable) SBSignal *          termWhenSignal;
+@property (assign, nonatomic) NSInteger                     termWhenValue;
+    
+@property (assign, nonatomic) NSInteger                     termAfterCount;
+@property (assign, nonatomic) SimUnit                       termAfterUnit;
 
-@property (strong, nonatomic, nullable) SBSignal *      triggerOnceSignal;
-@property (assign, nonatomic) SimCondition              triggerOnceCondition;
-@property (assign, nonatomic) NSInteger                 triggerOnceCount;
+/*****************************************************************************\
+|* Runtime
+\*****************************************************************************/
+// List of plugins
+@property(strong, nonatomic) NSMutableArray<id<SBPlugin>> * plugins;
 
-@property (strong, nonatomic, nullable) SBSignal *      triggerWhenSignal;
-@property (assign, nonatomic) NSInteger                 triggerWhenValue;
+// The current clock period in ns
+@property(assign, nonatomic) uint32_t                       period;
 
-@property (assign, nonatomic) NSInteger                 triggerAfterCount;
-@property (assign, nonatomic) SimUnit                   triggerAfterUnit;
-
-
-@property (strong, nonatomic, nullable) SBSignal *      termOnceSignal;
-@property (assign, nonatomic) SimCondition              termOnceCondition;
-@property (assign, nonatomic) NSInteger                 termOnceCount;
-
-@property (strong, nonatomic, nullable) SBSignal *      termWhenSignal;
-@property (assign, nonatomic) NSInteger                 termWhenValue;
-
-@property (assign, nonatomic) NSInteger                 termAfterCount;
-@property (assign, nonatomic) SimUnit                   termAfterUnit;
-
-//
 @end
 
 NS_ASSUME_NONNULL_END

@@ -6,6 +6,7 @@
 //
 
 #import "SBSignal.h"
+#import "SBValues.h"
 
 @implementation SBSignal
 
@@ -17,10 +18,7 @@
                      type:(SignalType)type
                  expanded:(BOOL)expanded
     {
-    SBSignal *signal    = SBSignal.new;
-    signal.name         = name;
-    signal.width        = width;
-    signal.type         = type;
+    SBSignal *signal    = [SBSignal _create:name ofType:type andWidth:width];
     signal.expanded     = expanded;
     return signal;
     }
@@ -31,24 +29,41 @@
                     width:(uint32_t)width
                   andType:(SignalType)type;
     {
-    SBSignal *signal    = SBSignal.new;
-    signal.name         = name;
-    signal.width        = width;
-    signal.type         = type;
+    SBSignal *signal    = [SBSignal _create:name ofType:type andWidth:width];
     signal.expanded     = NO;
     return signal;
     }
 
 + (instancetype) withName:(NSString *)name andType:(SignalType)type
     {
-    SBSignal *signal    = SBSignal.new;
-    signal.name         = name;
-    signal.width        = 1;
-    signal.type         = type;
+    SBSignal *signal    = [SBSignal _create:name ofType:type andWidth:1];
     signal.expanded     = NO;
     return signal;
     }
 
++ (SBSignal *) _create:(NSString *)name
+                ofType:(SignalType)type
+              andWidth:(int)width
+    {
+    SBSignal *signal    = SBSignal.new;
+    signal.name         = name;
+    signal.width        = width;
+    signal.type         = type;
+    if (width == 1)
+        signal.values       = [[SBValues alloc] initAsType:Value_1bit];
+    else
+        signal.values       = [[SBValues alloc] initAsType:Value_multi];
+    return signal;
+    }
+    
+/*****************************************************************************\
+|* Reset the values to an empty state
+\*****************************************************************************/
+- (void) resetValues
+    {
+    [_values clear];
+    }
+    
 /*****************************************************************************\
 |* Determine the colour based on type or whether it's been set
 \*****************************************************************************/

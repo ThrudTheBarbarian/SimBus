@@ -12,6 +12,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ClockPlugin : NSObject <SBPlugin>
 
+/*****************************************************************************\
+|* Update the clock parameters and tell the world
+\*****************************************************************************/
+- (void) setDuty:(int)duty withPeriod:(int)period;
+
+
 // List of signals in the clock plugin
 @property (strong, nonatomic) NSMutableArray<SBSignal *> *      signals;
 

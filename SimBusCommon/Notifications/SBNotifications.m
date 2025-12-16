@@ -10,3 +10,4 @@
 NSString * const kAddItemNotification               = @"add-item";
 NSString * const kModulesWidthChangedNotification   = @"modules-width-changed";
 NSString * const kModulesReconfiguredNotification   = @"modules-reconfigured";
+NSString * const kClockChangedNotification          = @"clock-changed";
