@@ -1,5 +1,5 @@
 //
-//  SignalsDataSource.m
+//  ModulesDataSource.m
 //  SimBus
 //
 //  Created by ThrudTheBarbarian on 11/12/2025.
@@ -8,15 +8,15 @@
 #import <SimBusCommon/SimBusCommon.h>
 
 #import "Defines.h"
-#import "SignalsDataSource.h"
-#import "SignalsItem.h"
+#import "ModulesDataSource.h"
+#import "ModulesItem.h"
 
-@interface SignalsDataSource()
+@interface ModulesDataSource()
 @property(strong, nonatomic) IBOutlet NSCollectionView *        itemsView;
-@property(assign, nonatomic) CGFloat splitWidth;
+@property(assign, nonatomic) CGFloat                            splitWidth;
 @end
 
-@implementation SignalsDataSource
+@implementation ModulesDataSource
 
 /*****************************************************************************\
 |* Initialise a new data-source object
@@ -39,13 +39,13 @@
         // Listen for the splitview being resized
         [nc addObserver:self
                selector:@selector(_splitViewWasResized:)
-                   name:kSignalsWidthChangedNotification
+                   name:kModulesWidthChangedNotification
                  object:nil];
 
         // Listen for the user expanding/collapsing a signal
         [nc addObserver:self
-               selector:@selector(_signalsNeedLayout:)
-                   name:kSignalsReconfiguredNotification
+               selector:@selector(_modulesNeedLayout:)
+                   name:kModulesReconfiguredNotification
                  object:nil];
         }
     return self;
@@ -78,13 +78,13 @@
 - (NSCollectionViewItem *) collectionView:(NSCollectionView *) cv
       itemForRepresentedObjectAtIndexPath:(NSIndexPath *) indexPath
     {
-	NSUserInterfaceItemIdentifier identifier = @"SignalsItem";
+	NSUserInterfaceItemIdentifier identifier = @"ModulesItem";
 	NSCollectionViewItem *item = [cv makeItemWithIdentifier:identifier
 											   forIndexPath:indexPath];
-	if (![item isKindOfClass:[SignalsItem class]])
+	if (![item isKindOfClass:[ModulesItem class]])
 		return item;
 
-    SignalsItem *entry = (SignalsItem *) item;
+    ModulesItem *entry = (ModulesItem *) item;
 	NSInteger idx = indexPath.item;
 	if ((idx >=0) && (idx < _items.count))
 		[entry.textField setStringValue:_items[idx].pluginName];
@@ -157,7 +157,7 @@
 /*****************************************************************************\
 |* One of our item-views was resized, re-layout
 \*****************************************************************************/
-- (void) _signalsNeedLayout:(NSNotification *)n
+- (void) _modulesNeedLayout:(NSNotification *)n
     {
     NSCollectionViewFlowLayout *layout  = _itemsView.collectionViewLayout;
     [layout invalidateLayout];

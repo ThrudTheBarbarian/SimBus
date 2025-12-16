@@ -1,5 +1,5 @@
 //
-//  SignalsItemView.m
+//  ModulesItemView.m
 //  SimBus
 //
 //  Created by ThrudTheBarbarian on 12/12/2025.
@@ -8,9 +8,9 @@
 #import "Box.h"
 #import "Defines.h"
 #import "SBSignal.h"
-#import "SignalsItemView.h"
+#import "ModulesItemView.h"
 
-@interface SignalsItemView()
+@interface ModulesItemView()
 
 // The relationship mapping between the location and the signal
 @property(strong, nonatomic) NSMutableDictionary<Box *, SBSignal*> *    map;
@@ -22,7 +22,7 @@
 @property(strong, nonatomic) IBOutlet NSPopover *                       popup;
 @end
 
-@implementation SignalsItemView
+@implementation ModulesItemView
 
 /*****************************************************************************\
 |* Initialise the instance
@@ -250,7 +250,7 @@
             _map[box].expanded  = !expanded;
             
             NSNotificationCenter *nc = NSNotificationCenter.defaultCenter;
-            [nc postNotificationName:kSignalsReconfiguredNotification
+            [nc postNotificationName:kModulesReconfiguredNotification
                               object:self];
             }
     }

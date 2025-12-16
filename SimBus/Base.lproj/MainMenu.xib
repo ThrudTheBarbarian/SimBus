@@ -14,7 +14,7 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate">
             <connections>
-                <outlet property="signalsDataSource" destination="OuQ-C5-4Oe" id="Gcf-M2-f4O"/>
+                <outlet property="modulesDataSource" destination="OuQ-C5-4Oe" id="4h0-QO-dYs"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -810,7 +810,7 @@
         </window>
         <customObject id="6Z3-cq-S59" customClass="MenuBarController"/>
         <customObject id="CQp-K0-hCw" customClass="SplitViewController"/>
-        <customObject id="OuQ-C5-4Oe" customClass="SignalsDataSource">
+        <customObject id="OuQ-C5-4Oe" customClass="ModulesDataSource">
             <connections>
                 <outlet property="itemsView" destination="Lpm-ql-m91" id="I95-jv-p3O"/>
             </connections>

@@ -8,7 +8,7 @@
 #import <Cocoa/Cocoa.h>
 
 @class SBEngine;
-@class SignalsDataSource;
+@class ModulesDataSource;
 @class SBPluginController;
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
@@ -23,6 +23,6 @@
 @property (strong, nonatomic) SBEngine *                    engine;
 
 // The object managing the busItems in the signals list
-@property (strong, nonatomic) IBOutlet SignalsDataSource *  signalsDataSource;
+@property (strong, nonatomic) IBOutlet ModulesDataSource *  modulesDataSource;
 @end
 

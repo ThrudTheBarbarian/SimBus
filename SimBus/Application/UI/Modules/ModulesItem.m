@@ -1,18 +1,18 @@
 //
-//  SignalsItem.m
+//  ModulesItem.m
 //  SimBus
 //
 //  Created by ThrudTheBarbarian on 12/12/2025.
 //
 
-#import "SignalsItem.h"
-#import "SignalsItemView.h"
+#import "ModulesItem.h"
+#import "ModulesItemView.h"
 
-@interface SignalsItem ()
+@interface ModulesItem ()
 @property (strong, nonatomic) id<SBPlugin>            plugin;
 @end
 
-@implementation SignalsItem
+@implementation ModulesItem
 
 /*****************************************************************************\
 |* Nothing to do here
@@ -28,7 +28,7 @@
 - (void) setPlugin:(id<SBPlugin>)plugin
     {
     _plugin = plugin;
-    ((SignalsItemView *)(self.view)).plugin = plugin;
+    ((ModulesItemView *)(self.view)).plugin = plugin;
     }
 
 @end

@@ -8,5 +8,5 @@
 #import "SBNotifications.h"
 
 NSString * const kAddItemNotification               = @"add-item";
-NSString * const kSignalsWidthChangedNotification   = @"signals-width-changed";
-NSString * const kSignalsReconfiguredNotification   = @"signals-reconfigured";
+NSString * const kModulesWidthChangedNotification   = @"modules-width-changed";
+NSString * const kModulesReconfiguredNotification   = @"modules-reconfigured";

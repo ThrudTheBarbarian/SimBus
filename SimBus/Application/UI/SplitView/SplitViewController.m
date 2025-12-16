@@ -57,7 +57,7 @@ constrainSplitPosition:(CGFloat) proposedPosition
         proposedPosition = MAX_X;
     
     NSNotificationCenter *nc = NSNotificationCenter.defaultCenter;
-    [nc postNotificationName:kSignalsWidthChangedNotification
+    [nc postNotificationName:kModulesWidthChangedNotification
                       object:@(proposedPosition)];
     
     return proposedPosition;

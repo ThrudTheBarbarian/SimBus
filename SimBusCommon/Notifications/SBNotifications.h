@@ -8,5 +8,5 @@
 #import <Foundation/Foundation.h>
 
 extern NSString * const kAddItemNotification;
-extern NSString * const kSignalsWidthChangedNotification;
-extern NSString * const kSignalsReconfiguredNotification;
+extern NSString * const kModulesWidthChangedNotification;
+extern NSString * const kModulesReconfiguredNotification;

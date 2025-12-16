@@ -1,5 +1,5 @@
 //
-//  SignalsItemView.h
+//  ModulesItemView.h
 //  SimBus
 //
 //  Created by ThrudTheBarbarian on 12/12/2025.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SignalsItemView : NSView
+@interface ModulesItemView : NSView
 
 @property (strong, nonatomic) id<SBPlugin>            plugin;
 @end

@@ -1,5 +1,5 @@
 //
-//  SignalsItem.h
+//  ModulesItem.h
 //  SimBus
 //
 //  Created by ThrudTheBarbarian on 12/12/2025.
@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SignalsItem : NSCollectionViewItem
+@interface ModulesItem : NSCollectionViewItem
 
 /*****************************************************************************\
 |* Set the plugin instance
