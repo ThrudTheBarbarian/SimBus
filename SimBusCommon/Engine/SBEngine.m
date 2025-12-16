@@ -27,20 +27,6 @@
     if (self = [super init])
         {
         _plugins = [NSMutableArray new];
-        
-        // Run through the plugins (which are loaded by now) and see if there
-        // are any that provide a clk-src type signal. If so, load that plugin
-        // into the engine
-        NSNotificationCenter *nc    = NSNotificationCenter.defaultCenter;
-        NSArray<Class> *list        = SBPluginController.sharedInstance.classes;
-        for (Class klass in list)
-            {
-            id<SBPlugin>instance = [klass new];
-            for (SBSignal *signal in instance.signals)
-                if (signal.type == SIGNAL_CLOCK_SRC)
-                    [nc postNotificationName:kAddItemNotification
-                                      object:instance];
-            }
         }
     return self;
     }
