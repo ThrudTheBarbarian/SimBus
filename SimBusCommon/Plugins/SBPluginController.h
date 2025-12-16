@@ -1,5 +1,5 @@
 //
-//  PluginController.h
+//  SBPluginController.h
 //  SimBus
 //
 //  Created by ThrudTheBarbarian on 11/12/2025.
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PluginController : NSObject
+@interface SBPluginController : NSObject
 
 /*****************************************************************************\
 |* Make this a singleton

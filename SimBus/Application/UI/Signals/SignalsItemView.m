@@ -6,9 +6,8 @@
 //
 
 #import "Box.h"
-#import "SBSignal.h"
 #import "Defines.h"
-#import "Notifications.h"
+#import "SBSignal.h"
 #import "SignalsItemView.h"
 
 @interface SignalsItemView()

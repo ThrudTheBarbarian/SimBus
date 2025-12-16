@@ -1,5 +1,5 @@
 //
-//  PluginProtocol.h
+//  SBPluginProtocol.h
 //  SimBus
 //
 //  Created by ThrudTheBarbarian on 11/12/2025.
@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class SBEngine;
 @class SBSignal;
 
-@protocol Plugin <NSObject>
+@protocol SBPlugin <NSObject>
 
 /*****************************************************************************\
 |* Return the name to use for this plugin, both instance and class

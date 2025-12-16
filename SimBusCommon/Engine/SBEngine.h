@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Common/Common.h>
+#import <SimBusCommon/SBPluginProtocol.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -46,7 +46,7 @@ typedef enum
 /*****************************************************************************\
 |* Add a plugin to the engine
 \*****************************************************************************/
-- (void) addPlugin:(id<Plugin>)plugin;
+- (void) addPlugin:(id<SBPlugin>)plugin;
 
 /*****************************************************************************\
 |* Get a signal for a given name, or return nil

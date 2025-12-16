@@ -9,7 +9,7 @@
 #import "SignalsItemView.h"
 
 @interface SignalsItem ()
-@property (strong, nonatomic) id<Plugin>            plugin;
+@property (strong, nonatomic) id<SBPlugin>            plugin;
 @end
 
 @implementation SignalsItem
@@ -25,7 +25,7 @@
 /*****************************************************************************\
 |* Set the plugin instance 
 \*****************************************************************************/
-- (void) setPlugin:(id<Plugin>)plugin
+- (void) setPlugin:(id<SBPlugin>)plugin
     {
     _plugin = plugin;
     ((SignalsItemView *)(self.view)).plugin = plugin;

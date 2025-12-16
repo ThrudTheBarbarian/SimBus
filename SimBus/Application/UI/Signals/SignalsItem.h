@@ -6,8 +6,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <SimBusCommon/SimBusCommon.h>
 
-#import "PluginProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /*****************************************************************************\
 |* Set the plugin instance
 \*****************************************************************************/
-- (void) setPlugin:(id<Plugin>)plugin;
+- (void) setPlugin:(id<SBPlugin>)plugin;
 
 
 @end

@@ -5,10 +5,9 @@
 //  Created by ThrudTheBarbarian on 11/12/2025.
 //
 
-#import <Common/Common.h>
+#import <SimBusCommon/SimBusCommon.h>
 
 #import "AppDelegate.h"
-#import "PluginController.h"
 
 
 @implementation AppDelegate
@@ -18,7 +17,7 @@
 \*****************************************************************************/
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
     {
-    _pluginController = [PluginController sharedInstance];
+    _pluginController = [SBPluginController sharedInstance];
     [_pluginController loadPlugins];
     
     _engine = [SBEngine sharedInstance];

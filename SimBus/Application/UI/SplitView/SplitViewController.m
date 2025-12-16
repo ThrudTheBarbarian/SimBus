@@ -5,7 +5,7 @@
 //  Created by ThrudTheBarbarian on 11/12/2025.
 //
 
-#import "Notifications.h"
+#import <SimBusCommon/SimBusCommon.h>
 #import "SplitViewController.h"
 
 #define MIN_X       200.0f

@@ -5,10 +5,9 @@
 //  Created by ThrudTheBarbarian on 11/12/2025.
 //
 
-#import <Common/Common.h>
+#import <SimBusCommon/SimBusCommon.h>
 
 #import "Defines.h"
-#import "Notifications.h"
 #import "SignalsDataSource.h"
 #import "SignalsItem.h"
 
@@ -134,7 +133,7 @@
     
 	if ((idx >=0) && (idx < _items.count))
 		{
-        id <Plugin> item    = _items[idx];
+        id <SBPlugin> item    = _items[idx];
         CGFloat height      = 45;
         for (SBSignal *signal in item.signals)
             height += SIGNAL_VSPACE * (signal.expanded ? signal.width + 1 : 1);

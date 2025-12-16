@@ -6,7 +6,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <Common/Common.h>
+#import <SimBusCommon/SimBusCommon.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

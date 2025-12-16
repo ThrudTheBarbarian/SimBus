@@ -6,7 +6,7 @@
 //
 
 #import <AppKit/AppKit.h>
-#import "PluginProtocol.h"
+#import <SimBusCommon/SimBusCommon.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Properties
 
-@property (strong, nonatomic) NSMutableArray<id<Plugin>> *          items;
+@property (strong, nonatomic) NSMutableArray<id<SBPlugin>> *          items;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -5,10 +5,9 @@
 //  Created by ThrudTheBarbarian on 11/12/2025.
 //
 
+#import <SimBusCommon/SimBusCommon.h>
+
 #import "AddItemController.h"
-#import "Notifications.h"
-#import "PluginController.h"
-#import "PluginProtocol.h"
 
 @interface AddItemController ()
 @property(strong, nonatomic) IBOutlet NSPopUpButton *           options;
@@ -25,7 +24,7 @@
 
     // Populate the list of available plugins
     [_options removeAllItems];
-    PluginController *pc = PluginController.sharedInstance;
+    SBPluginController *pc = SBPluginController.sharedInstance;
     int idx = 0;
     for (Class klass in pc.classes)
         {
@@ -53,12 +52,12 @@
     
     // Create a new instance of the item, only done here so we can pass it
     // around easily as a single object.
-    PluginController *pc        = PluginController.sharedInstance;
-    int tag                     = (int) _options.selectedItem.tag;
+    SBPluginController *pc          = SBPluginController.sharedInstance;
+    int tag                         = (int) _options.selectedItem.tag;
     if ((tag >= 0) && (tag < pc.classes.count))
         {
         Class klass                 = pc.classes[tag];
-        id<Plugin> instance         = klass.new;
+        id<SBPlugin> instance       = klass.new;
     
         NSNotificationCenter *nc    = NSNotificationCenter.defaultCenter;
         [nc postNotificationName:kAddItemNotification object:instance];

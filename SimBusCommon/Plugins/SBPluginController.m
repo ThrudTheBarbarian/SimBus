@@ -5,13 +5,10 @@
 //  Created by ThrudTheBarbarian on 11/12/2025.
 //
 
-#import "PluginController.h"
-#import "PluginProtocol.h"
+#import "SBPluginController.h"
+#import "SBPluginProtocol.h"
 
-@interface PluginController()
-@end
-
-@implementation PluginController
+@implementation SBPluginController
 
 
 /*****************************************************************************\
@@ -29,11 +26,11 @@
 + (instancetype) sharedInstance
     {
     static dispatch_once_t onceToken;
-    static PluginController *instance = nil;
+    static SBPluginController *instance = nil;
     
     dispatch_once(&onceToken,
         ^{
-        instance = PluginController.new;
+        instance = SBPluginController.new;
         });
         
     return instance;
@@ -78,7 +75,7 @@
 		if (pName)
             {
 			Class pClass = [pBundle principalClass];
-			if ([pClass conformsToProtocol:@protocol(Plugin)])
+			if ([pClass conformsToProtocol:@protocol(SBPlugin)])
                 [_classes addObject:pClass];
             else
                 NSLog(@"Class %@ does not conform to plugin protocol", pName);

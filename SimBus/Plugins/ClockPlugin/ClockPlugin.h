@@ -6,11 +6,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PluginProtocol.h"
+#import <SimBusCommon/SimBusCommon.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ClockPlugin : NSObject <Plugin>
+@interface ClockPlugin : NSObject <SBPlugin>
 
 // List of signals in the clock plugin
 @property (strong, nonatomic) NSMutableArray<SBSignal *> *      signals;

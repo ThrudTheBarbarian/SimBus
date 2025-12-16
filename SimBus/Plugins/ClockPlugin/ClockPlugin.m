@@ -5,7 +5,7 @@
 //  Created by ThrudTheBarbarian on 11/12/2025.
 //
 
-#import <Common/Common.h>
+#import <SimBusCommon/SimBusCommon.h>
 #import "ClockPlugin.h"
 
 #import "ClockUI.h"

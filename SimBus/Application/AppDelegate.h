@@ -9,7 +9,7 @@
 
 @class SBEngine;
 @class SignalsDataSource;
-@class PluginController;
+@class SBPluginController;
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
@@ -17,7 +17,7 @@
 @property (strong) IBOutlet NSWindow *window;
 
 // The object that handles plugins
-@property (strong, nonatomic) PluginController *            pluginController;
+@property (strong, nonatomic) SBPluginController *          pluginController;
 
 // The object that runs the simulation
 @property (strong, nonatomic) SBEngine *                    engine;
