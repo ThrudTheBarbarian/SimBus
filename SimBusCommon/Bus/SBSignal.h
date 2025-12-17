@@ -43,9 +43,10 @@ typedef enum
 
 /*****************************************************************************\
 |* Set the value of the signal. This also increments counts so use these, don't
-|* modify _values directly
+|* modify _values directly. Persist will be true after triggering, and false
+|* before
 \*****************************************************************************/
-- (void) setValue:(uint32_t)value at:(uint32_t)cron;
+- (void) update:(uint32_t)value at:(uint32_t)cron persist:(BOOL)storeData;
 
 /*****************************************************************************\
 |* Property: bit width of the signal

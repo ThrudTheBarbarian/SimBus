@@ -44,7 +44,9 @@ NS_ASSUME_NONNULL_BEGIN
 /*****************************************************************************\
 |* Tell the plugin to process the event that it previously added
 \*****************************************************************************/
-- (void) process:(SBEvent *)event withSignals:(NSArray<SBSignal *> *)signals;
+- (void) process:(SBEvent *)event
+     withSignals:(NSArray<SBSignal *> *)signals
+         persist:(BOOL)storeValues;
 
 @end
 

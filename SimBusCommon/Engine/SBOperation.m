@@ -14,8 +14,9 @@
 // If this flag is set, we continue the simulation
 @property(assign, nonatomic) BOOL                               isRunning;
 
-// If this flag is set, we continue the simulation
+// List of events that went into the next clock cycle
 @property(strong, nonatomic) NSMutableArray<SBEvent *> *        pending;
+
 @end
 
 
@@ -51,7 +52,8 @@
 - (void) main
     {
     // Set up the 'have we been triggered yet' flag
-    BOOL triggered = (_engine.triggerMode == TriggerNone);
+    BOOL triggered       = (_engine.triggerMode == TriggerNone);
+    uint32_t triggerBase = 0;
     
     // We start off by marking ourselves as in-process
     _isRunning = YES;
@@ -59,6 +61,38 @@
     // Get the list of signals that the engine is using:
     NSArray<SBSignal *> *signals = [_engine signals];
     
+    // Do the wait-for-trigger phase if needed
+    while (_isRunning && (!triggered))
+        {
+        /*********************************************************************\
+        |* Get a sorted list of all the signals by their next-event timestamp
+        \*********************************************************************/
+        NSArray<SBEvent *> *events = [self _generateEvents];
+        
+        /*********************************************************************\
+        |* Process each event in the list in turn
+        \*********************************************************************/
+        for (SBEvent *event in events)
+            {
+            // Update cron
+            _cron = event.when;
+            
+            // call the plugin but don't let it store any data
+            [event.plugin process:event withSignals:signals persist:NO];
+            
+            // Check for trigger conditions
+            if ([_engine shouldTriggerWith:event during:self])
+                {
+                triggerBase = _cron;
+                triggered   = YES;
+                }
+            }
+        }
+    
+    [_engine setTriggerBase:triggerBase];
+    [_engine reset];    // Clear the values in the signals
+    
+    // Do the data-capture phase
     while (_isRunning)
         {
         /*********************************************************************\
@@ -75,7 +109,7 @@
             _cron = event.when;
             
             // call the plugin
-            [event.plugin process:event withSignals:signals];
+            [event.plugin process:event withSignals:signals persist:YES];
             
             // Check for termination conditions
             if ([_engine shouldTerminateWith:event during:self])

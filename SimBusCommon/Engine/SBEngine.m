@@ -142,10 +142,12 @@ NSMutableDictionary<NSString *, SBSignal *> *                   signalMap;
 \*****************************************************************************/
 - (void) reset
     {
-    for (id<SBPlugin> plugin in _plugins)
+    for (SBSignal *signal in _signalMap.allValues)
         {
-        for (SBSignal *signal in plugin.signals)
-            [signal.values clear];
+        [signal.values clear];
+        signal.hiCount      = 0;
+        signal.loCount      = 0;
+        signal.changeCount  = 0;
         }
     }
 
@@ -165,7 +167,107 @@ NSMutableDictionary<NSString *, SBSignal *> *                   signalMap;
     _currentOp.engine   = self;
     [_bgQ addOperation:_currentOp];
     }
+
+#pragma mark - Triggering
+
+/*****************************************************************************\
+|* Check any trigger conditions for an event
+\*****************************************************************************/
+- (BOOL) shouldTriggerWith:(SBEvent *)event during:(SBOperation *)op
+    {
+    BOOL triggered = NO;
+    switch (_triggerMode)
+        {
+        case TriggerOnce:
+            triggered = [self _checkTriggerOnceFor:event];
+            break;
+        
+        case TriggerWhen:
+            triggered = [self _checkTriggerWhenFor:event];
+            break;
+        
+        case TriggerAfter:
+            triggered = [self _checkTriggerAfterFor:event during:op];
+            break;
     
+        default:    // To prevent a warning, we should never get here
+            NSLog(@"We should never get here");
+            break;
+        }
+    
+    return triggered;
+    }
+
+/*****************************************************************************\
+|* Check for a 'once' trigger type
+\*****************************************************************************/
+- (BOOL) _checkTriggerOnceFor:(SBEvent *)event
+    {
+    BOOL triggered = NO;
+    
+    if (event.signal == _triggerOnceSignal)
+        {
+        switch (_triggerOnceCondition)
+            {
+            case ConditionHi:
+                triggered = (event.signal.hiCount >= _triggerOnceCount);
+                break;
+            
+            case ConditionLo:
+                triggered = (event.signal.loCount >= _triggerOnceCount);
+                break;
+            
+            case ConditionChanged:
+                triggered = (event.signal.changeCount >= _triggerOnceCount);
+                break;
+            }
+        }
+    
+    return triggered;
+    }
+
+/*****************************************************************************\
+|* Check for a 'when' trigger type
+\*****************************************************************************/
+- (BOOL) _checkTriggerWhenFor:(SBEvent *)event
+    {
+    BOOL triggered = NO;
+    
+    if (event.signal == _triggerWhenSignal)
+        triggered = (event.signal.currentValue == _triggerWhenValue);
+    
+    return triggered;
+    }
+
+/*****************************************************************************\
+|* Check for an 'after' trigger type
+\*****************************************************************************/
+- (BOOL) _checkTriggerAfterFor:(SBEvent *)event during:(SBOperation *)op
+    {
+    BOOL triggered = NO;
+    
+    switch (_triggerAfterUnit)
+        {
+        case UnitSeconds:
+            {
+            double secs = op.cron * 1E-9;
+            triggered   = secs >= _triggerAfterCount;
+            break;
+            }
+            
+        case UnitClocks:
+            {
+            uint32_t clocks = op.cron / _period;
+            triggered       = clocks >= _triggerAfterCount;
+            break;
+            }
+       }
+       
+    return triggered;
+    }
+
+
+#pragma mark - Termination
 
 /*****************************************************************************\
 |* Check any termination conditions for an event
@@ -190,8 +292,6 @@ NSMutableDictionary<NSString *, SBSignal *> *                   signalMap;
     
     return terminate;
     }
-
-#pragma mark - Private methods
 
 /*****************************************************************************\
 |* Check for a 'once' termination type
@@ -245,14 +345,14 @@ NSMutableDictionary<NSString *, SBSignal *> *                   signalMap;
         {
         case UnitSeconds:
             {
-            double secs = op.cron * 1E-9;
+            double secs = (op.cron - _triggerBase) * 1E-9;
             terminate   = secs >= _termAfterCount;
             break;
             }
             
         case UnitClocks:
             {
-            uint32_t clocks = op.cron / _period;
+            uint32_t clocks = (op.cron - _triggerBase) / _period;
             terminate       = clocks >= _termAfterCount;
             break;
             }

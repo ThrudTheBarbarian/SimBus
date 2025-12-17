@@ -116,12 +116,15 @@ enum
 /*****************************************************************************\
 |* Tell the plugin to process the event that it previously added
 \*****************************************************************************/
-- (void) process:(SBEvent *)event withSignals:(NSArray<SBSignal *> *)signals
+- (void) process:(SBEvent *)event
+     withSignals:(NSArray<SBSignal *> *)signals
+         persist:(BOOL)storeValues
     {
     if (event.tag != CLOCK_PERIOD)
         {
         _clk = (_clk == CLOCK_LO) ? CLOCK_HI : CLOCK_LO;
-        [event.signal setValue:_clk at:event.when];
+        
+        [event.signal update:_clk at:event.when persist:storeValues];
         }
     }
 

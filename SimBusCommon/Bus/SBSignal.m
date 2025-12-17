@@ -70,12 +70,14 @@
 /*****************************************************************************\
 |* Change a value
 \*****************************************************************************/
-- (void) setValue:(uint32_t)value at:(uint32_t)cron
+- (void) update:(uint32_t)value at:(uint32_t)cron persist:(BOOL)storeData
     {
     _currentValue = value;
     if (_width == 1)
         {
-        [_values append1Bit:cron];
+        if (storeData)
+            [_values append1Bit:cron];
+        
         if (value > 0)
             _hiCount ++;
         else
@@ -84,12 +86,15 @@
         }
     else
         {
-        Value32Bit datum =
+        if (storeData)
             {
-            .value  = value,
-            .cron   = cron
-            };
-        [_values append32Bit:datum];
+            Value32Bit datum =
+                {
+                .value  = value,
+                .cron   = cron
+                };
+            [_values append32Bit:datum];
+            }
         _changeCount ++;
         }
     }

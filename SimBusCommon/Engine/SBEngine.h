@@ -77,6 +77,11 @@ typedef enum
 - (BOOL) shouldTerminateWith:(SBEvent *)event during:(SBOperation *)op;
 
 /*****************************************************************************\
+|* Check any trigger conditions for an event
+\*****************************************************************************/
+- (BOOL) shouldTriggerWith:(SBEvent *)event during:(SBOperation *)op;
+
+/*****************************************************************************\
 |* Request creation of a signal - if the name already exists, the existing
 |* object will be returned. This will return nil if a signal of the same
 |* name already exists, but has different parameters
@@ -123,6 +128,9 @@ typedef enum
 
 // The current clock period in ns
 @property(assign, nonatomic) uint32_t                       period;
+
+// The timestamp at which the trigger happened
+@property(assign, nonatomic) uint32_t                       triggerBase;
 
 @end
 
