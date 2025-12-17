@@ -733,9 +733,38 @@
                                     <constraint firstItem="4Qt-E3-ZCI" firstAttribute="leading" secondItem="Qdt-kx-k5p" secondAttribute="leading" id="feh-62-v0u"/>
                                 </constraints>
                             </customView>
-                            <customView fixedFrame="YES" id="3Br-0s-b49">
+                            <customView id="3Br-0s-b49">
                                 <rect key="frame" x="193" y="0.0" width="946" height="731"/>
                                 <autoresizingMask key="autoresizingMask"/>
+                                <subviews>
+                                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lTz-Z5-kln">
+                                        <rect key="frame" x="0.0" y="0.0" width="946" height="731"/>
+                                        <clipView key="contentView" id="Pd4-bL-N7b">
+                                            <rect key="frame" x="1" y="1" width="944" height="714"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <view id="dn2-Gv-fNX" customClass="SignalsView">
+                                                    <rect key="frame" x="0.0" y="0.0" width="944" height="714"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </view>
+                                            </subviews>
+                                        </clipView>
+                                        <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="Kji-vo-zTQ">
+                                            <rect key="frame" x="1" y="715" width="944" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </scroller>
+                                        <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="ga5-gx-G5j">
+                                            <rect key="frame" x="-100" y="-100" width="15" height="714"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </scroller>
+                                    </scrollView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="lTz-Z5-kln" secondAttribute="trailing" id="AXh-kP-D9X"/>
+                                    <constraint firstAttribute="bottom" secondItem="lTz-Z5-kln" secondAttribute="bottom" id="k86-vF-Evb"/>
+                                    <constraint firstItem="lTz-Z5-kln" firstAttribute="top" secondItem="3Br-0s-b49" secondAttribute="top" id="tuF-fL-s6r"/>
+                                    <constraint firstItem="lTz-Z5-kln" firstAttribute="leading" secondItem="3Br-0s-b49" secondAttribute="leading" id="zOW-PF-oQg"/>
+                                </constraints>
                             </customView>
                         </subviews>
                         <holdingPriorities>
@@ -806,7 +835,7 @@
             <connections>
                 <outlet property="delegate" destination="Voe-Tx-rLC" id="top-28-M4D"/>
             </connections>
-            <point key="canvasLocation" x="-206" y="348"/>
+            <point key="canvasLocation" x="-173" y="484"/>
         </window>
         <customObject id="6Z3-cq-S59" customClass="MenuBarController"/>
         <customObject id="CQp-K0-hCw" customClass="SplitViewController"/>
