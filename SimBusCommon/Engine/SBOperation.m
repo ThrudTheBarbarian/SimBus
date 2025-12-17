@@ -7,7 +7,11 @@
 
 #import "SBEngine.h"
 #import "SBEvent.h"
+#import "SBNotifications.h"
 #import "SBOperation.h"
+
+// Every TIME_DELTA seconds we will ask the UI to update
+#define TIME_DELTA          0.1
 
 @interface SBOperation()
 
@@ -61,6 +65,9 @@
     // Get the list of signals that the engine is using:
     NSArray<SBSignal *> *signals = [_engine signals];
     
+    // Get the starting time
+    NSDate *cron = [NSDate date];
+    
     // Do the wait-for-trigger phase if needed
     while (_isRunning && (!triggered))
         {
@@ -87,11 +94,27 @@
                 triggered   = YES;
                 }
             }
+            
+        /*********************************************************************\
+        |* If enough time has passed, tell the UI to update
+        \*********************************************************************/
+        NSDate *now = [NSDate date];
+        double delta = now.timeIntervalSinceReferenceDate
+                     - cron.timeIntervalSinceReferenceDate;
+        if (delta > TIME_DELTA)
+            [self updateUI:@{
+                            @"mode" : @"Waiting for trigger",
+                            }];
         }
     
     [_engine setTriggerBase:triggerBase];
     [_engine reset];    // Clear the values in the signals
-    
+
+    cron = [NSDate date];
+    [self updateUI:@{
+                    @"mode" : @"Starting capture",
+                    }];
+
     // Do the data-capture phase
     while (_isRunning)
         {
@@ -115,7 +138,35 @@
             if ([_engine shouldTerminateWith:event during:self])
                 _isRunning = NO;
             }
+
+        /*********************************************************************\
+        |* If enough time has passed, tell the UI to update
+        \*********************************************************************/
+        NSDate *now = [NSDate date];
+        double delta = now.timeIntervalSinceReferenceDate
+                     - cron.timeIntervalSinceReferenceDate;
+        if (delta > TIME_DELTA)
+            [self updateUI:@{
+                            @"mode" : @"Capturing data",
+                            }];
         }
+    [self updateUI:@{
+                    @"mode" : @"Capture complete",
+                    }];
+    }
+    
+/*****************************************************************************\
+|* Call the UI to update
+\*****************************************************************************/
+- (void) updateUI:(NSDictionary *)info
+    {
+    dispatch_async(dispatch_get_main_queue(), ^(void)
+      {
+      NSNotificationCenter *nc = NSNotificationCenter.defaultCenter;
+      [nc postNotificationName:kInterfaceShouldUpdateNotification
+                        object:self
+                      userInfo:info];
+      });
     }
     
 /*****************************************************************************\
