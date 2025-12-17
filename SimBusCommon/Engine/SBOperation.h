@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) SBEngine *                    engine;
 
 // The absolute time of the simulation
-@property(assign, nonatomic) uint32_t                       cron;
+@property(assign, nonatomic) uint64_t                       cron;
 @end
 
 NS_ASSUME_NONNULL_END

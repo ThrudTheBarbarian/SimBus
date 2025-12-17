@@ -22,7 +22,7 @@
 \*****************************************************************************/
 - (void) viewDidLoad
     {
-    [_ns setIntValue:_plugin.period];
+    [_ns setIntegerValue:_plugin.period];
     double ns   = (double)_plugin.period / 1000000000.0f;
     double freq = (1.0 / ns) / 1000000.0;
     NSString *mhz = [NSString stringWithFormat:@"%6.3f", freq];

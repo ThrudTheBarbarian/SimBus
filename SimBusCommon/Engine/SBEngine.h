@@ -130,7 +130,7 @@ typedef enum
 @property(assign, nonatomic) uint32_t                       period;
 
 // The timestamp at which the trigger happened
-@property(assign, nonatomic) uint32_t                       triggerBase;
+@property(assign, nonatomic) uint64_t                       triggerBase;
 
 @end
 

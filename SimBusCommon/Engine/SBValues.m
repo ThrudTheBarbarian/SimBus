@@ -12,12 +12,12 @@
 /*****************************************************************************\
 |* Designated initialiser for the class
 \*****************************************************************************/
-- (instancetype) initAsType:(ValueSize)type
+- (instancetype) init
     {
     if (self = [super init])
         {
-        _data = [[NSMutableData alloc] initWithCapacity:1024*1024];
-        _type = type;
+        // Allocate space for 1,000,000 samples per signal to start with
+        _data = [[NSMutableData alloc] initWithCapacity:1024*1024*128];
         }
     return self;
     }
@@ -27,24 +27,15 @@
 \*****************************************************************************/
 - (NSUInteger) count
     {
-    int size = (_type == Value_1bit) ? sizeof(uint32_t) : sizeof(Value32Bit);
-    return _data.length / size;
+    return _data.length / sizeof(Value128);
     }
-    
+            
 /*****************************************************************************\
-|* Add a 1-bit record
+|* Add a 128-bit record
 \*****************************************************************************/
-- (void) append1Bit:(uint32_t)sample
+- (void) append:(Value128)sample
     {
-    [_data appendBytes:&sample length:sizeof(uint32_t)];
-    }
-        
-/*****************************************************************************\
-|* Add a 32-bit record
-\*****************************************************************************/
-- (void) append32Bit:(Value32Bit)sample
-    {
-    [_data appendBytes:&sample length:sizeof(Value32Bit)];
+    [_data appendBytes:&sample length:sizeof(Value128)];
     }
 
 /*****************************************************************************\

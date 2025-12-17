@@ -257,7 +257,7 @@ NSMutableDictionary<NSString *, SBSignal *> *                   signalMap;
             
         case UnitClocks:
             {
-            uint32_t clocks = op.cron / _period;
+            uint64_t clocks = op.cron / _period;
             triggered       = clocks >= _triggerAfterCount;
             break;
             }
@@ -352,7 +352,7 @@ NSMutableDictionary<NSString *, SBSignal *> *                   signalMap;
             
         case UnitClocks:
             {
-            uint32_t clocks = (op.cron - _triggerBase) / _period;
+            uint64_t clocks = (op.cron - _triggerBase) / _period;
             terminate       = clocks >= _termAfterCount;
             break;
             }

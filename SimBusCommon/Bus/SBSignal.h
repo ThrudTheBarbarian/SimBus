@@ -46,7 +46,7 @@ typedef enum
 |* modify _values directly. Persist will be true after triggering, and false
 |* before
 \*****************************************************************************/
-- (void) update:(uint32_t)value at:(uint32_t)cron persist:(BOOL)storeData;
+- (void) update:(int64_t)value at:(uint64_t)cron persist:(BOOL)storeData;
 
 /*****************************************************************************\
 |* Property: bit width of the signal
@@ -81,7 +81,7 @@ typedef enum
 /*****************************************************************************\
 |* Property: historic signal values
 \*****************************************************************************/
-@property (assign, nonatomic) uint32_t                  currentValue;
+@property (assign, nonatomic) int64_t                  currentValue;
 
 /*****************************************************************************\
 |* Property: historic signal values
@@ -92,18 +92,18 @@ typedef enum
 /*****************************************************************************\
 |* Property: Number of times a 1-bit signal has been set high
 \*****************************************************************************/
-@property(assign, nonatomic) NSInteger                  hiCount;
+@property(assign, nonatomic) int64_t                    hiCount;
 
 /*****************************************************************************\
 |* Property: Number of times a 1-bit signal has been set low
 \*****************************************************************************/
-@property(assign, nonatomic) NSInteger                  loCount;
+@property(assign, nonatomic) int64_t                    loCount;
 
 /*****************************************************************************\
 |* Property: Number of times a 1-bit signal has toggled (high *or* low), or a
 |* multi-bit signal has changed
 \*****************************************************************************/
-@property(assign, nonatomic) NSInteger                  changeCount;
+@property(assign, nonatomic) int64_t                    changeCount;
 
 @end
 

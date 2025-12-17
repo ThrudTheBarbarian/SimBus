@@ -16,13 +16,13 @@ If we use a structure like:
 
 struct
     {
-    uint32_t cron;          // Timestamp of signal
-    uint8_t signals[14];    // 112 bits of signal value
-    uint8_t valid[14];      // 112 bits of signal-valid data
-    }
+    uint64_t cron;          // Timestamp of signal in ns
+    uint8_t signals[12];    // 96 bits of signal value
+    uint8_t valid[12];      // 96 bits of signal-valid data
+    }                       // 256 bits in total = 32 bytes
 
-... then we're limited to 112 bits of signal, mapped over the set provided
-by the plugins, but we're only using 32 bytes per sample, and those samples
+... then we're limited to 96 bits of signal, mapped over the set provided
+by the plugins, but we're using 32 bytes per sample, and those samples
 aren't necessarily uniform in time.
 
 Assuming a 20MHz clock, we would have 20M samples per second, so 20 * 32 * 60
@@ -34,26 +34,37 @@ Cons: could be slow, lots of bit-shifting
 
 Value-change method:
 --------------------
-Alternatively if we just use per-signal delta-changes, and if we assume that
-roughly 1/4 of the signals will toggle per clock, we would need (for 112 signals)
-
-    20 * 112 * 4 / 4 * 60 = ~135GB of RAM for 60 secs of 112 signals.
-    
-We don't need the mask because we assume all signals are undefined until driven
-and the first delay is the time until it's first driven
-
-We can also have typed value-changes, so instead of storing 32 uint32_t's all
-the same value, for a 32-bit signal, instead we have a structure looking like:
+Alternatively if we just use per-signal changes,
 
 struct
     {
-    uint32_t cron;          // Timestamp of signal-change
-    uint32_t val;           // New value
-    }
+    uint64_t cron;          // 64 bits: Timestamp of signal-change
+    int64_t val;            // 64 bits: New value, -ve is undefined
+    }                       // 128 bits in total = 16 bytes
+
+... and grouping bus-based signals such as address, data into 1 group, we
+would need (for the 6502):
     
-... meaning we only need to store 64 bits for that signal to change, not the
-    32x32bits. Same goes for 16-bit and 8-bit busses.
+        Address [16]        1
+        Data [8]            1
+        /RDY                1
+        /IRQ                1
+        /NMI                1
+        R/W                 1
+        /RST                1
+        clk                 1
+        clkout              1
+        clkout2             1
+                        =>  10 signals, some of which are wider than others
+
+So at a mythical 20MHz clock, and a ~50% rate of signals changing per clock,
+we'd have:
+
+    20 * 10 * 16 / 2 * 60 = 93GB for 1 minute's data  (actually 8.4GB @ 1.7MHz)
     
+-ve values can represent the various undefined states (multiple drivers,
+never-driven, ...)
+
 Pros: simple to implement, faster since it only tracks changes and no bit-shifts
       easier to customise signal-count
 Cons: more memory,
@@ -67,7 +78,7 @@ to be running for several thousand nanosecs, or maybe 1/60 second for a video
 frame or something, so the numbers look more like:
 
 bits:       20 * 32 / 60                => 11 MB
-changes     20 * 112 * 4 / 4 / 60       => 37 MB
+changes     20 * 10 * 16 / 2 / 60       => 27 MB
 
 
 

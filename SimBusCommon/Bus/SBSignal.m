@@ -46,13 +46,11 @@
               andWidth:(int)width
     {
     SBSignal *signal    = SBSignal.new;
+    signal.values       = SBValues.new;
     signal.name         = name;
     signal.width        = width;
     signal.type         = type;
-    if (width == 1)
-        signal.values       = [[SBValues alloc] initAsType:Value_1bit];
-    else
-        signal.values       = [[SBValues alloc] initAsType:Value_multi];
+
     return signal;
     }
     
@@ -70,32 +68,23 @@
 /*****************************************************************************\
 |* Change a value
 \*****************************************************************************/
-- (void) update:(uint32_t)value at:(uint32_t)cron persist:(BOOL)storeData
+- (void) update:(int64_t)value at:(uint64_t)cron persist:(BOOL)storeData
     {
     _currentValue = value;
-    if (_width == 1)
-        {
-        if (storeData)
-            [_values append1Bit:cron];
-        
-        if (value > 0)
-            _hiCount ++;
-        else
-            _loCount ++;
-        _changeCount ++;
-        }
+    if (value > 0)
+        _hiCount ++;
     else
+        _loCount ++;
+    _changeCount ++;
+
+    if (storeData)
         {
-        if (storeData)
+        Value128 datum =
             {
-            Value32Bit datum =
-                {
-                .value  = value,
-                .cron   = cron
-                };
-            [_values append32Bit:datum];
-            }
-        _changeCount ++;
+            .value  = value,
+            .cron   = cron
+            };
+        [_values append:datum];
         }
     }
     

@@ -53,7 +53,7 @@
     {
     // Set up the 'have we been triggered yet' flag
     BOOL triggered       = (_engine.triggerMode == TriggerNone);
-    uint32_t triggerBase = 0;
+    uint64_t triggerBase = 0;
     
     // We start off by marking ourselves as in-process
     _isRunning = YES;
