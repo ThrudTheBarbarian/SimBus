@@ -6,6 +6,7 @@
 //
 
 #import "SBEngine.h"
+#import "SBEvent.h"
 #import "SBNotifications.h"
 #import "SBOperation.h"
 #import "SBPluginController.h"
@@ -23,6 +24,17 @@
 // An operation queue to run the simulation on
 @property(strong, nonatomic) NSOperationQueue *                 bgQ;
 
+@property(strong, nonatomic)
+NSMutableDictionary<NSString *, SBSignal *> *                   signalMap;
+
+
+// Direct methods
+- (BOOL) _checkTermOnceFor:(SBEvent *)event
+          __attribute__((objc_direct));
+- (BOOL) _checkTermWhenFor:(SBEvent *)event
+          __attribute__((objc_direct));
+- (BOOL) _checkTermAfterFor:(SBEvent *)event during:(SBOperation *)op
+         __attribute__((objc_direct));
 @end
 
 @implementation SBEngine
@@ -38,6 +50,7 @@
         _hasRun     = NO;
         _currentOp  = nil;
         _bgQ        = [NSOperationQueue new];
+        _signalMap  = [NSMutableDictionary new];
         
         NSNotificationCenter *nc = NSNotificationCenter.defaultCenter;
         [nc addObserver:self
@@ -63,6 +76,31 @@
     }
 
 /*****************************************************************************\
+|* Request creation of a signal - if the name already exists, the existing
+|* object will be returned. This will return nil if a signal of the same
+|* name already exists, but has different parameters
+\*****************************************************************************/
+- (nullable SBSignal *) makeSignalWithName:(NSString *)name
+                                   ofWidth:(int)width
+                                      type:(SignalType)type
+                                  expanded:(BOOL)expanded
+    {
+    // Check to see if it already exists
+    SBSignal *signal = _signalMap[name];
+    if (signal != nil)
+        {
+        if ((signal.width == width) && (signal.type == type))
+            return signal;
+        return nil;
+        }
+    
+    // It doesn't, so make it
+    signal = [SBSignal withName:name width:width type:type expanded:expanded];
+    _signalMap[name] = signal;
+    return signal;
+    }
+    
+/*****************************************************************************\
 |* Add a plugin to the engine
 \*****************************************************************************/
 - (void) addPlugin:(id<SBPlugin>)plugin;
@@ -77,11 +115,11 @@
 \*****************************************************************************/
 - (NSArray<SBSignal *> *) signals
     {
-    NSMutableArray<SBSignal *> *signals = NSMutableArray.new;
-    for (id<SBPlugin> plugin in _plugins)
-        for (SBSignal *signal in plugin.signals)
-            [signals addObject:signal];
-    return signals;
+    return [_signalMap.allValues sortedArrayUsingComparator:
+            ^NSComparisonResult(SBSignal *s1, SBSignal *s2)
+                {
+                return [s1.name compare:s2.name];
+                }];
     }
     
 /*****************************************************************************\
@@ -128,6 +166,101 @@
     [_bgQ addOperation:_currentOp];
     }
     
+
+/*****************************************************************************\
+|* Check any termination conditions for an event
+\*****************************************************************************/
+- (BOOL) shouldTerminateWith:(SBEvent *)event during:(SBOperation *)op
+    {
+    BOOL terminate = NO;
+    switch (_termMode)
+        {
+        case TermOnce:
+            terminate = [self _checkTermOnceFor:event];
+            break;
+        
+        case TermWhen:
+            terminate = [self _checkTermWhenFor:event];
+            break;
+        
+        case TermAfter:
+            terminate = [self _checkTermAfterFor:event during:op];
+            break;
+        }
+    
+    return terminate;
+    }
+
+#pragma mark - Private methods
+
+/*****************************************************************************\
+|* Check for a 'once' termination type
+\*****************************************************************************/
+- (BOOL) _checkTermOnceFor:(SBEvent *)event
+    {
+    BOOL terminate = NO;
+    
+    if (event.signal == _termOnceSignal)
+        {
+        switch (_termOnceCondition)
+            {
+            case ConditionHi:
+                terminate = (event.signal.hiCount >= _termOnceCount);
+                break;
+            
+            case ConditionLo:
+                terminate = (event.signal.loCount >= _termOnceCount);
+                break;
+            
+            case ConditionChanged:
+                terminate = (event.signal.changeCount >= _termOnceCount);
+                break;
+            }
+        }
+    
+    return terminate;
+    }
+
+/*****************************************************************************\
+|* Check for a 'when' termination type
+\*****************************************************************************/
+- (BOOL) _checkTermWhenFor:(SBEvent *)event
+    {
+    BOOL terminate = NO;
+    
+    if (event.signal == _termWhenSignal)
+        terminate = (event.signal.currentValue == _termWhenValue);
+    
+    return terminate;
+    }
+
+/*****************************************************************************\
+|* Check for an 'after' termination type
+\*****************************************************************************/
+- (BOOL) _checkTermAfterFor:(SBEvent *)event during:(SBOperation *)op
+    {
+    BOOL terminate = NO;
+    
+    switch (_termAfterUnit)
+        {
+        case UnitSeconds:
+            {
+            double secs = op.cron * 1E-9;
+            terminate   = secs >= _termAfterCount;
+            break;
+            }
+            
+        case UnitClocks:
+            {
+            uint32_t clocks = op.cron / _period;
+            terminate       = clocks >= _termAfterCount;
+            break;
+            }
+       }
+       
+    return terminate;
+    }
+
 
 #pragma mark - Notifications
 

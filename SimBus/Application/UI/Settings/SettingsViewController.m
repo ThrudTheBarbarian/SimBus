@@ -54,6 +54,7 @@
     [_triggerValueSignals removeAllItems];
     [_termTimesSignals removeAllItems];
     [_termValueSignals removeAllItems];
+    
     for(SBSignal *signal in engine.signals)
         {
         [_triggerTimesSignals addItemWithTitle:signal.name];
@@ -121,7 +122,7 @@
     engine.triggerWhenValue     = _triggerValueCount.integerValue;
 
     // Trigger-after parameters
-    engine.triggerAfterCount    = _triggerAfterCount.integerValue;
+    engine.triggerAfterCount    = _triggerAfterCount.doubleValue;
     engine.triggerAfterUnit     = (SimUnit)_triggerAfterUnits.selectedTag;
     
     // Terminate-once parameters

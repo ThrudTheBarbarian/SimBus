@@ -17,14 +17,16 @@
 \*****************************************************************************/
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
     {
+    // Create the engine for simulation
+    _engine = [SBEngine sharedInstance];
+    
+    // Load the plugins, each creating a device
     _pluginController = [SBPluginController sharedInstance];
     [_pluginController loadPlugins];
-    
-    _engine = [SBEngine sharedInstance];
 
     // Run through the plugins (which are loaded by now) and see if there
     // are any that provide a clk-src type signal. If so, load that plugin
-    // into the engine
+    // instance into the engine
     NSNotificationCenter *nc    = NSNotificationCenter.defaultCenter;
     NSArray<Class> *list        = SBPluginController.sharedInstance.classes;
     for (Class klass in list)

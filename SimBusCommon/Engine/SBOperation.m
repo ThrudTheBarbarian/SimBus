@@ -11,9 +11,6 @@
 
 @interface SBOperation()
 
-// The absolute time of the simulation
-@property(assign, nonatomic) uint32_t                           cron;
-
 // If this flag is set, we continue the simulation
 @property(assign, nonatomic) BOOL                               isRunning;
 
@@ -53,6 +50,9 @@
 \*****************************************************************************/
 - (void) main
     {
+    // Set up the 'have we been triggered yet' flag
+    BOOL triggered = (_engine.triggerMode == TriggerNone);
+    
     // We start off by marking ourselves as in-process
     _isRunning = YES;
     
@@ -67,11 +67,19 @@
         NSArray<SBEvent *> *events = [self _generateEvents];
         
         /*********************************************************************\
-        |* Advance to each timestamp in the list in turn, and call the plugin
+        |* Process each event in the list in turn
         \*********************************************************************/
         for (SBEvent *event in events)
             {
-            [event.plugin process:event withSignals:signals at:_cron];
+            // Update cron
+            _cron = event.when;
+            
+            // call the plugin
+            [event.plugin process:event withSignals:signals];
+            
+            // Check for termination conditions
+            if ([_engine shouldTerminateWith:event during:self])
+                _isRunning = NO;
             }
         }
     }

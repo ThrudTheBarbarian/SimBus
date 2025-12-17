@@ -42,6 +42,12 @@ typedef enum
                   andType:(SignalType)type;
 
 /*****************************************************************************\
+|* Set the value of the signal. This also increments counts so use these, don't
+|* modify _values directly
+\*****************************************************************************/
+- (void) setValue:(uint32_t)value at:(uint32_t)cron;
+
+/*****************************************************************************\
 |* Property: bit width of the signal
 \*****************************************************************************/
 @property (assign, nonatomic) uint32_t                  width;
@@ -72,9 +78,32 @@ typedef enum
 @property (strong, nonatomic, nullable) NSColor *       colour;
 
 /*****************************************************************************\
-|* Property: current (last) and historic signal values
+|* Property: historic signal values
+\*****************************************************************************/
+@property (assign, nonatomic) uint32_t                  currentValue;
+
+/*****************************************************************************\
+|* Property: historic signal values
 \*****************************************************************************/
 @property (strong, nonatomic) SBValues *                values;
+
+
+/*****************************************************************************\
+|* Property: Number of times a 1-bit signal has been set high
+\*****************************************************************************/
+@property(assign, nonatomic) NSInteger                  hiCount;
+
+/*****************************************************************************\
+|* Property: Number of times a 1-bit signal has been set low
+\*****************************************************************************/
+@property(assign, nonatomic) NSInteger                  loCount;
+
+/*****************************************************************************\
+|* Property: Number of times a 1-bit signal has toggled (high *or* low), or a
+|* multi-bit signal has changed
+\*****************************************************************************/
+@property(assign, nonatomic) NSInteger                  changeCount;
+
 @end
 
 NS_ASSUME_NONNULL_END

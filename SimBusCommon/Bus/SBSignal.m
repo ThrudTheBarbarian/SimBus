@@ -62,6 +62,36 @@
 - (void) resetValues
     {
     [_values clear];
+    _hiCount        = 0;
+    _loCount        = 0;
+    _changeCount    = 0;
+    }
+    
+/*****************************************************************************\
+|* Change a value
+\*****************************************************************************/
+- (void) setValue:(uint32_t)value at:(uint32_t)cron
+    {
+    _currentValue = value;
+    if (_width == 1)
+        {
+        [_values append1Bit:cron];
+        if (value > 0)
+            _hiCount ++;
+        else
+            _loCount ++;
+        _changeCount ++;
+        }
+    else
+        {
+        Value32Bit datum =
+            {
+            .value  = value,
+            .cron   = cron
+            };
+        [_values append32Bit:datum];
+        _changeCount ++;
+        }
     }
     
 /*****************************************************************************\

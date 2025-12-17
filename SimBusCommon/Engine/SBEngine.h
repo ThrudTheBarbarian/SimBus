@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import <SimBusCommon/SBPluginProtocol.h>
+#import <SimBusCommon/SBSignal.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -29,15 +30,17 @@ typedef enum
     {
     ConditionHi     = 0,
     ConditionLo,
-    ConditionToggled
+    ConditionChanged
     } SimCondition;
 
 typedef enum
     {
-    UnitSeconds     = 0,
-    UnitClocks
+    UnitClocks = 0,
+    UnitSeconds
     } SimUnit;
-    
+
+@class SBOperation;
+
 @interface SBEngine : NSObject
 
 - (instancetype) init NS_UNAVAILABLE;
@@ -68,6 +71,21 @@ typedef enum
 \*****************************************************************************/
 - (void) run;
 
+/*****************************************************************************\
+|* Check any termination conditions for an event
+\*****************************************************************************/
+- (BOOL) shouldTerminateWith:(SBEvent *)event during:(SBOperation *)op;
+
+/*****************************************************************************\
+|* Request creation of a signal - if the name already exists, the existing
+|* object will be returned. This will return nil if a signal of the same
+|* name already exists, but has different parameters
+\*****************************************************************************/
+- (nullable SBSignal *) makeSignalWithName:(NSString *)name
+                                   ofWidth:(int)width
+                                      type:(SignalType)type
+                                  expanded:(BOOL)startExpanded;
+
 #pragma mark - Properties
 
 /*****************************************************************************\
@@ -83,7 +101,7 @@ typedef enum
 @property (strong, nonatomic, nullable) SBSignal *          triggerWhenSignal;
 @property (assign, nonatomic) NSInteger                     triggerWhenValue;
     
-@property (assign, nonatomic) NSInteger                     triggerAfterCount;
+@property (assign, nonatomic) double                        triggerAfterCount;
 @property (assign, nonatomic) SimUnit                       triggerAfterUnit;
     
     

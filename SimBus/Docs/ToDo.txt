@@ -1,0 +1,6 @@
+
+- Modify the termination/trigger conditions
+    - remove 'clocks' from the last option, it's redundant
+    - add an 'until signal' option so we can wait on a plugin
+
+    

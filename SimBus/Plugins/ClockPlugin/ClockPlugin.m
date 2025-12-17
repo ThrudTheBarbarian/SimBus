@@ -15,7 +15,8 @@
 enum
     {
     CLOCK_LO = 0,
-    CLOCK_HI
+    CLOCK_HI,
+    CLOCK_PERIOD
     };
 
 @interface ClockPlugin()
@@ -32,13 +33,15 @@ enum
     {
     if (self = [super init])
         {
-        _clk        = 1;
+        _clk        = CLOCK_HI;
         _signals    = [NSMutableArray new];
         
-        SBSignal *sig = [SBSignal withName:@"clk"
-                                     width:1
-                                      type:SIGNAL_CLOCK_SRC
-                                  expanded:NO];
+        SBEngine *engine    = SBEngine.sharedInstance;
+        SBSignal *sig       = [engine makeSignalWithName:@"clk"
+                                                 ofWidth:1
+                                                    type:SIGNAL_CLOCK_SRC
+                                                expanded:NO];
+        
         [_signals addObject:sig];
         
         [self setDuty:50 withPeriod:576];
@@ -83,7 +86,9 @@ enum
     }
 
 /*****************************************************************************\
-|* Add two events, the clock going low at T=0 and going high at period/2
+|* Add two events, the clock going low at T=0 and going high at period/2. We
+|* also add in a 'clock period done' event, because it makes the maths a lot
+|* simpler in the engine
 \*****************************************************************************/
 - (void) addEventsTo:(NSMutableArray<SBEvent *> *)list
     {
@@ -100,18 +105,24 @@ enum
     clockHi.plugin      = self;
     clockHi.tag         = CLOCK_HI;
     [list addObject:clockHi];
+    
+    SBEvent *clockDone  = [SBEvent withRelativeTime:_period];
+    clockDone.signal    = clk;
+    clockDone.plugin    = self;
+    clockDone.tag       = CLOCK_PERIOD;
+    [list addObject:clockDone];
     }
 
 /*****************************************************************************\
 |* Tell the plugin to process the event that it previously added
 \*****************************************************************************/
-- (void) process:(SBEvent *)event
-     withSignals:(NSArray<SBSignal *> *)signals
-              at:(uint32_t)cron
+- (void) process:(SBEvent *)event withSignals:(NSArray<SBSignal *> *)signals
     {
-    // Since it's a 1-bit datum and we just store when it happened rather than
-    // the value, we just need to store the time...
-    [event.signal.values append1Bit:cron];
+    if (event.tag != CLOCK_PERIOD)
+        {
+        _clk = (_clk == CLOCK_LO) ? CLOCK_HI : CLOCK_LO;
+        [event.signal setValue:_clk at:event.when];
+        }
     }
 
 /*****************************************************************************\
