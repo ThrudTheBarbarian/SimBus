@@ -154,6 +154,18 @@ NSMutableDictionary<NSString *, SBSignal *> *                   signalMap;
                 return signal;
     return nil;
     }
+    
+/*****************************************************************************\
+|* Find the signal for a given name by iterating through the list
+\*****************************************************************************/
+- (nullable SBSignal *) signalForType:(SignalType)type
+    {
+    for (id<SBPlugin> plugin in _plugins)
+        for (SBSignal *signal in plugin.signals)
+            if (type == signal.type)
+                return signal;
+    return nil;
+    }
 
 #pragma  mark - run-time
 

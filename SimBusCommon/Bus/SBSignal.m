@@ -83,7 +83,10 @@
 /*****************************************************************************\
 |* Change a value
 \*****************************************************************************/
-- (void) update:(int64_t)value at:(uint64_t)cron persist:(BOOL)storeData
+- (void) update:(uint32_t)value
+             at:(uint64_t)cron
+      withFlags:(int)flags
+        persist:(BOOL)storeData;
     {
     _currentValue = value;
     if (value > 0)
@@ -97,7 +100,8 @@
         Value128 datum =
             {
             .value  = value,
-            .cron   = cron
+            .cron   = cron,
+            .flags  = flags
             };
         [_values append:datum];
         }

@@ -60,6 +60,11 @@ typedef enum
 - (nullable SBSignal *) signalForName:(NSString *)name;
 
 /*****************************************************************************\
+|* Get a signal for a given type, or return nil
+\*****************************************************************************/
+- (nullable SBSignal *) signalForType:(SignalType)type;
+
+/*****************************************************************************\
 |* Return a list of signals
 \*****************************************************************************/
 - (NSArray<SBSignal *> *) signals;

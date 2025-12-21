@@ -440,16 +440,16 @@
                     </view>
                 </box>
                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yyE-jZ-Frg">
-                    <rect key="frame" x="30" y="340" width="100" height="14"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="Trigger conditions" drawsBackground="YES" id="Gv4-wB-F7L">
+                    <rect key="frame" x="20" y="348" width="100" height="14"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Trigger conditions" id="Gv4-wB-F7L">
                         <font key="font" metaFont="system" size="11"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VUp-Vr-PrP">
-                    <rect key="frame" x="32" y="171" width="124" height="14"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="Termination conditions" drawsBackground="YES" id="XqV-mX-bqy">
+                    <rect key="frame" x="20" y="178" width="124" height="14"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Termination conditions" id="XqV-mX-bqy">
                         <font key="font" metaFont="system" size="11"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="gridColor" catalog="System" colorSpace="catalog"/>
@@ -486,18 +486,18 @@
             </subviews>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="vCx-88-EW2" secondAttribute="trailing" constant="20" symbolic="YES" id="773-kT-JJX"/>
-                <constraint firstItem="yyE-jZ-Frg" firstAttribute="top" secondItem="vCx-88-EW2" secondAttribute="bottom" constant="13" id="8wC-zS-CzR"/>
+                <constraint firstItem="yyE-jZ-Frg" firstAttribute="top" secondItem="vCx-88-EW2" secondAttribute="bottom" constant="5" id="8wC-zS-CzR"/>
                 <constraint firstAttribute="bottom" secondItem="ZcP-Yw-4ng" secondAttribute="bottom" constant="20" symbolic="YES" id="A0i-jA-a9k"/>
                 <constraint firstItem="RLi-Jr-rZr" firstAttribute="top" secondItem="vCx-88-EW2" secondAttribute="bottom" constant="20" id="Gl7-Sl-ZEe"/>
                 <constraint firstItem="vCx-88-EW2" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="9" id="Jjd-Ob-Jzf"/>
                 <constraint firstItem="RLi-Jr-rZr" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" symbolic="YES" id="Nsj-Za-g45"/>
                 <constraint firstItem="RLi-Jr-rZr" firstAttribute="leading" secondItem="aa2-fk-uql" secondAttribute="leading" id="Ntn-74-yBC"/>
                 <constraint firstItem="RLi-Jr-rZr" firstAttribute="trailing" secondItem="aa2-fk-uql" secondAttribute="trailing" id="WOb-hU-9US"/>
-                <constraint firstItem="VUp-Vr-PrP" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="32" id="aUe-gJ-0hn"/>
+                <constraint firstItem="VUp-Vr-PrP" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="22" id="aUe-gJ-0hn"/>
                 <constraint firstItem="aa2-fk-uql" firstAttribute="trailing" secondItem="XZc-9f-mXX" secondAttribute="trailing" id="b32-mI-3tV"/>
                 <constraint firstItem="ZcP-Yw-4ng" firstAttribute="baseline" secondItem="XZc-9f-mXX" secondAttribute="baseline" id="ff5-LH-rw3"/>
-                <constraint firstItem="yyE-jZ-Frg" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="30" id="gKS-LC-blC"/>
-                <constraint firstItem="VUp-Vr-PrP" firstAttribute="top" secondItem="RLi-Jr-rZr" secondAttribute="bottom" constant="20" id="ktY-hK-th7"/>
+                <constraint firstItem="yyE-jZ-Frg" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="22" id="gKS-LC-blC"/>
+                <constraint firstItem="VUp-Vr-PrP" firstAttribute="top" secondItem="RLi-Jr-rZr" secondAttribute="bottom" constant="13" id="ktY-hK-th7"/>
                 <constraint firstItem="aa2-fk-uql" firstAttribute="leading" secondItem="ZcP-Yw-4ng" secondAttribute="leading" id="lZj-lR-qeV"/>
                 <constraint firstItem="aa2-fk-uql" firstAttribute="top" secondItem="RLi-Jr-rZr" secondAttribute="bottom" constant="27" id="o3R-UE-Kw9"/>
                 <constraint firstItem="vCx-88-EW2" firstAttribute="trailing" secondItem="RLi-Jr-rZr" secondAttribute="trailing" id="rnz-Kc-J8V"/>

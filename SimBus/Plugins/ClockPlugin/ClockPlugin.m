@@ -122,8 +122,12 @@ enum
     {
     if (event.tag != CLOCK_PERIOD)
         {
-        _clk = (_clk == CLOCK_LO) ? CLOCK_HI : CLOCK_LO;
-        [event.signal update:_clk at:event.when persist:storeValues];
+        _clk        = (_clk == CLOCK_LO) ? CLOCK_HI : CLOCK_LO;
+        int flags   = (_clk == CLOCK_HI) ? SIGNAL_ASSERT  : SIGNAL_DEASSERT;
+        [event.signal update:_clk
+                          at:event.when
+                   withFlags:flags
+                     persist:storeValues];
         }
     }
 

@@ -9,6 +9,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+enum
+    {
+    SIGNAL_ASSERT       = 1,        // The signal is being driven
+    SIGNAL_DEASSERT     = 2,        // The signal is being driven low
+    SIGNAL_UNDEFINED    = 4,        // The value is undefined
+    SIGNAL_CONFLICT     = 8,        // The value has multiple drivers
+    };
+
 /*****************************************************************************\
 |* We store the time at which the value changes and the value at that time.
 |* Negative values correspond to undefined/error conditions
@@ -16,7 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 typedef struct
     {
     uint64_t cron;          // Timestamp in ns
-    int64_t value;          // 63-bit value
+    uint32_t value;         // 32-bit value
+    uint32_t flags;         // Flags for this signal value
     } Value128;
 
 typedef struct

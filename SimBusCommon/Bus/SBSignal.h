@@ -44,7 +44,10 @@ typedef enum
 |* modify _values directly. Persist will be true after triggering, and false
 |* before
 \*****************************************************************************/
-- (void) update:(int64_t)value at:(uint64_t)cron persist:(BOOL)storeData;
+- (void) update:(uint32_t)value
+             at:(uint64_t)cron
+      withFlags:(int)flags
+        persist:(BOOL)storeData;
 
 /*****************************************************************************\
 |* Return the extent (start, length) of the signal
