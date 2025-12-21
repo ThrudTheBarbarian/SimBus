@@ -19,6 +19,20 @@ typedef struct
     int64_t value;          // 63-bit value
     } Value128;
 
+typedef struct
+    {
+    uint64_t first;         // The first cron timestamp
+    uint64_t last;          // The last cron timestamp
+    } SBExtent;
+    
+NS_INLINE SBExtent SBMakeExtent(uint64_t start, uint64_t end)
+    {
+    SBExtent e;
+    e.first  = start;
+    e.last   = end;
+    return e;
+    }
+
 @interface SBValues : NSObject
 
 /*****************************************************************************\
@@ -36,6 +50,16 @@ typedef struct
 - (void) append:(Value128)sample;
 
 /*****************************************************************************\
+|* The first timestamp of data
+\*****************************************************************************/
+- (uint64_t) firstTimestamp;
+
+/*****************************************************************************\
+|* The most-recent timestamp of data
+\*****************************************************************************/
+- (uint64_t) currentTimestamp;
+
+/*****************************************************************************\
 |* Clear all the values
 \*****************************************************************************/
 - (void) clear;
@@ -47,6 +71,12 @@ typedef struct
 
 // The data itself
 @property(strong, nonatomic) NSMutableData *        data;
+
+// The first timestamp of data
+@property(assign, nonatomic) uint64_t               firstTimestamp;
+
+// The most-recent timestamp of data
+@property(assign, nonatomic) uint64_t               currentTimestamp;
 
 @end
 

@@ -104,8 +104,11 @@
 \*****************************************************************************/
 - (void) _itemWasAdded:(NSNotification *)n
     {
+    NSNumber * isAuto = (NSNumber *)(n.userInfo[kAutomaticInstantiation]);
+    BOOL autoAdd      = isAuto ? isAuto.boolValue : NO;
+    
     [_items addObject:n.object];
-    [[SBEngine sharedInstance] addPlugin:n.object];
+    [[SBEngine sharedInstance] addPlugin:n.object autoAdd:autoAdd];
     [_itemsView reloadData];
     }
 

@@ -14,6 +14,9 @@
 #import "SBSignal.h"
 #import "SBValues.h"
 
+NSString * _Nonnull const kAutomaticInstantiation   = @"automatic-instantiation";
+
+
 @interface SBEngine()
 // Whether this engine has ever been run
 @property(assign, nonatomic) BOOL                               hasRun;
@@ -103,11 +106,29 @@ NSMutableDictionary<NSString *, SBSignal *> *                   signalMap;
 /*****************************************************************************\
 |* Add a plugin to the engine
 \*****************************************************************************/
-- (void) addPlugin:(id<SBPlugin>)plugin;
+- (void) addPlugin:(id<SBPlugin>)plugin
+    {
+    [self addPlugin:plugin autoAdd:NO];
+    }
+    
+- (void) addPlugin:(id<SBPlugin>)plugin autoAdd:(BOOL)autoAdd
     {
     [_plugins addObject:plugin];
-    
     [plugin setEngine:self];
+    
+    // This is true when we auto-add signals at the start of the app
+    if (autoAdd)
+        {
+        for (SBSignal *signal in plugin.signals)
+            if (signal.type == SIGNAL_CLOCK_SRC)
+                {
+                _triggerOnceSignal  = signal;
+                _triggerWhenSignal  = signal;
+                _termOnceSignal     = signal;
+                _termWhenSignal     = signal;
+                break;
+                }
+        }
     }
 
 /*****************************************************************************\

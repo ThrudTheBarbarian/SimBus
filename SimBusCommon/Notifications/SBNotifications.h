@@ -12,3 +12,4 @@ extern NSString * const kModulesWidthChangedNotification;
 extern NSString * const kModulesReconfiguredNotification;
 extern NSString * const kClockChangedNotification;
 extern NSString * const kInterfaceShouldUpdateNotification;
+

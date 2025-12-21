@@ -66,7 +66,7 @@
     NSArray<SBSignal *> *signals = [_engine signals];
     
     // Get the starting time
-    NSDate *cron = [NSDate date];
+    NSDate *timestamp = [NSDate date];
     
     // Do the wait-for-trigger phase if needed
     while (_isRunning && (!triggered))
@@ -100,17 +100,20 @@
         \*********************************************************************/
         NSDate *now = [NSDate date];
         double delta = now.timeIntervalSinceReferenceDate
-                     - cron.timeIntervalSinceReferenceDate;
+                     - timestamp.timeIntervalSinceReferenceDate;
         if (delta > TIME_DELTA)
+            {
+            timestamp = now;
             [self updateUI:@{
                             @"mode" : @"Waiting for trigger",
                             }];
+            }
         }
     
     [_engine setTriggerBase:triggerBase];
     [_engine reset];    // Clear the values in the signals
 
-    cron = [NSDate date];
+    timestamp = [NSDate date];
     [self updateUI:@{
                     @"mode" : @"Starting capture",
                     }];
@@ -144,11 +147,14 @@
         \*********************************************************************/
         NSDate *now = [NSDate date];
         double delta = now.timeIntervalSinceReferenceDate
-                     - cron.timeIntervalSinceReferenceDate;
+                     - timestamp.timeIntervalSinceReferenceDate;
         if (delta > TIME_DELTA)
+            {
             [self updateUI:@{
                             @"mode" : @"Capturing data",
                             }];
+            timestamp = now;
+            }
         }
     [self updateUI:@{
                     @"mode" : @"Capture complete",

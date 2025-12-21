@@ -35,7 +35,10 @@
         for (SBSignal *signal in instance.signals)
             if (signal.type == SIGNAL_CLOCK_SRC)
                 [nc postNotificationName:kAddItemNotification
-                                  object:instance];
+                                  object:instance
+                                userInfo:@{
+                                        kAutomaticInstantiation : @(YES)
+                                        }];
         }
     }
 

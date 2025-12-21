@@ -7,6 +7,8 @@
 
 #import "SBValues.h"
 
+
+
 @implementation SBValues
 
 /*****************************************************************************\
@@ -35,6 +37,9 @@
 \*****************************************************************************/
 - (void) append:(Value128)sample
     {
+    if (_data.length == 0)
+        _firstTimestamp = sample.cron;
+    _currentTimestamp = sample.cron;
     [_data appendBytes:&sample length:sizeof(Value128)];
     }
 

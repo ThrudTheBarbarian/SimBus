@@ -9,6 +9,8 @@
 #import <SimBusCommon/SBPluginProtocol.h>
 #import <SimBusCommon/SBSignal.h>
 
+extern NSString * _Nonnull const kAutomaticInstantiation;
+
 NS_ASSUME_NONNULL_BEGIN
 
 typedef enum
@@ -49,6 +51,7 @@ typedef enum
 /*****************************************************************************\
 |* Add a plugin to the engine
 \*****************************************************************************/
+- (void) addPlugin:(id<SBPlugin>)plugin autoAdd:(BOOL)autoAdd;
 - (void) addPlugin:(id<SBPlugin>)plugin;
 
 /*****************************************************************************\
@@ -117,7 +120,7 @@ typedef enum
 @property (strong, nonatomic, nullable) SBSignal *          termWhenSignal;
 @property (assign, nonatomic) NSInteger                     termWhenValue;
     
-@property (assign, nonatomic) NSInteger                     termAfterCount;
+@property (assign, nonatomic) double                        termAfterCount;
 @property (assign, nonatomic) SimUnit                       termAfterUnit;
 
 /*****************************************************************************\

@@ -6,7 +6,7 @@
 //
 
 #import <AppKit/AppKit.h>
-
+#import <SimBusCommon/SBValues.h>
 NS_ASSUME_NONNULL_BEGIN
 
 typedef enum
@@ -21,8 +21,6 @@ typedef enum
     SIGNAL_IO,              // input/output signal
     SIGNAL_MAX              // Maximum signal value
     } SignalType;
-
-@class SBValues;
 
 @interface SBSignal : NSObject
 
@@ -47,6 +45,11 @@ typedef enum
 |* before
 \*****************************************************************************/
 - (void) update:(int64_t)value at:(uint64_t)cron persist:(BOOL)storeData;
+
+/*****************************************************************************\
+|* Return the extent (start, length) of the signal
+\*****************************************************************************/
+- (SBExtent) extent;
 
 /*****************************************************************************\
 |* Property: bit width of the signal

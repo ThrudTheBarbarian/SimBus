@@ -138,7 +138,7 @@
     engine.termWhenValue        = _termValueCount.integerValue;
 
     // Terminate-after parameters
-    engine.termAfterCount       = _termAfterCount.integerValue;
+    engine.termAfterCount       = _termAfterCount.doubleValue;
     engine.termAfterUnit        = (SimUnit)_termAfterUnits.selectedTag;
 
     [_popover performClose:self];

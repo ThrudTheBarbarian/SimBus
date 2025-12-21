@@ -64,7 +64,22 @@
     _loCount        = 0;
     _changeCount    = 0;
     }
-    
+
+/*****************************************************************************\
+|* Return the extent (start, end) of the signal in terms of time (cron)
+\*****************************************************************************/
+- (SBExtent) extent
+    {
+    if (_values.count > 0)
+        {
+        uint64_t first = _values.firstTimestamp;
+        uint64_t last  = _values.currentTimestamp;
+        
+        return SBMakeExtent(first, last);
+        }
+    return SBMakeExtent(0,0);
+    }
+
 /*****************************************************************************\
 |* Change a value
 \*****************************************************************************/
