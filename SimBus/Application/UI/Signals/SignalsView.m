@@ -7,6 +7,7 @@
 
 #import <SimBusCommon/SimBusCommon.h>
 
+#import "Defines.h"
 #import "SBNotifications.h"
 #import "SignalsView.h"
 
@@ -56,8 +57,8 @@
            selector:@selector(_interfaceNeedsUpdate:)
                name:kInterfaceShouldUpdateNotification
              object:nil];
-    _dT = 50;
-    _dY = 20;
+    _dT = 20;
+    _dY = SIGNAL_VSPACE - 7;
     }
 
 - (void) dealloc
@@ -76,7 +77,7 @@
     [NSColor.blackColor setFill];
     NSRectFill(self.bounds);
     
-    int Y = 20;
+    int Y = 31;
     SBEngine *engine = SBEngine.sharedInstance;
     for (id<SBPlugin> plugin in engine.plugins)
         {
@@ -90,7 +91,10 @@
                 path = [self _pathOf1BitSignalAt:Y using:signal];
                 [path stroke];
                 }
+            
+            Y += SIGNAL_VSPACE;
             }
+        Y += MODULE_VSPACE;
         }
     }
 

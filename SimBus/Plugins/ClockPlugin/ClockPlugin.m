@@ -43,7 +43,7 @@ enum
                                                 expanded:NO];
         
         [_signals addObject:sig];
-        
+   
         [self setDuty:50 withPeriod:576];
         }
     return self;
@@ -123,7 +123,6 @@ enum
     if (event.tag != CLOCK_PERIOD)
         {
         _clk = (_clk == CLOCK_LO) ? CLOCK_HI : CLOCK_LO;
-        
         [event.signal update:_clk at:event.when persist:storeValues];
         }
     }

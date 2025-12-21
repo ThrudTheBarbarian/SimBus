@@ -9,6 +9,8 @@
 #define Common_h
 
 // The vertical drawing space for a signal
-#define SIGNAL_VSPACE 20
+#define SIGNAL_VSPACE   26
 
+// The vertical space between modules
+#define MODULE_VSPACE   54
 #endif /* Common_h */
