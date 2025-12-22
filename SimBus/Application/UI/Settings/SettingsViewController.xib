@@ -87,7 +87,7 @@
                                 <rect key="frame" x="70" y="69" width="114" height="25"/>
                                 <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="3bF-M4-kgb" id="PAR-Nq-Jlv">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu"/>
+                                    <font key="font" metaFont="message"/>
                                     <menu key="menu" id="w5U-bc-RGk">
                                         <items>
                                             <menuItem title="Item 1" state="on" id="3bF-M4-kgb"/>
@@ -101,7 +101,7 @@
                                 <rect key="frame" x="70" y="39" width="114" height="25"/>
                                 <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="1ut-oI-iZv" id="Rdf-Fn-T77">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu"/>
+                                    <font key="font" metaFont="message"/>
                                     <menu key="menu" id="LIx-rQ-Rby">
                                         <items>
                                             <menuItem title="Item 1" state="on" id="1ut-oI-iZv"/>
@@ -115,7 +115,7 @@
                                 <rect key="frame" x="213" y="69" width="112" height="25"/>
                                 <popUpButtonCell key="cell" type="push" title="asserted" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="BFh-jd-CUs" id="RTh-YC-uFI">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu"/>
+                                    <font key="font" metaFont="message"/>
                                     <menu key="menu" id="Ecd-PB-BZm">
                                         <items>
                                             <menuItem title="asserted" state="on" id="BFh-jd-CUs"/>
@@ -192,7 +192,7 @@
                                 <rect key="frame" x="139" y="10" width="114" height="25"/>
                                 <popUpButtonCell key="cell" type="push" title="clocks" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="oZw-n3-vl9" id="Qhd-k7-PvM">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu"/>
+                                    <font key="font" metaFont="message"/>
                                     <menu key="menu" id="sqP-bb-KTh">
                                         <items>
                                             <menuItem title="clocks" state="on" id="oZw-n3-vl9"/>
@@ -287,7 +287,7 @@
                                 <rect key="frame" x="65" y="70" width="114" height="25"/>
                                 <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="8G4-pQ-GKR" id="DC7-EL-6DU">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu"/>
+                                    <font key="font" metaFont="message"/>
                                     <menu key="menu" id="Pg8-sv-kht">
                                         <items>
                                             <menuItem title="Item 1" state="on" id="8G4-pQ-GKR"/>
@@ -301,7 +301,7 @@
                                 <rect key="frame" x="65" y="40" width="114" height="25"/>
                                 <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="v2u-OE-io0" id="hhg-td-pgm">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu"/>
+                                    <font key="font" metaFont="message"/>
                                     <menu key="menu" id="dbQ-VC-5GJ">
                                         <items>
                                             <menuItem title="Item 1" state="on" id="v2u-OE-io0"/>
@@ -315,7 +315,7 @@
                                 <rect key="frame" x="134" y="11" width="114" height="25"/>
                                 <popUpButtonCell key="cell" type="push" title="clocks" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="y9A-bx-WW8" id="kNJ-eP-4g0">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu"/>
+                                    <font key="font" metaFont="message"/>
                                     <menu key="menu" id="GZh-X9-MaT">
                                         <items>
                                             <menuItem title="clocks" state="on" id="y9A-bx-WW8"/>
@@ -331,7 +331,7 @@
                                 <rect key="frame" x="208" y="70" width="112" height="25"/>
                                 <popUpButtonCell key="cell" type="push" title="asserted" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="crD-ZD-eFM" id="cmo-fG-00m">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu"/>
+                                    <font key="font" metaFont="message"/>
                                     <menu key="menu" id="7Ll-Wo-xDc">
                                         <items>
                                             <menuItem title="asserted" state="on" id="crD-ZD-eFM"/>
@@ -442,7 +442,7 @@
                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yyE-jZ-Frg">
                     <rect key="frame" x="20" y="348" width="100" height="14"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Trigger conditions" id="Gv4-wB-F7L">
-                        <font key="font" metaFont="system" size="11"/>
+                        <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -450,7 +450,7 @@
                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VUp-Vr-PrP">
                     <rect key="frame" x="20" y="178" width="124" height="14"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Termination conditions" id="XqV-mX-bqy">
-                        <font key="font" metaFont="system" size="11"/>
+                        <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>

@@ -187,11 +187,17 @@
         CGFloat py                  = H - lineHeight - 3;
         NSString *lbl               = nil;
         
+        int lastPx = -1;
+        
         for (int64_t x = start-10 ; x <= end; x++)
             {
-            if (x%10 == 0)
+            if ((x >= 0) && (x%10 == 0))
                 {
                 CGFloat px  = (x-start) * _dT;
+                if (px - lastPx < 100)
+                    continue;
+                lastPx = px;
+                
                 CGPoint at  = CGPointMake(px+2, py);
                 lbl         = [NSString stringWithFormat:@"%llu ck", x/2];
                 
@@ -203,6 +209,26 @@
             }
         [path stroke];
         }
+    }
+
+#pragma mark - Events
+
+/*****************************************************************************\
+|* The user scrolled the mouse wheel
+\*****************************************************************************/
+- (void) scrollWheel:(NSEvent *)event
+    {
+    if (event.scrollingDeltaY > 0)
+        {
+        if (_dT > 2)
+            _dT /= 2;
+        }
+    else
+        {
+        if (_dT < 2048)
+            _dT *= 2;
+        }
+    [self _interfaceNeedsUpdate:nil];
     }
 
 #pragma mark - Notifications
