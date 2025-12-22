@@ -207,22 +207,22 @@
                 break;
             
             case AfterNextClockHiEvent:
-                event.when += _cron + period/2;
+                event.when += _cron + (uint64_t)(period * (0.5 + event.delay));
                 event.type = AbsoluteTimeEvent;
                 break;
             
             case AfterNextClockLoEvent:
-                event.when += _cron + period;
+                event.when += _cron + (uint64_t)(period * (1.0 + event.delay));
                 event.type = AbsoluteTimeEvent;
                 break;
              
             case BeforeNextClockHiEvent:
-                event.when = _cron + period/2 - event.when;
+                event.when = _cron + (uint64_t)(period * (0.5 - event.delay));
                 event.type = AbsoluteTimeEvent;
                 break;
            
             case BeforeNextClockLoEvent:
-                event.when = _cron + period - event.when;
+                event.when = _cron + (uint64_t)(period * (1.0 - event.delay));
                 event.type = AbsoluteTimeEvent;
                 break;
             

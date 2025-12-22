@@ -19,6 +19,22 @@
         _type       = type;
         _when       = when;
         _signals    = nil;
+        _delay      = 0;
+        }
+    return self;
+    }
+
+/*****************************************************************************\
+|* Initialise an instance
+\*****************************************************************************/
+- (instancetype) initWithType:(EventType)type delay:(float)percentOfClockPeriod
+    {
+    if (self = [super init])
+        {
+        _type       = type;
+        _when       = 0;
+        _signals    = nil;
+        _delay      = percentOfClockPeriod;
         }
     return self;
     }
@@ -36,24 +52,24 @@
     return [[SBEvent alloc] initWithType:RelativeTimeEvent at:ns];
     }
 
-+ (instancetype) afterNextClockHi:(uint64_t)ns
++ (instancetype) afterNextClockHi:(float)clocks
     {
-    return [[SBEvent alloc] initWithType:AfterNextClockHiEvent at:ns];
+    return [[SBEvent alloc] initWithType:AfterNextClockHiEvent delay:clocks];
     }
 
-+ (instancetype) afterNextClockLo:(uint64_t)ns
++ (instancetype) afterNextClockLo:(float)clocks
     {
-    return [[SBEvent alloc] initWithType:AfterNextClockLoEvent at:ns];
+    return [[SBEvent alloc] initWithType:AfterNextClockLoEvent delay:clocks];
     }
 
-+ (instancetype) beforeNextClockHi:(uint64_t)ns
++ (instancetype) beforeNextClockHi:(float)clocks
     {
-    return [[SBEvent alloc] initWithType:BeforeNextClockHiEvent at:ns];
+    return [[SBEvent alloc] initWithType:BeforeNextClockHiEvent delay:clocks];
     }
 
-+ (instancetype) beforeNextClockLo:(uint64_t)ns
++ (instancetype) beforeNextClockLo:(float)clocks
     {
-    return [[SBEvent alloc] initWithType:BeforeNextClockLoEvent at:ns];
+    return [[SBEvent alloc] initWithType:BeforeNextClockLoEvent delay:clocks];
     }
 
 + (instancetype) onSignalChange:(NSArray<SBSignal *> *)signals

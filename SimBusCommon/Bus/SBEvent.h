@@ -30,16 +30,17 @@ typedef enum
 \*****************************************************************************/
 - (instancetype) init NS_UNAVAILABLE;
 - (instancetype) initWithType:(EventType)type at:(uint64_t)when;
+- (instancetype) initWithType:(EventType)type delay:(float)percentOfClockPeriod;
 
 /*****************************************************************************\
 |* Convenience initialisers
 \*****************************************************************************/
 + (instancetype) withAbsoluteTime:(uint64_t)ns;
 + (instancetype) withRelativeTime:(uint64_t)ns;
-+ (instancetype) afterNextClockHi:(uint64_t)ns;
-+ (instancetype) afterNextClockLo:(uint64_t)ns;
-+ (instancetype) beforeNextClockHi:(uint64_t)ns;
-+ (instancetype) beforeNextClockLo:(uint64_t)ns;
++ (instancetype) afterNextClockHi:(float)percentOfClockPeriod;
++ (instancetype) afterNextClockLo:(float)percentOfClockPeriod;
++ (instancetype) beforeNextClockHi:(float)percentOfClockPeriod;
++ (instancetype) beforeNextClockLo:(float)percentOfClockPeriod;
 + (instancetype) onSignalChange:(NSArray<NSString *> *)signals;
 
 /*****************************************************************************\
@@ -51,6 +52,10 @@ typedef enum
 
 // The time-value of the event, in nanoseconds
 @property(assign, nonatomic) uint64_t                               when;
+
+// The delay of the event, as a fraction of a clock period. Note
+// that the type of event dictates how the delay is interpreted
+@property(assign, nonatomic) float                                  delay;
 
 // The plugin that should process this event
 @property(strong, nonatomic) id<SBPlugin>                           plugin;
