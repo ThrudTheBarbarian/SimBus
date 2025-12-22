@@ -10,6 +10,7 @@
 		F493E4322EF19DB0003D4B11 /* SimBusCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F493E42A2EF19DB0003D4B11 /* SimBusCommon.framework */; };
 		F493E4332EF19DB0003D4B11 /* SimBusCommon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F493E42A2EF19DB0003D4B11 /* SimBusCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F493E4462EF19EE9003D4B11 /* SimBusCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F493E42A2EF19DB0003D4B11 /* SimBusCommon.framework */; };
+		F493E4572EF97F53003D4B11 /* SimBusCommon.framework in Copy to ~/Library/Frameworks */ = {isa = PBXBuildFile; fileRef = F493E42A2EF19DB0003D4B11 /* SimBusCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F4C225412EEB54720056FD0A /* Clock.sb in CopyFiles */ = {isa = PBXBuildFile; fileRef = F4C225312EEB53140056FD0A /* Clock.sb */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		F493E4562EF97EB6003D4B11 /* Copy to ~/Library/Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = $HOME/Library/Frameworks;
+			dstSubfolderSpec = 0;
+			files = (
+				F493E4572EF97F53003D4B11 /* SimBusCommon.framework in Copy to ~/Library/Frameworks */,
+			);
+			name = "Copy to ~/Library/Frameworks";
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		F4C225402EEB545E0056FD0A /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -306,6 +318,7 @@
 				F493E4262EF19DB0003D4B11 /* Sources */,
 				F493E4272EF19DB0003D4B11 /* Frameworks */,
 				F493E4282EF19DB0003D4B11 /* Resources */,
+				F493E4562EF97EB6003D4B11 /* Copy to ~/Library/Frameworks */,
 			);
 			buildRules = (
 			);

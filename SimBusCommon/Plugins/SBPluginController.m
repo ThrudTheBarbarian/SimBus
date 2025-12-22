@@ -5,8 +5,16 @@
 //  Created by ThrudTheBarbarian on 11/12/2025.
 //
 
+#include <stdlib.h>
+#include <stdio.h>    
+#include <pwd.h>
+#include <unistd.h>
+
 #import "SBPluginController.h"
 #import "SBPluginProtocol.h"
+
+#define APP_NAME    @"SimBus"
+#define PLUGIN_FMT  @"%@/Library/Application Support/%@/Plugins"
 
 @implementation SBPluginController
 
@@ -46,7 +54,27 @@
 	|* Register and load all the plugins
 	\**********************************************************************/	
 	NSString* path = [[NSBundle mainBundle] builtInPlugInsPath];
-	//NSLog(@"Looking in %@ for plugins", path);
+    [self _loadPluginsAt:path];
+ 
+    NSString *home = nil;
+    struct passwd* pwd = getpwuid(getuid());
+    if (pwd)
+        {
+        char *homeDir   = pwd->pw_dir;
+        home            = [NSString stringWithUTF8String:homeDir];
+        }
+        
+    path = [NSString stringWithFormat:PLUGIN_FMT, home, APP_NAME];
+    [self _loadPluginsAt:path];
+	}
+
+	
+/******************************************************************************\
+|* Load plugins found at a specified path
+\******************************************************************************/
+- (void) _loadPluginsAt:(NSString *)path
+    {
+	NSLog(@"Looking in %@ for plugins", path);
 	
 	if (path)
 		{
@@ -58,9 +86,8 @@
 			[self _activatePluginBundle:plugin];
 			}
 		}	
-	}
-
-	
+    }
+    
 /******************************************************************************\
 |* Activate a bundle 
 \******************************************************************************/
