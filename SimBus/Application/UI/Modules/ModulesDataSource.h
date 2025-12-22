@@ -28,6 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Properties
 
+/*****************************************************************************\
+|* Property: List of plugins for the modules view to display
+\*****************************************************************************/
 @property (strong, nonatomic) NSMutableArray<id<SBPlugin>> *          items;
 @end
 

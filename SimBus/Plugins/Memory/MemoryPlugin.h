@@ -1,34 +1,36 @@
 //
-//  SBPluginController.h
-//  SimBus
+//  MemoryPlugin.h
+//  Memory
 //
-//  Created by ThrudTheBarbarian on 11/12/2025.
+//  Created by ThrudTheBarbarian on 22/12/2025.
 //
 
 #import <Foundation/Foundation.h>
+#import <SimBusCommon/SimBusCommon.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SBPluginController : NSObject
+@interface MemoryPlugin : NSObject <SBPlugin>
 
-/*****************************************************************************\
-|* Make this a singleton
-\*****************************************************************************/
-- (instancetype) init NS_UNAVAILABLE;
-+ (instancetype) sharedInstance;
-
-/*****************************************************************************\
-|* Load all the plugins
-\*****************************************************************************/
-- (void) loadPlugins;
 
 
 #pragma mark - Properties
 
 /*****************************************************************************\
-|* Property: The list of classes, one per plugin, that implement our protocol
+|* Property: List of signals in the memory plugin
 \*****************************************************************************/
-@property (strong, nonatomic) NSMutableArray<Class> *           classes;
+@property (strong, nonatomic) NSMutableArray<SBSignal *> *      signals;
+
+/*****************************************************************************\
+|* Property: The engine that the clock plugin uses
+\*****************************************************************************/
+@property (strong, nonatomic) SBEngine *                        engine;
+
+/*****************************************************************************\
+|* Property: The bytes that map to "memory"
+\*****************************************************************************/
+@property (strong, nonatomic) NSMutableData *                   mem;
+
 @end
 
 NS_ASSUME_NONNULL_END

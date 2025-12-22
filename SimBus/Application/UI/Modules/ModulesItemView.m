@@ -148,7 +148,7 @@
                                                  options:opts
                                               attributes:attribs
                                                  context:nil];
-            CGFloat tx = W -textRect.size.width - 4 - triangle;
+            CGFloat tx = W -textRect.size.width - 8 - triangle;
             CGFloat ty = Y - textRect.size.height;
             [text drawAtPoint:CGPointMake(tx, ty) withAttributes:attribs];
             
@@ -165,7 +165,7 @@
             // is expanded or not
             if (triangle)
                 {
-                NSPoint p   = NSMakePoint(W-4-triangle, Y-SIGNAL_VSPACE);
+                NSPoint p   = NSMakePoint(W-3-triangle, Y-SIGNAL_VSPACE+4);
                 Box *box    = [Box boxAt:p size:size];
                 _map[box]   = signal;
                 

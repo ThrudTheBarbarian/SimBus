@@ -21,10 +21,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Properties
 
-// The link to the engine
+/*****************************************************************************\
+|* Property: The link to the engine
+\*****************************************************************************/
 @property (strong, nonatomic) SBEngine *                    engine;
 
-// The absolute time of the simulation
+/*****************************************************************************\
+|* Property: The absolute time of the simulation
+\*****************************************************************************/
 @property(assign, nonatomic) uint64_t                       cron;
 @end
 

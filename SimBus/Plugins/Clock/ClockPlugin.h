@@ -18,13 +18,21 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) setDuty:(int)duty withPeriod:(int)period;
 
 
-// List of signals in the clock plugin
+#pragma mark - Properties
+
+/*****************************************************************************\
+|* Property: List of signals in the clock plugin
+\*****************************************************************************/
 @property (strong, nonatomic) NSMutableArray<SBSignal *> *      signals;
 
-// The engine that the clock plugin uses
+/*****************************************************************************\
+|* Property: The engine that the clock plugin uses
+\*****************************************************************************/
 @property (strong, nonatomic) SBEngine *                        engine;
 
-// Properties for the plugin
+/*****************************************************************************\
+|* Property: Properties for the plugin
+\*****************************************************************************/
 @property(assign, nonatomic) int                                period;
 @property(assign, nonatomic) int                                duty;
 

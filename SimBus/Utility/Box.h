@@ -31,6 +31,12 @@ NS_ASSUME_NONNULL_BEGIN
 \*****************************************************************************/
 - (NSBezierPath *) triangle:(BOOL)facingUp;
 
+
+#pragma mark - Properties
+
+/*****************************************************************************\
+|* Property: location and size
+\*****************************************************************************/
 @property(assign, nonatomic) int                            x;
 @property(assign, nonatomic) int                            y;
 @property(assign, nonatomic) int                            w;

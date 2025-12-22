@@ -12,6 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ModulesItemView : NSView
 
+#pragma mark - Properties
+
+/*****************************************************************************\
+|* Property: the plugin for which we are a module
+\*****************************************************************************/
 @property (strong, nonatomic) id<SBPlugin>            plugin;
 @end
 

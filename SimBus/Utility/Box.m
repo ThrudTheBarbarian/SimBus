@@ -47,7 +47,7 @@
 \*****************************************************************************/
 - (NSBezierPath *) triangle:(BOOL)facingUp
     {
-    #define INSET 6
+    #define INSET 8
     NSBezierPath *path = [NSBezierPath new];
     if (facingUp)
         {

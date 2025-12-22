@@ -17,7 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
 \*****************************************************************************/
 - (void)populateFields;
 
-// Link to the popup so we can terminate it
+#pragma mark - Properties
+
+/*****************************************************************************\
+|* Property: Link to the popup so we can terminate it
+\*****************************************************************************/
 @property (weak, nonatomic) NSPopover *                    popover;
 @end
 

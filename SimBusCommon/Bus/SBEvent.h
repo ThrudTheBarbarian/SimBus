@@ -43,33 +43,48 @@ typedef enum
 + (instancetype) beforeNextClockLo:(float)percentOfClockPeriod;
 + (instancetype) onSignalChange:(NSArray<NSString *> *)signals;
 
-/*****************************************************************************\
-|* Properties
-\*****************************************************************************/
 
-// The type of event this is
+#pragma mark - Properties
+
+/*****************************************************************************\
+|* Property: The type of event this is
+\*****************************************************************************/
 @property(assign, nonatomic) EventType                              type;
 
-// The time-value of the event, in nanoseconds
+/*****************************************************************************\
+|* Property: The time-value of the event, in nanoseconds
+\*****************************************************************************/
 @property(assign, nonatomic) uint64_t                               when;
 
-// The delay of the event, as a fraction of a clock period. Note
-// that the type of event dictates how the delay is interpreted
+/*****************************************************************************\
+|* Property: The delay of the event, as a fraction of a clock period. Note
+|* that the type of event dictates how the delay is interpreted
+\*****************************************************************************/
 @property(assign, nonatomic) float                                  delay;
 
-// The plugin that should process this event
+/*****************************************************************************\
+|* Property: The plugin that should process this event
+\*****************************************************************************/
 @property(strong, nonatomic) id<SBPlugin>                           plugin;
 
-// The signal to which this event refers
+/*****************************************************************************\
+|* Property: The signal to which this event refers
+\*****************************************************************************/
 @property(strong, nonatomic) SBSignal *                             signal;
 
-// A simple tag for a plugin to use to recognise this event
+/*****************************************************************************\
+|* Property: A simple tag for a plugin to use to recognise this event
+\*****************************************************************************/
 @property(assign, nonatomic) NSInteger                              tag;
 
-// A dictionary of info that a plugin can use within an event
+/*****************************************************************************\
+|* Property: A dictionary of info that a plugin can use within an event
+\*****************************************************************************/
 @property(strong, nonatomic) NSMutableDictionary<NSString *, id> *  info;
 
-// The list of signals for an on-change type of event
+/*****************************************************************************\
+|* Property: The list of signals for an on-change type of event
+\*****************************************************************************/
 @property(strong, nonatomic, nullable) NSArray<SBSignal *> *        signals;
 @end
 

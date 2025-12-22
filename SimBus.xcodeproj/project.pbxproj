@@ -12,6 +12,8 @@
 		F493E4462EF19EE9003D4B11 /* SimBusCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F493E42A2EF19DB0003D4B11 /* SimBusCommon.framework */; };
 		F493E4572EF97F53003D4B11 /* SimBusCommon.framework in Copy to ~/Library/Frameworks */ = {isa = PBXBuildFile; fileRef = F493E42A2EF19DB0003D4B11 /* SimBusCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F4C225412EEB54720056FD0A /* Clock.sb in CopyFiles */ = {isa = PBXBuildFile; fileRef = F4C225312EEB53140056FD0A /* Clock.sb */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F4D4B7922EF9D46E0010372A /* Memory.sb in CopyFiles */ = {isa = PBXBuildFile; fileRef = F4D4B7812EF9C2C20010372A /* Memory.sb */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F4D4B7932EF9E2B00010372A /* SimBusCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F493E42A2EF19DB0003D4B11 /* SimBusCommon.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				F4D4B7922EF9D46E0010372A /* Memory.sb in CopyFiles */,
 				F4C225412EEB54720056FD0A /* Clock.sb in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -86,6 +89,7 @@
 		F40767C42EEB030F0061A1D7 /* SimBusUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimBusUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F493E42A2EF19DB0003D4B11 /* SimBusCommon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SimBusCommon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4C225312EEB53140056FD0A /* Clock.sb */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Clock.sb; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4D4B7812EF9C2C20010372A /* Memory.sb */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Memory.sb; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -106,20 +110,31 @@
 		F4C2253A2EEB53E20056FD0A /* Exceptions for "SimBus" folder in "SimBus" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Plugins/ClockPlugin/ClockPlugin.m,
-				Plugins/ClockPlugin/ClockUI.m,
-				Plugins/ClockPlugin/ClockUI.xib,
+				Plugins/Clock/ClockPlugin.m,
+				Plugins/Clock/ClockUI.m,
+				Plugins/Clock/ClockUI.xib,
+				Plugins/Memory/MemoryPlugin.m,
+				Plugins/Memory/MemoryUI.m,
 			);
 			target = F40767A72EEB030D0061A1D7 /* SimBus */;
 		};
 		F4C2253B2EEB53E20056FD0A /* Exceptions for "SimBus" folder in "Clock" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Plugins/ClockPlugin/ClockPlugin.m,
-				Plugins/ClockPlugin/ClockUI.m,
-				Plugins/ClockPlugin/ClockUI.xib,
+				Plugins/Clock/ClockPlugin.m,
+				Plugins/Clock/ClockUI.m,
+				Plugins/Clock/ClockUI.xib,
 			);
 			target = F4C225302EEB53140056FD0A /* Clock */;
+		};
+		F4D4B78A2EF9C2F30010372A /* Exceptions for "SimBus" folder in "Memory" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Plugins/Memory/MemoryPlugin.m,
+				Plugins/Memory/MemoryUI.m,
+				Plugins/Memory/MemoryUI.xib,
+			);
+			target = F4D4B7802EF9C2C20010372A /* Memory */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -129,6 +144,7 @@
 			exceptions = (
 				F4C2253A2EEB53E20056FD0A /* Exceptions for "SimBus" folder in "SimBus" target */,
 				F4C2253B2EEB53E20056FD0A /* Exceptions for "SimBus" folder in "Clock" target */,
+				F4D4B78A2EF9C2F30010372A /* Exceptions for "SimBus" folder in "Memory" target */,
 			);
 			path = SimBus;
 			sourceTree = "<group>";
@@ -191,6 +207,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F4D4B77E2EF9C2C20010372A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4D4B7932EF9E2B00010372A /* SimBusCommon.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -214,6 +238,7 @@
 				F40767C42EEB030F0061A1D7 /* SimBusUITests.xctest */,
 				F4C225312EEB53140056FD0A /* Clock.sb */,
 				F493E42A2EF19DB0003D4B11 /* SimBusCommon.framework */,
+				F4D4B7812EF9C2C20010372A /* Memory.sb */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -353,6 +378,25 @@
 			productReference = F4C225312EEB53140056FD0A /* Clock.sb */;
 			productType = "com.apple.product-type.bundle";
 		};
+		F4D4B7802EF9C2C20010372A /* Memory */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F4D4B7822EF9C2C20010372A /* Build configuration list for PBXNativeTarget "Memory" */;
+			buildPhases = (
+				F4D4B77D2EF9C2C20010372A /* Sources */,
+				F4D4B77E2EF9C2C20010372A /* Frameworks */,
+				F4D4B77F2EF9C2C20010372A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Memory;
+			packageProductDependencies = (
+			);
+			productName = Memory;
+			productReference = F4D4B7812EF9C2C20010372A /* Memory.sb */;
+			productType = "com.apple.product-type.bundle";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -379,6 +423,9 @@
 					F4C225302EEB53140056FD0A = {
 						CreatedOnToolsVersion = 16.3;
 					};
+					F4D4B7802EF9C2C20010372A = {
+						CreatedOnToolsVersion = 16.3;
+					};
 				};
 			};
 			buildConfigurationList = F40767A32EEB030D0061A1D7 /* Build configuration list for PBXProject "SimBus" */;
@@ -400,6 +447,7 @@
 				F40767C32EEB030F0061A1D7 /* SimBusUITests */,
 				F4C225302EEB53140056FD0A /* Clock */,
 				F493E4292EF19DB0003D4B11 /* SimBusCommon */,
+				F4D4B7802EF9C2C20010372A /* Memory */,
 			);
 		};
 /* End PBXProject section */
@@ -440,6 +488,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F4D4B77F2EF9C2C20010372A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -472,6 +527,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F4C2252D2EEB53140056FD0A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4D4B77D2EF9C2C20010372A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -843,6 +905,46 @@
 			};
 			name = Release;
 		};
+		F4D4B7832EF9C2C20010372A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S9DMW7WK55;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = MemoryPlugin;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = info.azoth.SimBus.Memory;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				WRAPPER_EXTENSION = sb;
+			};
+			name = Debug;
+		};
+		F4D4B7842EF9C2C20010372A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S9DMW7WK55;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = MemoryPlugin;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = info.azoth.SimBus.Memory;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				WRAPPER_EXTENSION = sb;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -896,6 +998,15 @@
 			buildConfigurations = (
 				F4C225332EEB53140056FD0A /* Debug */,
 				F4C225342EEB53140056FD0A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F4D4B7822EF9C2C20010372A /* Build configuration list for PBXNativeTarget "Memory" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4D4B7832EF9C2C20010372A /* Debug */,
+				F4D4B7842EF9C2C20010372A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

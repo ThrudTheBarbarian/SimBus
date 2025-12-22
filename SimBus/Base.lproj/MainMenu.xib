@@ -706,7 +706,7 @@
                                                 <collectionView id="Lpm-ql-m91">
                                                     <rect key="frame" x="0.0" y="0.0" width="188" height="158"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                                    <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="dqO-5Z-yWP">
+                                                    <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" id="dqO-5Z-yWP">
                                                         <size key="itemSize" width="200" height="100"/>
                                                     </collectionViewFlowLayout>
                                                     <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -806,7 +806,7 @@
                         <nil key="toolTip"/>
                         <button key="view" imageHugsTitle="YES" id="rmG-cW-ehC">
                             <rect key="frame" x="9" y="14" width="33" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="gearshape" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="bxP-0F-UhO">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>

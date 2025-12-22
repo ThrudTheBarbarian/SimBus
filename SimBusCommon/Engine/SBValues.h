@@ -74,17 +74,21 @@ NS_INLINE SBExtent SBMakeExtent(uint64_t start, uint64_t end)
 - (void) clear;
 
 
-/*****************************************************************************\
-|* Properties
-\*****************************************************************************/
+#pragma mark - Properties
 
-// The data itself
+/*****************************************************************************\
+|* Property: The data itself
+\*****************************************************************************/
 @property(strong, nonatomic) NSMutableData *        data;
 
-// The first timestamp of data
+/*****************************************************************************\
+|* Property: The first timestamp of data
+\*****************************************************************************/
 @property(assign, nonatomic) uint64_t               firstTimestamp;
 
-// The most-recent timestamp of data
+/*****************************************************************************\
+|* Property: The most-recent timestamp of data
+\*****************************************************************************/
 @property(assign, nonatomic) uint64_t               currentTimestamp;
 
 @end
