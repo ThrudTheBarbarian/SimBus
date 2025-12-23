@@ -12,3 +12,4 @@ NSString * const kModulesWidthChangedNotification   = @"modules-width-changed";
 NSString * const kModulesReconfiguredNotification   = @"modules-reconfigured";
 NSString * const kClockChangedNotification          = @"clock-changed";
 NSString * const kInterfaceShouldUpdateNotification = @"interface-should-update";
+NSString * const kModulesScrollbarNotification      = @"scrollbars-changed";

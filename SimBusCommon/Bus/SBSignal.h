@@ -29,12 +29,7 @@ typedef enum
 \*****************************************************************************/
 + (instancetype) withName:(NSString *)name
                     width:(uint32_t)width
-                     type:(SignalType)type
-                 expanded:(BOOL)expanded;
-
-+ (instancetype) withName:(NSString *)name
-                    width:(uint32_t)width
-                  andType:(SignalType)type;
+                     type:(SignalType)type;
 
 + (instancetype) withName:(NSString *)name
                   andType:(SignalType)type;
@@ -57,6 +52,11 @@ typedef enum
 #pragma mark - Properties
 
 /*****************************************************************************\
+|* Property: unique identifier for a signal
+\*****************************************************************************/
+@property (strong, nonatomic) NSNumber *                identifier;
+
+/*****************************************************************************\
 |* Property: bit width of the signal
 \*****************************************************************************/
 @property (assign, nonatomic) uint32_t                  width;
@@ -75,11 +75,6 @@ typedef enum
 |* Property: type of this signal
 \*****************************************************************************/
 @property (assign, nonatomic) SignalType                type;
-
-/*****************************************************************************\
-|* Property: whether the signal is currently expanded if is > 1bit
-\*****************************************************************************/
-@property (assign, nonatomic) bool                      expanded;
 
 /*****************************************************************************\
 |* Property: colour to draw this signal in

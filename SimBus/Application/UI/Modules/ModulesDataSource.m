@@ -10,10 +10,13 @@
 #import "Defines.h"
 #import "ModulesDataSource.h"
 #import "ModulesItem.h"
+#import "ModulesItemView.h"
 
 @interface ModulesDataSource()
 @property(strong, nonatomic) IBOutlet NSCollectionView *        itemsView;
 @property(assign, nonatomic) CGFloat                            splitWidth;
+@property(strong, nonatomic)
+NSMutableDictionary<NSIndexPath *,ModulesItem *> *              itemMap;
 @end
 
 @implementation ModulesDataSource
@@ -27,6 +30,7 @@
         {
         _items                      = [NSMutableArray new];
         _splitWidth                 = 200;
+        _itemMap                    = [NSMutableDictionary new];
         
         NSNotificationCenter *nc    = NSNotificationCenter.defaultCenter;
 
@@ -84,7 +88,9 @@
 	if (![item isKindOfClass:[ModulesItem class]])
 		return item;
 
-    ModulesItem *entry = (ModulesItem *) item;
+    ModulesItem *entry  = (ModulesItem *) item;
+    _itemMap[indexPath] = entry;
+    
 	NSInteger idx = indexPath.item;
 	if ((idx >=0) && (idx < _items.count))
 		[entry.textField setStringValue:_items[idx].pluginName];
@@ -131,15 +137,24 @@
 \*****************************************************************************/
 - (NSSize) _sizeForItemAtIndexPath:(NSIndexPath *) indexPath
     {
-    NSSize size   = NSZeroSize;
-	NSInteger idx = indexPath.item;
+    NSSize size             = NSZeroSize;
+	NSInteger idx           = indexPath.item;
+    ModulesItem *item       = _itemMap[indexPath];
+    ModulesItemView *view   = (ModulesItemView *)(item.view);
     
+    
+    // The first time through this loop, the ModulesItem will not have been
+    // set up in the itemMap, but in that case the signal should not be
+    // expanded anyway, so we're ok
 	if ((idx >=0) && (idx < _items.count))
 		{
         id <SBPlugin> item    = _items[idx];
         CGFloat height      = 45;
         for (SBSignal *signal in item.signals)
-            height += SIGNAL_VSPACE * (signal.expanded ? signal.width + 1 : 1);
+            {
+            BOOL expanded = view.expanded[signal.identifier].boolValue;
+            height += SIGNAL_VSPACE * (expanded ? signal.width + 1 : 1);
+            }
         size = NSMakeSize(_splitWidth, height);
         }
     else

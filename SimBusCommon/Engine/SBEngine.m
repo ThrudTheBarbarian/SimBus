@@ -86,7 +86,6 @@ NSMutableDictionary<NSString *, SBSignal *> *                   signalMap;
 - (nullable SBSignal *) makeSignalWithName:(NSString *)name
                                    ofWidth:(int)width
                                       type:(SignalType)type
-                                  expanded:(BOOL)expanded
     {
     // Check to see if it already exists
     SBSignal *signal = _signalMap[name];
@@ -98,7 +97,7 @@ NSMutableDictionary<NSString *, SBSignal *> *                   signalMap;
         }
     
     // It doesn't, so make it
-    signal = [SBSignal withName:name width:width type:type expanded:expanded];
+    signal = [SBSignal withName:name width:width type:type];
     _signalMap[name] = signal;
     return signal;
     }

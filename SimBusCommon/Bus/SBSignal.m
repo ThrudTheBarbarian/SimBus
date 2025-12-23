@@ -8,6 +8,8 @@
 #import "SBSignal.h"
 #import "SBValues.h"
 
+static int _identifier  = 100;
+
 @implementation SBSignal
 
 /*****************************************************************************\
@@ -16,28 +18,14 @@
 + (instancetype) withName:(NSString *)name
                     width:(uint32_t)width
                      type:(SignalType)type
-                 expanded:(BOOL)expanded
     {
     SBSignal *signal    = [SBSignal _create:name ofType:type andWidth:width];
-    signal.expanded     = expanded;
-    return signal;
-    }
-
-
-
-+ (instancetype) withName:(NSString *)name
-                    width:(uint32_t)width
-                  andType:(SignalType)type;
-    {
-    SBSignal *signal    = [SBSignal _create:name ofType:type andWidth:width];
-    signal.expanded     = NO;
     return signal;
     }
 
 + (instancetype) withName:(NSString *)name andType:(SignalType)type
     {
     SBSignal *signal    = [SBSignal _create:name ofType:type andWidth:1];
-    signal.expanded     = NO;
     return signal;
     }
 
@@ -50,7 +38,8 @@
     signal.name         = name;
     signal.width        = width;
     signal.type         = type;
-
+    signal.identifier   = @(_identifier);
+    _identifier ++;
     return signal;
     }
     

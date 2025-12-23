@@ -3,12 +3,11 @@
     - remove 'clocks' from the last option, it's redundant
     - add an 'until signal' option so we can wait on a plugin
 
-    
-- Signal expansion ought to be based on the module, not the signal, otherwise
-  all duplicate modules will expand their signal at once
-
 - Signal vertical offsets between modules isn't working
 
-- Once there are enough signals that we need a scrollbar, the module display
+* Signal expansion ought to be based on the module, not the signal, otherwise
+  all duplicate modules will expand their signal at once
+
+* Once there are enough signals that we need a scrollbar, the module display
   needs to shrink its width, so the scrollbar has space
   

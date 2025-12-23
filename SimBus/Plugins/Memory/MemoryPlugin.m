@@ -42,23 +42,20 @@ enum
         // Address bus
         SBSignal *sig   = [_engine makeSignalWithName:@"address"
                                               ofWidth:16
-                                                 type:SIGNAL_ADDRESS
-                                             expanded:NO];
+                                                 type:SIGNAL_ADDRESS];
         [_signals addObject:sig];
    
         
         // Data bus
         sig             = [_engine makeSignalWithName:@"data"
                                               ofWidth:8
-                                                 type:SIGNAL_DATA
-                                             expanded:NO];
+                                                 type:SIGNAL_DATA];
         [_signals addObject:sig];
         
         // R/W signal
         sig             = [_engine makeSignalWithName:@"R/W"
                                               ofWidth:1
-                                                 type:SIGNAL_INPUT
-                                             expanded:NO];
+                                                 type:SIGNAL_INPUT];
         [_signals addObject:sig];
         }
     return self;

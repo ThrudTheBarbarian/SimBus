@@ -706,7 +706,7 @@
                                                 <collectionView id="Lpm-ql-m91">
                                                     <rect key="frame" x="0.0" y="0.0" width="188" height="158"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                                    <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" id="dqO-5Z-yWP">
+                                                    <collectionViewFlowLayout key="collectionViewLayout" id="dqO-5Z-yWP">
                                                         <size key="itemSize" width="200" height="100"/>
                                                     </collectionViewFlowLayout>
                                                     <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>

@@ -96,8 +96,7 @@ typedef enum
 \*****************************************************************************/
 - (nullable SBSignal *) makeSignalWithName:(NSString *)name
                                    ofWidth:(int)width
-                                      type:(SignalType)type
-                                  expanded:(BOOL)startExpanded;
+                                      type:(SignalType)type;
 
 #pragma mark - Properties
 

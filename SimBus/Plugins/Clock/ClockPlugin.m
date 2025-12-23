@@ -39,8 +39,7 @@ enum
         SBEngine *engine    = SBEngine.sharedInstance;
         SBSignal *sig       = [engine makeSignalWithName:@"clk"
                                                  ofWidth:1
-                                                    type:SIGNAL_CLOCK_SRC
-                                                expanded:NO];
+                                                    type:SIGNAL_CLOCK_SRC];
         
         [_signals addObject:sig];
    

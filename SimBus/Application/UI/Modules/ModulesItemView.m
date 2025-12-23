@@ -20,6 +20,12 @@
 
 // The popover controller
 @property(strong, nonatomic) IBOutlet NSPopover *                       popup;
+
+// The plugin for which we are a module
+@property(strong, nonatomic) id<SBPlugin>                               plugin;
+
+// Any width correction due to the scrollbar
+@property(assign, nonatomic) int                                        dW;
 @end
 
 @implementation ModulesItemView
@@ -50,7 +56,35 @@
 \*****************************************************************************/
  - (void) _initialise
     {
-    _map = [NSMutableDictionary new];
+    _map        = [NSMutableDictionary new];
+    _expanded   = [NSMutableDictionary new];
+    _dW         = 0;
+
+    NSNotificationCenter *nc = NSNotificationCenter.defaultCenter;
+    [nc addObserver:self
+           selector:@selector(_scrollbarChanged:)
+               name:kModulesScrollbarNotification
+             object:nil];
+    }
+   
+/*****************************************************************************\
+|* Clean up
+\*****************************************************************************/
+- (void) dealloc
+    {
+    [NSNotificationCenter.defaultCenter removeObserver:self];
+    }
+   
+/*****************************************************************************\
+|* Set the plugin
+\*****************************************************************************/
+- (void) setPlugin:(id<SBPlugin>)plugin
+    {
+    _plugin         = plugin;
+    
+    [_expanded removeAllObjects];
+    for (SBSignal *signal in plugin.signals)
+        _expanded[signal.identifier] = @(0);
     }
     
 /*****************************************************************************\
@@ -64,7 +98,42 @@
     float x2    = b.size.width;
     float y2    = b.size.height;
     float r     = 15;
+
+    // We find out that the scrollbar has appeared in the collection view by
+    // comparing the document-view and content-view frame sizes. We only find
+    // out *after* the scrollbar has appeared, and there doesn't seem to be a
+    // delegate method to tell us it's happening, so we do it here.
+    NSScrollView *sv    = [self enclosingScrollView];
+    NSClipView *cv      = sv.contentView;
+    NSView *dv          = sv.documentView;
+    NSRect btnRect      = _cfgBtn.frame;
+    if (_dW == 0)
+        {
+        if (dv.frame.size.height > cv.frame.size.height)
+            {
+            _dW = [NSScroller scrollerWidthForControlSize:NSControlSizeRegular
+                                            scrollerStyle:NSScrollerStyleLegacy];
+            NSNotificationCenter *nc = NSNotificationCenter.defaultCenter;
+            [nc postNotificationName:kModulesScrollbarNotification
+                              object:self];
+            btnRect.origin.x -= _dW;
+            _cfgBtn.frame = btnRect;
+            }
+        }
+    else
+        {
+        if (dv.frame.size.height <= cv.frame.size.height)
+            {
+            _dW = 0;
+            NSNotificationCenter *nc = NSNotificationCenter.defaultCenter;
+            [nc postNotificationName:kModulesScrollbarNotification
+                              object:self];
+            btnRect.origin.x += _dW;
+            _cfgBtn.frame = btnRect;
+            }
+        }
     
+    CGFloat W           = self.frame.size.width - _dW;
     [NSColor.clearColor setFill];
     NSRectFill(b);
 
@@ -105,7 +174,6 @@
         CGFloat y = lbl.origin.y;
         CGFloat w = lbl.size.width;
         
-        CGFloat W = self.frame.size.width;
         
         // Draw a line underneath the text
         [NSColor.whiteColor set];
@@ -163,6 +231,8 @@
             
             // If we have a triangle, draw it based on whether the plugin
             // is expanded or not
+            BOOL expanded = _expanded[signal.identifier].boolValue;
+            
             if (triangle)
                 {
                 NSPoint p   = NSMakePoint(W-3-triangle, Y-SIGNAL_VSPACE+4);
@@ -170,12 +240,12 @@
                 _map[box]   = signal;
                 
                 [signal.colour setFill];
-                NSBezierPath *tri = [box triangle:signal.expanded];
+                NSBezierPath *tri = [box triangle:expanded];
                 [tri fill];
                 }
             
             // If the signal is currently expanded, draw the individual labels
-            if (signal.expanded)
+            if (expanded)
                 {
                 CGFloat lastX = tx - 20;
                 if (lastX < X)
@@ -194,7 +264,7 @@
                                                   options:opts
                                                attributes:attribs
                                                   context:nil];
-                    tx = W - textRect.size.width - 4;
+                    tx = W - textRect.size.width - 7;
                     ty = Y - textRect.size.height;
                     [text drawAtPoint:CGPointMake(tx, ty)
                        withAttributes:attribs];
@@ -218,7 +288,9 @@
         [path stroke];
         }
     }
-        
+
+#pragma mark - Events
+
 /*****************************************************************************\
 |* Handle the configuration button being clicked
 \*****************************************************************************/
@@ -246,12 +318,23 @@
     for (Box *box in _map)
         if ([box contains:p])
             {
-            BOOL expanded       = _map[box].expanded;
-            _map[box].expanded  = !expanded;
+            BOOL expanded = _expanded[_map[box].identifier].boolValue;
+            _expanded[_map[box].identifier] = @(!expanded);
             
             NSNotificationCenter *nc = NSNotificationCenter.defaultCenter;
             [nc postNotificationName:kModulesReconfiguredNotification
                               object:self];
             }
     }
+
+#pragma mark - Notifications
+
+/*****************************************************************************\
+|* The scrollbar appeared or disappeared. Redraw
+\*****************************************************************************/
+- (void) _scrollbarChanged:(NSNotification *)n
+    {
+    [self setNeedsDisplay:YES];
+    }
+    
 @end

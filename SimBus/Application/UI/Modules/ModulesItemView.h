@@ -12,12 +12,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ModulesItemView : NSView
 
+- (void) setPlugin:(id<SBPlugin>)plugin;
+
+
 #pragma mark - Properties
 
 /*****************************************************************************\
-|* Property: the plugin for which we are a module
+|* Property: Whether a given signal in this view is expanded, each key of
+|* signal.identifier will be 0|1
 \*****************************************************************************/
-@property (strong, nonatomic) id<SBPlugin>            plugin;
+@property(strong, nonatomic)
+NSMutableDictionary<NSNumber *, NSNumber *> *                       expanded;
+
 @end
 
 NS_ASSUME_NONNULL_END
