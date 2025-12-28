@@ -11,6 +11,7 @@
 #import "ModulesDataSource.h"
 #import "ModulesItem.h"
 #import "ModulesItemView.h"
+#import "SignalExpansionController.h"
 
 @interface ModulesDataSource()
 @property(strong, nonatomic) IBOutlet NSCollectionView *        itemsView;
@@ -137,12 +138,12 @@ NSMutableDictionary<NSIndexPath *,ModulesItem *> *              itemMap;
 \*****************************************************************************/
 - (NSSize) _sizeForItemAtIndexPath:(NSIndexPath *) indexPath
     {
-    NSSize size             = NSZeroSize;
-	NSInteger idx           = indexPath.item;
-    ModulesItem *item       = _itemMap[indexPath];
-    ModulesItemView *view   = (ModulesItemView *)(item.view);
-    
-    
+    NSSize size                     = NSZeroSize;
+	NSInteger idx                   = indexPath.item;
+    ModulesItem *item               = _itemMap[indexPath];
+    ModulesItemView *view           = (ModulesItemView *)(item.view);
+    SignalExpansionController *sep  = SignalExpansionController.sharedInstance;
+   
     // The first time through this loop, the ModulesItem will not have been
     // set up in the itemMap, but in that case the signal should not be
     // expanded anyway, so we're ok
@@ -152,11 +153,11 @@ NSMutableDictionary<NSIndexPath *,ModulesItem *> *              itemMap;
         CGFloat height      = 45;
         for (SBSignal *signal in item.signals)
             {
-            BOOL expanded = view.expanded[signal.identifier].boolValue;
+            BOOL expanded = [sep isExpandedByIdentifer:signal.identifier];
             height += SIGNAL_VSPACE * (expanded ? signal.width + 1 : 1);
             }
         size = NSMakeSize(_splitWidth, height);
-        }
+       }
     else
         NSLog(@"Cannot find size for item at %@", indexPath);
     return size;
@@ -169,7 +170,8 @@ NSMutableDictionary<NSIndexPath *,ModulesItem *> *              itemMap;
                    layout:(NSCollectionViewLayout *) collectionViewLayout
    sizeForItemAtIndexPath:(NSIndexPath *) indexPath
     {
-    return [self _sizeForItemAtIndexPath:indexPath];
+    NSSize s = [self _sizeForItemAtIndexPath:indexPath];
+    return s;
     }
   
 /*****************************************************************************\
@@ -180,6 +182,5 @@ NSMutableDictionary<NSIndexPath *,ModulesItem *> *              itemMap;
     NSCollectionViewFlowLayout *layout  = _itemsView.collectionViewLayout;
     [layout invalidateLayout];
     }
-      
-    
+
 @end

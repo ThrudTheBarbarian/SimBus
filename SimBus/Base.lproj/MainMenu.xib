@@ -712,6 +712,7 @@
                                                     <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <connections>
                                                         <outlet property="dataSource" destination="OuQ-C5-4Oe" id="UQo-nl-MRf"/>
+                                                        <outlet property="delegate" destination="OuQ-C5-4Oe" id="kAn-mh-dEn"/>
                                                     </connections>
                                                 </collectionView>
                                             </subviews>

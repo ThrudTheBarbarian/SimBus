@@ -9,6 +9,7 @@
 #import "Defines.h"
 #import "SBSignal.h"
 #import "ModulesItemView.h"
+#import "SignalExpansionController.h"
 
 @interface ModulesItemView()
 
@@ -26,6 +27,9 @@
 
 // Any width correction due to the scrollbar
 @property(assign, nonatomic) int                                        dW;
+
+// The signal expansion controller
+@property(strong, nonatomic) SignalExpansionController *                sep;
 @end
 
 @implementation ModulesItemView
@@ -57,9 +61,9 @@
  - (void) _initialise
     {
     _map        = [NSMutableDictionary new];
-    _expanded   = [NSMutableDictionary new];
     _dW         = 0;
-
+    _sep        = SignalExpansionController.sharedInstance;
+    
     NSNotificationCenter *nc = NSNotificationCenter.defaultCenter;
     [nc addObserver:self
            selector:@selector(_scrollbarChanged:)
@@ -76,15 +80,20 @@
     }
    
 /*****************************************************************************\
-|* Set the plugin
+|* Get / Set the plugin
 \*****************************************************************************/
+- (id<SBPlugin>) itemPlugin
+    {
+    return _plugin;
+    }
+    
 - (void) setPlugin:(id<SBPlugin>)plugin
     {
-    _plugin         = plugin;
+    _plugin = plugin;
     
-    [_expanded removeAllObjects];
+    [_sep reset];
     for (SBSignal *signal in plugin.signals)
-        _expanded[signal.identifier] = @(0);
+        [_sep unexpandSignal:signal];
     }
     
 /*****************************************************************************\
@@ -231,7 +240,7 @@
             
             // If we have a triangle, draw it based on whether the plugin
             // is expanded or not
-            BOOL expanded = _expanded[signal.identifier].boolValue;
+            BOOL expanded = [_sep isExpanded:signal];
             
             if (triangle)
                 {
@@ -318,9 +327,7 @@
     for (Box *box in _map)
         if ([box contains:p])
             {
-            BOOL expanded = _expanded[_map[box].identifier].boolValue;
-            _expanded[_map[box].identifier] = @(!expanded);
-            
+            [_sep toggleSignal:_map[box]];            
             NSNotificationCenter *nc = NSNotificationCenter.defaultCenter;
             [nc postNotificationName:kModulesReconfiguredNotification
                               object:self];
