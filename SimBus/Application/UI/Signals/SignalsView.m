@@ -20,6 +20,9 @@
 // Y-size of a signal
 @property(assign, nonatomic) int                            dY;
 
+// Y-offset due to scrolling
+@property(assign, nonatomic) int                            yOff;
+
 // How we control where we are looking at
 @property(strong, nonatomic) IBOutlet NSSlider *            slider;
 
@@ -72,6 +75,16 @@
                name:kInterfaceShouldUpdateNotification
              object:nil];
              
+    [nc addObserver:self
+           selector:@selector(_interfaceNeedsUpdate:)
+               name:kSignalExpansionNotification
+             object:nil];
+             
+    [nc addObserver:self
+           selector:@selector(_scrolled:)
+               name:NSScrollViewDidLiveScrollNotification
+             object:nil];
+             
     _dT             = 20;
     _dY             = SIGNAL_VSPACE - 7;
     _displayClocks  = YES;
@@ -96,7 +109,7 @@
     // Show the scale
     [self _displayHorizontalScale];
     
-    int Y = 31;
+    int Y = 31 - _yOff;
     SBEngine *engine = SBEngine.sharedInstance;
     SignalExpansionController *sep = SignalExpansionController.sharedInstance;
     
@@ -288,6 +301,16 @@
 
 #pragma mark - Notifications
 
+/*****************************************************************************\
+|* The user scrolled the collection view
+\*****************************************************************************/
+- (void) _scrolled:(NSNotification *)n
+    {
+    NSScrollView *scroll = n.object;
+    _yOff = scroll.documentVisibleRect.origin.y;
+    [self _interfaceNeedsUpdate:nil];
+    }
+    
 /*****************************************************************************\
 |* The UI should be updated
 \*****************************************************************************/

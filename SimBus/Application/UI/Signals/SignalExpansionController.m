@@ -72,6 +72,14 @@ NSMutableDictionary<NSNumber *, NSNumber *> *                       expanded;
 - (void) expandSignalByIdentifier:(NSNumber *)signalIdentifier
     {
     _expanded[signalIdentifier] = @(1);
+    
+    NSNotificationCenter *nc = NSNotificationCenter.defaultCenter;
+    [nc postNotificationName:kSignalExpansionNotification
+                      object:self
+                    userInfo:@{
+                            @"identifier" : signalIdentifier,
+                            @"state"      : @(1)
+                            }];
     }
     
 - (void) expandSignal:(SBSignal *)signal
@@ -86,6 +94,14 @@ NSMutableDictionary<NSNumber *, NSNumber *> *                       expanded;
 - (void) unexpandSignalByIdentifier:(NSNumber *)signalIdentifier
     {
     _expanded[signalIdentifier] = @(0);
+    
+    NSNotificationCenter *nc = NSNotificationCenter.defaultCenter;
+    [nc postNotificationName:kSignalExpansionNotification
+                      object:self
+                    userInfo:@{
+                            @"identifier" : signalIdentifier,
+                            @"state"      : @(0)
+                            }];
     }
 
 - (void) unexpandSignal:(SBSignal *)signal;

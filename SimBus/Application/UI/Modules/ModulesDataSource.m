@@ -141,7 +141,6 @@ NSMutableDictionary<NSIndexPath *,ModulesItem *> *              itemMap;
     NSSize size                     = NSZeroSize;
 	NSInteger idx                   = indexPath.item;
     ModulesItem *item               = _itemMap[indexPath];
-    ModulesItemView *view           = (ModulesItemView *)(item.view);
     SignalExpansionController *sep  = SignalExpansionController.sharedInstance;
    
     // The first time through this loop, the ModulesItem will not have been
@@ -170,8 +169,7 @@ NSMutableDictionary<NSIndexPath *,ModulesItem *> *              itemMap;
                    layout:(NSCollectionViewLayout *) collectionViewLayout
    sizeForItemAtIndexPath:(NSIndexPath *) indexPath
     {
-    NSSize s = [self _sizeForItemAtIndexPath:indexPath];
-    return s;
+    return [self _sizeForItemAtIndexPath:indexPath];
     }
   
 /*****************************************************************************\
