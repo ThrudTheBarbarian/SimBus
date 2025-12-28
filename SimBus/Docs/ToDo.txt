@@ -5,6 +5,12 @@
 
 - Signal vertical offsets between modules isn't working
 
+- Need test harnes module, to exercise A,D,R/W for example
+
+- Plugins should be able to configure whether they have a settings wheel
+
+- Still need ns timings on signals view
+
 * Signal expansion ought to be based on the module, not the signal, otherwise
   all duplicate modules will expand their signal at once
 

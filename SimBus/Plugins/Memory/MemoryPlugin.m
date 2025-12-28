@@ -44,7 +44,6 @@ enum
                                               ofWidth:16
                                                  type:SIGNAL_ADDRESS];
         [_signals addObject:sig];
-   
         
         // Data bus
         sig             = [_engine makeSignalWithName:@"data"

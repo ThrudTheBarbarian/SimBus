@@ -7,6 +7,7 @@
 
 #import <SimBusCommon/SimBusCommon.h>
 
+#import "ColouredPath.h"
 #import "Defines.h"
 #import "SBNotifications.h"
 #import "SignalExpansionController.h"
@@ -33,14 +34,14 @@
 @property(assign, nonatomic) BOOL                           displayClocks;
 
 // Direct methods
-- (NSBezierPath *) _pathOf1BitSignalAt:(int)y
-                                 using:(SBSignal *)signal
-                                forBit:(uint32_t)bit
-                                __attribute__((objc_direct));
+- (NSArray<ColouredPath *> *) _pathsFor1BitSignalAt:(int)y
+                                              using:(SBSignal *)signal
+                                             forBit:(uint32_t)bit
+                                              __attribute__((objc_direct));
 
-- (NSBezierPath *) _pathOfMultiBitSignalAt:(int)y
-                                     using:(SBSignal *)signal
-                                     __attribute__((objc_direct));
+- (NSArray<ColouredPath *> *) _pathsForMultiBitSignalAt:(int)y
+                                                  using:(SBSignal *)signal
+                                                  __attribute__((objc_direct));
 
 - (void) _displayHorizontalScale __attribute__((objc_direct));
 @end
@@ -117,20 +118,19 @@
         {
         for (SBSignal *signal in plugin.signals)
             {
-            NSBezierPath *path;
-            [signal.colour set];
-            
+            NSArray<ColouredPath *> *paths;
             if (signal.width == 1)
-                {
-                path = [self _pathOf1BitSignalAt:Y using:signal forBit:1];
-                }
+                paths = [self _pathsFor1BitSignalAt:Y using:signal forBit:1];
             else
                 {
-                path = [self _pathOfMultiBitSignalAt:Y using:signal];
+                paths = [self _pathsForMultiBitSignalAt:Y using:signal];
                 if ([sep isExpanded:signal])
                     Y += signal.width * SIGNAL_VSPACE;
                 }
-            [path stroke];
+            
+            for (ColouredPath *path in paths)
+                [path stroke];
+                
             Y += SIGNAL_VSPACE;
             }
         Y += MODULE_VSPACE;
@@ -143,12 +143,13 @@
 /*****************************************************************************\
 |* Create the path to draw for a 1-bit pattern
 \*****************************************************************************/
-- (NSBezierPath *) _pathOf1BitSignalAt:(int)y
-                                 using:(SBSignal *)signal
-                                forBit:(uint32_t)bit;
+- (NSArray<ColouredPath *> *) _pathsFor1BitSignalAt:(int)y
+                                              using:(SBSignal *)signal
+                                             forBit:(uint32_t)bit;
     {
-    CGFloat period      = SBEngine.sharedInstance.period;
+    NSMutableArray<ColouredPath *> *paths = NSMutableArray.new;
     
+    CGFloat period      = SBEngine.sharedInstance.period;
     CGFloat H           = self.frame.size.height;
     CGFloat W           = self.frame.size.width;
     NSInteger count     = signal.values.count;
@@ -166,28 +167,31 @@
         end = start;
         
     Value128 *data      = (Value128 *) (signal.values.data.bytes);
-    NSBezierPath *path  = NSBezierPath.new;
-    [path moveToPoint:NSMakePoint(0, H-y)];
+    ColouredPath *path  = ColouredPath.new;
+    path.colour         = signal.colour;
     
+    [path.path moveToPoint:NSMakePoint(0, H-y)];
     for (uint64_t x = start; x <= end; x++)
         {
         CGFloat px = (x-start) * _dT;
         CGFloat py = H - (y + _dY * data[x].value);
-        [path lineToPoint:NSMakePoint(px, py)];
-        [path lineToPoint:NSMakePoint(px+_dT, py)];
+        [path.path lineToPoint:NSMakePoint(px, py)];
+        [path.path lineToPoint:NSMakePoint(px+_dT, py)];
         //NSLog(@"x:%5lld px:%5f py:%5f", x, px, py);
         }
-        
-    return path;
+    [paths addObject:path];
+    return paths;
     }
 
 /*****************************************************************************\
 |* Create the path to draw for a multi-bit pattern
 \*****************************************************************************/
-- (NSBezierPath *) _pathOfMultiBitSignalAt:(int)y using:(SBSignal *)signal
+- (NSArray<ColouredPath *> *) _pathsForMultiBitSignalAt:(int)y
+                                                  using:(SBSignal *)signal
     {
-    CGFloat period      = SBEngine.sharedInstance.period;
+    NSMutableArray<ColouredPath *> *paths = NSMutableArray.new;
     
+    CGFloat period      = SBEngine.sharedInstance.period;
     CGFloat H           = self.frame.size.height;
     CGFloat W           = self.frame.size.width;
     NSInteger count     = signal.values.count;
@@ -205,19 +209,21 @@
         end = start;
         
     Value128 *data      = (Value128 *) (signal.values.data.bytes);
-    NSBezierPath *path  = NSBezierPath.new;
-    [path moveToPoint:NSMakePoint(0, H-y)];
+    ColouredPath *path  = ColouredPath.new;
+    path.colour         = signal.colour;
     
+    [path.path moveToPoint:NSMakePoint(0, H-y)];
     for (uint64_t x = start; x <= end; x++)
         {
         CGFloat px = (x-start) * _dT;
         CGFloat py = H - (y + _dY * data[x].value);
-        [path lineToPoint:NSMakePoint(px, py)];
-        [path lineToPoint:NSMakePoint(px+_dT, py)];
+        [path.path lineToPoint:NSMakePoint(px, py)];
+        [path.path lineToPoint:NSMakePoint(px+_dT, py)];
         //NSLog(@"x:%5lld px:%5f py:%5f", x, px, py);
         }
         
-    return path;
+    [paths addObject:path];
+    return paths;
     }
 
 /*****************************************************************************\
