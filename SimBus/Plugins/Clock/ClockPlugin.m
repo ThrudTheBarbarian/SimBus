@@ -64,6 +64,14 @@ enum
     return PLUGIN_NAME;
     }
 
+
+/*****************************************************************************\
+|* Tell the plugin we're about to run a simulation, so it can do any per-run
+|* initialisation
+\*****************************************************************************/
+- (void) beginSimulation
+    {}
+
 /*****************************************************************************\
 |* Give the plugin a reference to the popover used for any configuration and
 |* make it perform the open-popover configuration action

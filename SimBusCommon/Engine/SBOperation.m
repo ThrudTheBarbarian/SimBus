@@ -69,7 +69,9 @@
     NSDate *timestamp       = [NSDate date];
 
     _engine.inSimulation    = NO;
-
+    for (id<SBPlugin> plugin in _engine.plugins)
+        [plugin beginSimulation];
+        
     // Do the wait-for-trigger phase if needed
     while (_isRunning && (!triggered))
         {

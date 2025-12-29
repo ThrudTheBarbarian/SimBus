@@ -14,6 +14,8 @@
 		F4C225412EEB54720056FD0A /* Clock.sb in CopyFiles */ = {isa = PBXBuildFile; fileRef = F4C225312EEB53140056FD0A /* Clock.sb */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F4D4B7922EF9D46E0010372A /* Memory.sb in CopyFiles */ = {isa = PBXBuildFile; fileRef = F4D4B7812EF9C2C20010372A /* Memory.sb */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F4D4B7932EF9E2B00010372A /* SimBusCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F493E42A2EF19DB0003D4B11 /* SimBusCommon.framework */; };
+		F4D4B7A12F02BD010010372A /* SimBusCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F493E42A2EF19DB0003D4B11 /* SimBusCommon.framework */; };
+		F4D4B7A72F02BEDE0010372A /* Exerciser.sb in CopyFiles */ = {isa = PBXBuildFile; fileRef = F4D4B7A62F02BD010010372A /* Exerciser.sb */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +47,20 @@
 			remoteGlobalIDString = F4C225302EEB53140056FD0A;
 			remoteInfo = Clock;
 		};
+		F4D4B7B12F02BF870010372A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F40767A02EEB030D0061A1D7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F4D4B79E2F02BD010010372A;
+			remoteInfo = Exerciser;
+		};
+		F4D4B7B32F02BF870010372A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F40767A02EEB030D0061A1D7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F4D4B7802EF9C2C20010372A;
+			remoteInfo = Memory;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -65,6 +81,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				F4D4B7A72F02BEDE0010372A /* Exerciser.sb in CopyFiles */,
 				F4D4B7922EF9D46E0010372A /* Memory.sb in CopyFiles */,
 				F4C225412EEB54720056FD0A /* Clock.sb in CopyFiles */,
 			);
@@ -90,6 +107,7 @@
 		F493E42A2EF19DB0003D4B11 /* SimBusCommon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SimBusCommon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4C225312EEB53140056FD0A /* Clock.sb */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Clock.sb; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4D4B7812EF9C2C20010372A /* Memory.sb */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Memory.sb; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4D4B7A62F02BD010010372A /* Exerciser.sb */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Exerciser.sb; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -113,6 +131,9 @@
 				Plugins/Clock/ClockPlugin.m,
 				Plugins/Clock/ClockUI.m,
 				Plugins/Clock/ClockUI.xib,
+				Plugins/Exerciser/ExerciserPlugin.m,
+				Plugins/Exerciser/ExerciserUI.m,
+				Plugins/Exerciser/ExerciserUI.xib,
 				Plugins/Memory/MemoryPlugin.m,
 				Plugins/Memory/MemoryUI.m,
 			);
@@ -136,6 +157,15 @@
 			);
 			target = F4D4B7802EF9C2C20010372A /* Memory */;
 		};
+		F4D4B7B02F02BF1B0010372A /* Exceptions for "SimBus" folder in "Exerciser" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Plugins/Exerciser/ExerciserPlugin.m,
+				Plugins/Exerciser/ExerciserUI.m,
+				Plugins/Exerciser/ExerciserUI.xib,
+			);
+			target = F4D4B79E2F02BD010010372A /* Exerciser */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -145,6 +175,7 @@
 				F4C2253A2EEB53E20056FD0A /* Exceptions for "SimBus" folder in "SimBus" target */,
 				F4C2253B2EEB53E20056FD0A /* Exceptions for "SimBus" folder in "Clock" target */,
 				F4D4B78A2EF9C2F30010372A /* Exceptions for "SimBus" folder in "Memory" target */,
+				F4D4B7B02F02BF1B0010372A /* Exceptions for "SimBus" folder in "Exerciser" target */,
 			);
 			path = SimBus;
 			sourceTree = "<group>";
@@ -215,6 +246,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F4D4B7A02F02BD010010372A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4D4B7A12F02BD010010372A /* SimBusCommon.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -239,6 +278,7 @@
 				F4C225312EEB53140056FD0A /* Clock.sb */,
 				F493E42A2EF19DB0003D4B11 /* SimBusCommon.framework */,
 				F4D4B7812EF9C2C20010372A /* Memory.sb */,
+				F4D4B7A62F02BD010010372A /* Exerciser.sb */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -276,6 +316,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				F4D4B7B22F02BF870010372A /* PBXTargetDependency */,
+				F4D4B7B42F02BF870010372A /* PBXTargetDependency */,
 				F4C2253F2EEB54570056FD0A /* PBXTargetDependency */,
 				F493E4312EF19DB0003D4B11 /* PBXTargetDependency */,
 			);
@@ -397,6 +439,25 @@
 			productReference = F4D4B7812EF9C2C20010372A /* Memory.sb */;
 			productType = "com.apple.product-type.bundle";
 		};
+		F4D4B79E2F02BD010010372A /* Exerciser */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F4D4B7A32F02BD010010372A /* Build configuration list for PBXNativeTarget "Exerciser" */;
+			buildPhases = (
+				F4D4B79F2F02BD010010372A /* Sources */,
+				F4D4B7A02F02BD010010372A /* Frameworks */,
+				F4D4B7A22F02BD010010372A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Exerciser;
+			packageProductDependencies = (
+			);
+			productName = Memory;
+			productReference = F4D4B7A62F02BD010010372A /* Exerciser.sb */;
+			productType = "com.apple.product-type.bundle";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -448,6 +509,7 @@
 				F4C225302EEB53140056FD0A /* Clock */,
 				F493E4292EF19DB0003D4B11 /* SimBusCommon */,
 				F4D4B7802EF9C2C20010372A /* Memory */,
+				F4D4B79E2F02BD010010372A /* Exerciser */,
 			);
 		};
 /* End PBXProject section */
@@ -489,6 +551,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F4D4B77F2EF9C2C20010372A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4D4B7A22F02BD010010372A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -540,6 +609,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F4D4B79F2F02BD010010372A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -562,6 +638,16 @@
 			isa = PBXTargetDependency;
 			target = F4C225302EEB53140056FD0A /* Clock */;
 			targetProxy = F4C2253E2EEB54570056FD0A /* PBXContainerItemProxy */;
+		};
+		F4D4B7B22F02BF870010372A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F4D4B79E2F02BD010010372A /* Exerciser */;
+			targetProxy = F4D4B7B12F02BF870010372A /* PBXContainerItemProxy */;
+		};
+		F4D4B7B42F02BF870010372A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F4D4B7802EF9C2C20010372A /* Memory */;
+			targetProxy = F4D4B7B32F02BF870010372A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -945,6 +1031,46 @@
 			};
 			name = Release;
 		};
+		F4D4B7A42F02BD010010372A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S9DMW7WK55;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = ExerciserPlugin;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = info.azoth.SimBus.Exerciser;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				WRAPPER_EXTENSION = sb;
+			};
+			name = Debug;
+		};
+		F4D4B7A52F02BD010010372A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S9DMW7WK55;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = ExerciserPlugin;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = info.azoth.SimBus.Exerciser;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				WRAPPER_EXTENSION = sb;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1007,6 +1133,15 @@
 			buildConfigurations = (
 				F4D4B7832EF9C2C20010372A /* Debug */,
 				F4D4B7842EF9C2C20010372A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F4D4B7A32F02BD010010372A /* Build configuration list for PBXNativeTarget "Exerciser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4D4B7A42F02BD010010372A /* Debug */,
+				F4D4B7A52F02BD010010372A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

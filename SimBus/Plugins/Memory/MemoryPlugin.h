@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSMutableArray<SBSignal *> *      signals;
 
 /*****************************************************************************\
-|* Property: The engine that the clock plugin uses
+|* Property: The engine that the plugin uses
 \*****************************************************************************/
 @property (strong, nonatomic) SBEngine *                        engine;
 

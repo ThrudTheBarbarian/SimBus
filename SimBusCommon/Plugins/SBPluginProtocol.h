@@ -37,6 +37,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSViewController *)uiViewControllerForPopover:(NSPopover *)popover;
 
 /*****************************************************************************\
+|* Tell the plugin we're about to run a simulation, so it can do any per-run
+|* initialisation
+\*****************************************************************************/
+- (void) beginSimulation;
+
+/*****************************************************************************\
 |* Allow the plugin to add events into the list of events for a clock-cycle
 \*****************************************************************************/
 - (void) addEventsTo:(NSMutableArray<SBEvent *> *)list;
