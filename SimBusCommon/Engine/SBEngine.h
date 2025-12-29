@@ -98,6 +98,21 @@ typedef enum
                                    ofWidth:(int)width
                                       type:(SignalType)type;
 
+/*****************************************************************************\
+|* Return the next event after a specified one, where nil indicates the first
+\*****************************************************************************/
+- (nullable SBEvent *) eventFollowing:(nullable SBEvent *)event;
+
+/*****************************************************************************\
+|* Allow registration of asynchronous events on a per-plugin basis
+\*****************************************************************************/
+- (void) addAsynchronousListenerFor:(SBEvent *)event;
+
+/*****************************************************************************\
+|* Handle asynchronous signal change events. These aren't based purely on time
+\*****************************************************************************/
+- (void) signal:(SBSignal *)signal changedFrom:(int64_t)oldValue;
+
 #pragma mark - Properties
 
 /*****************************************************************************\
@@ -139,6 +154,18 @@ typedef enum
 // The timestamp at which the trigger happened
 @property(assign, nonatomic) uint64_t                       triggerBase;
 
+// The current list of events to process. It is allowable to add to
+// this list while the event-processing is happening, as long as the
+// list remains sorted. The list must never be shortened, or 'lastEventIndex'
+// will not be a valid starting position
+@property(strong, nonatomic) NSMutableArray<SBEvent *> *    currentEvents;
+
+// The index into the list of events, of the event we last processed.
+@property(assign, nonatomic) NSInteger                      lastEventIndex;
+
+// Whether the engine is currently simulating (and therefore storing
+// data to the signal values)
+@property(assign, nonatomic) BOOL                           inSimulation;
 @end
 
 NS_ASSUME_NONNULL_END

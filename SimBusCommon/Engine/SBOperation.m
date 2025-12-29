@@ -64,10 +64,12 @@
     
     // Get the list of signals that the engine is using:
     NSArray<SBSignal *> *signals = [_engine signals];
-    
+  
     // Get the starting time
-    NSDate *timestamp = [NSDate date];
-    
+    NSDate *timestamp       = [NSDate date];
+
+    _engine.inSimulation    = NO;
+
     // Do the wait-for-trigger phase if needed
     while (_isRunning && (!triggered))
         {
@@ -79,20 +81,23 @@
         /*********************************************************************\
         |* Process each event in the list in turn
         \*********************************************************************/
-        for (SBEvent *event in events)
+        SBEvent *current = [_engine eventFollowing:nil];
+        while (current != nil)
             {
             // Update cron
-            _cron = event.when;
+            _cron = current.when;
             
             // call the plugin but don't let it store any data
-            [event.plugin process:event withSignals:signals persist:NO];
+            [current.plugin process:current withSignals:signals persist:NO];
             
             // Check for trigger conditions
-            if ([_engine shouldTriggerWith:event during:self])
+            if ([_engine shouldTriggerWith:current during:self])
                 {
                 triggerBase = _cron;
                 triggered   = YES;
                 }
+                
+            current = [_engine eventFollowing:current];
             }
             
         /*********************************************************************\
@@ -111,8 +116,9 @@
         }
     
     [_engine setTriggerBase:triggerBase];
-    [_engine reset];    // Clear the values in the signals
-
+    [_engine reset];                        // Clear the values in the signals
+    _engine.inSimulation    = YES;
+    
     timestamp = [NSDate date];
     [self updateUI:@{
                     @"mode" : @"Starting capture",
@@ -129,17 +135,20 @@
         /*********************************************************************\
         |* Process each event in the list in turn
         \*********************************************************************/
-        for (SBEvent *event in events)
+        SBEvent *current = [_engine eventFollowing:nil];
+        while (current != nil)
             {
             // Update cron
-            _cron = event.when;
+            _cron = current.when;
             
             // call the plugin
-            [event.plugin process:event withSignals:signals persist:YES];
+            [current.plugin process:current withSignals:signals persist:YES];
             
             // Check for termination conditions
-            if ([_engine shouldTerminateWith:event during:self])
+            if ([_engine shouldTerminateWith:current during:self])
                 _isRunning = NO;
+            
+            current = [_engine eventFollowing:current];
             }
 
         /*********************************************************************\
@@ -156,9 +165,14 @@
             timestamp = now;
             }
         }
+
+    /*************************************************************************\
+    |* Housekeeping at the end of a simulation run
+    \*************************************************************************/
     [self updateUI:@{
                     @"mode" : @"Capture complete",
                     }];
+                    
     }
     
 /*****************************************************************************\
@@ -176,7 +190,10 @@
     }
     
 /*****************************************************************************\
-|* Enumerate a list of events from each plugin in the engine
+|* Enumerate a list of events from each plugin in the engine. Note that we
+|* store the final list in the engine (which is fine because there's only
+|* one operation going on at once) because we want to be able to modify the
+|* list for asynchronous event processing
 \*****************************************************************************/
 - (NSArray<SBEvent *> *) _generateEvents
     {
@@ -186,7 +203,6 @@
     _pending                        = NSMutableArray.new;
     
     SBEngine *engine                = SBEngine.sharedInstance;
-    
     int period                      = engine.period;
     
     // First generate the list of events
@@ -232,8 +248,7 @@
             }
         }
     
-    // Remove any events > 1 clock and put them in the pending list
-    
+    // Remove any time-based events > 1 clock and put them in the pending list
     NSMutableArray<SBEvent *> *results = NSMutableArray.new;
     uint64_t limit = _cron + period;
     
@@ -249,13 +264,16 @@
     
     // Then sort them and return the sorted list
     
-    return [results sortedArrayUsingComparator:
-            ^NSComparisonResult(SBEvent *a, SBEvent *b)
-                {
-                return b.when > a.when ? NSOrderedAscending
-                     : b.when < a.when ? NSOrderedDescending
-                     : NSOrderedSame;
-                }];
+    NSArray *sorted = [results sortedArrayUsingComparator:
+        ^NSComparisonResult(SBEvent *a, SBEvent *b)
+            {
+            return b.when > a.when ? NSOrderedAscending
+                 : b.when < a.when ? NSOrderedDescending
+                 : NSOrderedSame;
+            }];
+    
+    [engine setCurrentEvents:[NSMutableArray arrayWithArray:sorted]];
+    return engine.currentEvents;
     }
     
     

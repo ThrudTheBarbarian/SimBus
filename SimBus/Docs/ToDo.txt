@@ -5,7 +5,7 @@
 
 - Signal vertical offsets between modules isn't working
 
-- Need test harnes module, to exercise A,D,R/W for example
+- Need test harness module, to exercise A,D,R/W for example
 
 - Plugins should be able to configure whether they have a settings wheel
 

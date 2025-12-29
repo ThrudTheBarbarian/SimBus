@@ -27,8 +27,13 @@ NSString * _Nonnull const kAutomaticInstantiation   = @"automatic-instantiation"
 // An operation queue to run the simulation on
 @property(strong, nonatomic) NSOperationQueue *                 bgQ;
 
+// Map of name to signal objects
 @property(strong, nonatomic)
 NSMutableDictionary<NSString *, SBSignal *> *                   signalMap;
+
+// Map of signal.identifier to plugins listening for async events
+@property(strong, nonatomic)
+NSMutableDictionary<NSNumber *, NSMutableSet<id<SBPlugin>> *> * asyncMap;
 
 
 // Direct methods
@@ -54,6 +59,7 @@ NSMutableDictionary<NSString *, SBSignal *> *                   signalMap;
         _currentOp  = nil;
         _bgQ        = [NSOperationQueue new];
         _signalMap  = [NSMutableDictionary new];
+        _asyncMap   = [NSMutableDictionary new];
         
         NSNotificationCenter *nc = NSNotificationCenter.defaultCenter;
         [nc addObserver:self
@@ -181,6 +187,7 @@ NSMutableDictionary<NSString *, SBSignal *> *                   signalMap;
         signal.loCount      = 0;
         signal.changeCount  = 0;
         }
+    [_asyncMap removeAllObjects];
     }
 
 /*****************************************************************************\
@@ -199,6 +206,75 @@ NSMutableDictionary<NSString *, SBSignal *> *                   signalMap;
     _currentOp.engine   = self;
     [_bgQ addOperation:_currentOp];
     }
+
+#pragma mark - Event processing
+
+/*****************************************************************************\
+|* Allow registration of asynchronous events on a per-plugin basis
+\*****************************************************************************/
+- (void) addAsynchronousListenerFor:(SBEvent *)event
+    {
+    for (SBSignal *signal in event.signals)
+        {
+        NSMutableSet<id<SBPlugin>> *set = _asyncMap[signal.identifier];
+        if (set == nil)
+            {
+            set = NSMutableSet.new;
+            _asyncMap[signal.identifier] = set;
+            }
+        [set addObject:event.plugin];
+        }
+    }
+
+
+/*****************************************************************************\
+|* Handle asynchronous signal change events. These aren't based purely on time
+\*****************************************************************************/
+- (void) signal:(SBSignal *)signal changedFrom:(int64_t)oldValue
+    {
+    NSMutableSet *plugins   = _asyncMap[signal.identifier];
+    if (plugins)
+        for (id<SBPlugin> plugin in plugins)
+            {
+            SBEvent *event  = [SBEvent withAbsoluteTime:_currentOp.cron];
+            event.plugin    = plugin;
+            event.signal    = signal;
+            event.tag       = TAG_ASYNCHRONOUS;
+            event.lastValue = oldValue;
+            
+            BOOL persist    = SBEngine.sharedInstance.inSimulation;
+            [plugin process:event withSignals:@[] persist:persist];
+            }
+    }
+
+
+/*****************************************************************************\
+|* Return the next event after a specified one, where nil indicates the first
+|* returns nil if not found
+\*****************************************************************************/
+- (nullable SBEvent *) eventFollowing:(nullable SBEvent *)event
+    {
+    SBEvent *result     = nil;
+    NSInteger numEvents = _currentEvents.count;
+    NSInteger idx       = 0;
+    
+    if (event == nil)
+        result = _currentEvents.firstObject;
+    else
+        for (idx=_lastEventIndex; idx<numEvents; idx++)
+            if (_currentEvents[idx] == event)
+                {
+                if (idx < numEvents -1)
+                    {
+                    result = _currentEvents[idx+1];
+                    break;
+                    }
+                }
+    _lastEventIndex = idx;
+    return result;
+    }
+
+
 
 #pragma mark - Triggering
 

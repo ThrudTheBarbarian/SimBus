@@ -5,6 +5,7 @@
 //  Created by ThrudTheBarbarian on 11/12/2025.
 //
 
+#import "SBEngine.h"
 #import "SBSignal.h"
 #import "SBValues.h"
 
@@ -77,7 +78,9 @@ static int _identifier  = 100;
       withFlags:(int)flags
         persist:(BOOL)storeData;
     {
-    _currentValue = value;
+    int64_t oldValue   = _currentValue;
+    _currentValue       = value;
+    
     if (value > 0)
         _hiCount ++;
     else
@@ -93,6 +96,13 @@ static int _identifier  = 100;
             .flags  = flags
             };
         [_values append:datum];
+        }
+    
+    // Handle value-changed semantics
+    if (value != oldValue)
+        {
+        SBEngine *engine = SBEngine.sharedInstance;
+        [engine signal:self changedFrom:oldValue];
         }
     }
     

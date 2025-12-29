@@ -97,27 +97,18 @@ enum
     }
 
 /*****************************************************************************\
-|* Add events to be called this clock period in the simulation. The memory bus
-|* has the following timings:
+|* Add events to be called this clock period in the simulation. The memory
+|* plugin processes events asynchronously, and responds to any of the
+|* signals {address, data, r/w} changing
 |*
-|* - if R/W is hi (R) then read at 87% of the clock-cycle and update memory
-|* - if R/W is lo (W) then write to Data bus at 73% of the clock-cycle
+|* - if R/W is hi (R) then after <delay> ns, propagate mem[address] to data
+|* - if R/W is lo (W) then after <delay> ns, read data to mem[address]
 \*****************************************************************************/
 - (void) addEventsTo:(NSMutableArray<SBEvent *> *)list
     {
-    SBSignal *addr      = [_signals objectAtIndex:0];
-    
-    SBEvent *memRd      = [SBEvent beforeNextClockHi:0.13];
-    memRd.signal        = addr;
-    memRd.plugin        = self;
-    memRd.tag           = MEM_READ;
-    [list addObject:memRd];
-    
-    SBEvent *memWr      = [SBEvent beforeNextClockHi:0.27];
-    memWr.signal        = addr;
-    memWr.plugin        = self;
-    memWr.tag           = MEM_WRITE;
-    [list addObject:memWr];
+    SBEvent *memIO      = [SBEvent onSignalChange:_signals];
+    memIO.plugin        = self;
+    [SBEngine.sharedInstance addAsynchronousListenerFor:memIO];
     }
     
 /*****************************************************************************\
@@ -127,9 +118,14 @@ enum
      withSignals:(NSArray<SBSignal *> *)signals
          persist:(BOOL)storeValues
     {
+    NSLog(@"signal %@ changed from %02x to %02x",
+        event.signal.name, (int) event.lastValue, (int) event.signal.currentValue);
+    
+    #if 0
     SBSignal *addr      = [_signals objectAtIndex:0];
     SBSignal *data      = [_signals objectAtIndex:1];
     SBSignal *rw        = [_signals objectAtIndex:2];
+    
     
     if (event.tag == MEM_READ)
         {
@@ -155,6 +151,7 @@ enum
             NSLog(@"wrote 0x%02llx to 0x%04x", data.currentValue, address);
             }
         }
+    #endif
     }
 
 

@@ -21,6 +21,8 @@ typedef enum
     SignalChangeEvent
     } EventType;
 
+#define TAG_ASYNCHRONOUS        -1
+
 @class SBSignal;
 
 @interface SBEvent : NSObject
@@ -41,7 +43,7 @@ typedef enum
 + (instancetype) afterNextClockLo:(float)percentOfClockPeriod;
 + (instancetype) beforeNextClockHi:(float)percentOfClockPeriod;
 + (instancetype) beforeNextClockLo:(float)percentOfClockPeriod;
-+ (instancetype) onSignalChange:(NSArray<NSString *> *)signals;
++ (instancetype) onSignalChange:(NSArray<SBSignal *> *)signals;
 
 
 #pragma mark - Properties
@@ -76,6 +78,11 @@ typedef enum
 |* Property: A simple tag for a plugin to use to recognise this event
 \*****************************************************************************/
 @property(assign, nonatomic) NSInteger                              tag;
+
+/*****************************************************************************\
+|* Property: The previous value of a signal on asynchronous change
+\*****************************************************************************/
+@property(assign, nonatomic) int64_t                                lastValue;
 
 /*****************************************************************************\
 |* Property: A dictionary of info that a plugin can use within an event
