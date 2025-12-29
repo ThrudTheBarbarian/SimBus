@@ -21,6 +21,9 @@
 // Y-size of a signal
 @property(assign, nonatomic) int                            dY;
 
+// X-offset for drawing
+@property(assign, nonatomic) int                            xOff;
+
 // Y-offset due to scrolling
 @property(assign, nonatomic) int                            yOff;
 
@@ -89,6 +92,7 @@
     _dT             = 20;
     _dY             = SIGNAL_VSPACE - 7;
     _displayClocks  = YES;
+    _xOff           = 5;
     }
 
 - (void) dealloc
@@ -110,7 +114,7 @@
     // Show the scale
     [self _displayHorizontalScale];
     
-    int Y = 31 - _yOff;
+    int Y = 48 - _yOff;
     SBEngine *engine = SBEngine.sharedInstance;
     SignalExpansionController *sep = SignalExpansionController.sharedInstance;
     
@@ -150,26 +154,67 @@
     NSMutableArray<ColouredPath *> *paths = NSMutableArray.new;
     
     CGFloat period      = SBEngine.sharedInstance.period;
-    CGFloat H           = self.frame.size.height;
-    CGFloat W           = self.frame.size.width;
-    NSInteger count     = signal.values.count;
+    float H             = self.frame.size.height;
+    float W             = self.frame.size.width;
 
+    // 'to' and 'from' are expressed as being in the range 0..1 and represent
+    // a range where 1.0 maps to the last entry in the values array and 0.0
+    // maps to the first entry.
+    
+    CGFloat from        = _slider.floatValue;
+    uint64_t minNS      = from * (_range.last - _range.first);
+    
+    NSInteger clocks    = 1 + W / (_dT * 2);
+    uint64_t maxNS      = minNS + clocks * period;
+ 
+    float scale         = W / ((float)(maxNS - minNS));
+
+    NSInteger num       = 0;
+    Value128 *data      = [signal.values subsetFrom:minNS to:maxNS count:&num];
+    
+    ColouredPath *path  = ColouredPath.new;
+    path.colour         = signal.colour;
+    if (num > 0)
+        {
+        // Move to the starting position
+        [path.path moveToPoint:NSMakePoint(_xOff, H-y)];
+        for (NSInteger x = 0; x < num; x++)
+            {
+            int v = data->value;
+            CGFloat px  = _xOff + (data->cron - minNS ) * scale;
+            CGFloat py  = H - (y - _dY * data->value);
+            [path.path lineToPoint:NSMakePoint(px,  py)];
+            
+            if (x < num-1)
+                {
+                data ++;
+                CGFloat px2 = _xOff + (data->cron - minNS ) * scale;
+                [path.path lineToPoint:NSMakePoint(px2, py)];
+                }
+            NSLog(@"x:%5lld px:%5f py:%5f, val:%d", (int64_t)x, px, py, v);
+            }
+        }
+#if 0
     CGFloat from        = _slider.floatValue;
     CGFloat clocks      = (_range.last - _range.first) / period;
     
     float to            = from + W / (1 + clocks * _dT);
     if (to >= 1.0)
         to = 1.0;
-        
+    
+    // 'start' and 'end' multiply by 'count' to get the range of actual
+    // entries to process from the data values
     int64_t start      = (int64_t)(from * count);
     int64_t end        = (int64_t)(to * count) - 1;
     if (end < start)
         end = start;
-        
+    
+    // Get the data and start creating the coloured path
     Value128 *data      = (Value128 *) (signal.values.data.bytes);
     ColouredPath *path  = ColouredPath.new;
     path.colour         = signal.colour;
     
+    // Move to the starting position
     [path.path moveToPoint:NSMakePoint(0, H-y)];
     for (uint64_t x = start; x <= end; x++)
         {
@@ -179,6 +224,7 @@
         [path.path lineToPoint:NSMakePoint(px+_dT, py)];
         //NSLog(@"x:%5lld px:%5f py:%5f", x, px, py);
         }
+#endif
     [paths addObject:path];
     return paths;
     }
@@ -219,7 +265,7 @@
         CGFloat py = H - (y + _dY * data[x].value);
         [path.path lineToPoint:NSMakePoint(px, py)];
         [path.path lineToPoint:NSMakePoint(px+_dT, py)];
-        //NSLog(@"x:%5lld px:%5f py:%5f", x, px, py);
+        NSLog(@"x:%5lld px:%5f py:%5f", x, px, py);
         }
         
     [paths addObject:path];
@@ -239,7 +285,57 @@
         CGFloat period      = engine.period;
         CGFloat W           = self.frame.size.width;
         CGFloat H           = self.frame.size.height;
+        
         CGFloat from        = _slider.floatValue;
+        uint64_t minNS      = from * (_range.last - _range.first);
+    
+        NSInteger clocks    = 1 + W / (_dT * 2);
+        uint64_t maxNS      = minNS + clocks * period;
+        
+        float scale         = W / ((float)(maxNS - minNS));
+    
+        NSInteger num       = 0;
+        Value128 *data      = [clk.values subsetFrom:minNS to:maxNS count:&num];
+        
+            
+        // Values contain both LO and HI parts of the waveform, so to count
+        // clock periods we need to jump by 2 at a time
+        if (num > 0)
+            {
+            // Find the first 'LO' value (ie: clock falling)
+            while (data->value != 0)
+                {
+                data ++;
+                minNS += period/2;
+                maxNS += period/2;
+                }
+                
+            ColouredPath *path  = ColouredPath.new;
+            path.colour         = [NSColor colorWithWhite:0.7 alpha:0.8];
+
+            for (NSInteger x = 0; x < num; x++)
+                {
+                CGFloat px = _xOff + (data->cron - minNS ) * scale;
+                [path.path moveToPoint:NSMakePoint(px, 0)];
+                [path.path lineToPoint:NSMakePoint(px, H)];
+                
+                data +=2;
+                CGFloat nx = (data->cron - minNS ) * scale;
+                
+                NSInteger current = x;
+                while (nx - px < 160)
+                    {
+                    if (current >= num)
+                        break;
+                    current ++;
+                    data +=2;
+                    nx = (data->cron - minNS ) * scale;
+                    }
+                }
+            [path stroke];
+            }
+        }
+    #if 0
         CGFloat clocks      = (_range.last - _range.first) / period;
         NSInteger count     = clk.values.count;
     
@@ -283,6 +379,7 @@
             }
         [path stroke];
         }
+    #endif
     }
 
 #pragma mark - Events

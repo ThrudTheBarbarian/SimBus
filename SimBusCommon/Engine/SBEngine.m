@@ -61,6 +61,11 @@ NSMutableDictionary<NSNumber *, NSMutableSet<id<SBPlugin>> *> * asyncMap;
         _signalMap  = [NSMutableDictionary new];
         _asyncMap   = [NSMutableDictionary new];
         
+        // Must match whats in the dialog
+        _termMode        = TermAfter;
+        _termAfterUnit   = UnitClocks;
+        _termAfterCount  = 30;
+        
         NSNotificationCenter *nc = NSNotificationCenter.defaultCenter;
         [nc addObserver:self
                selector:@selector(_clockParametersChanged:)
@@ -461,7 +466,7 @@ NSMutableDictionary<NSNumber *, NSMutableSet<id<SBPlugin>> *> * asyncMap;
         case UnitClocks:
             {
             uint64_t clocks = (op.cron - _triggerBase) / _period;
-            terminate       = clocks >= _termAfterCount;
+            terminate       = clocks >= _termAfterCount+1;
             break;
             }
        }

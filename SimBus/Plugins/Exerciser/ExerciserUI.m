@@ -22,6 +22,15 @@
 @implementation ExerciserUI
     
 /*****************************************************************************\
+|* The view loaded, read the defaults from the XIB
+\*****************************************************************************/
+- (void) viewDidLoad
+    {
+    [super viewDidLoad];
+    [self _updateValues];
+    }
+    
+/*****************************************************************************\
 |* The user pressed cancel
 \*****************************************************************************/
 - (IBAction)cancelPressed:(id)sender
@@ -34,22 +43,31 @@
 \*****************************************************************************/
 - (IBAction)configurePressed:(id)sender
     {
-    ExerciserPlugin *plug = (ExerciserPlugin *)_plugin;
-    
-    plug.addrStart  = [self _parse:_addrStart.stringValue];
-    plug.addrIncr   = [self _parse:_addrIncr.stringValue];
-    plug.opCount    = [self _parse:_opCount.stringValue];
-    plug.writeValue = [self _parse:_writeValue.stringValue];
-    plug.writeIncr  = [self _parse:_writeIncr.stringValue];
-    plug.delay      = [self _parse:_delay.stringValue];
-    plug.type       = (int) _opType.selectedTag;
-    
+    [self _updateValues];
     [_popover performClose:self];
     }
 
 
 #pragma mark - Private methods
 
+/*****************************************************************************\
+|* Update the plugin from the values
+\*****************************************************************************/
+- (void) _updateValues
+    {
+    ExerciserPlugin *plug   = (ExerciserPlugin *)_plugin;
+    plug.addrStart          = [self _parse:_addrStart.stringValue];
+    plug.addrIncr           = [self _parse:_addrIncr.stringValue];
+    plug.opCount            = [self _parse:_opCount.stringValue];
+    plug.writeValue         = [self _parse:_writeValue.stringValue];
+    plug.writeIncr          = [self _parse:_writeIncr.stringValue];
+    plug.delay              = [self _parse:_delay.stringValue];
+    plug.type               = (int) _opType.selectedTag;
+    }
+
+/*****************************************************************************\
+|* Convert a possibly hex string into an int
+\*****************************************************************************/
 - (int) _parse:(NSString *)val
     {
     int result = 0;

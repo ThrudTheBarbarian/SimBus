@@ -252,7 +252,7 @@
                         <subviews>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nLs-EN-0de">
                                 <rect key="frame" x="5" y="76" width="59" height="18"/>
-                                <buttonCell key="cell" type="radio" title="Once" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="85m-DQ-vjo">
+                                <buttonCell key="cell" type="radio" title="Once" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="85m-DQ-vjo">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -275,7 +275,7 @@
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mrA-8K-SgW">
                                 <rect key="frame" x="5" y="16" width="56" height="18"/>
-                                <buttonCell key="cell" type="radio" title="After" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="gWL-MS-5Oi">
+                                <buttonCell key="cell" type="radio" title="After" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="gWL-MS-5Oi">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -398,7 +398,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="58" id="OD9-tF-9Rp"/>
                                 </constraints>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="1000" drawsBackground="YES" id="uNT-lj-5ta">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="100" drawsBackground="YES" id="uNT-lj-5ta">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

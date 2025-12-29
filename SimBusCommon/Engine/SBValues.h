@@ -42,6 +42,11 @@ NS_INLINE SBExtent SBMakeExtent(uint64_t start, uint64_t end)
     return e;
     }
 
+NS_INLINE uint64_t SBRange(SBExtent extent)
+    {
+    return extent.last - extent.first;
+    }
+    
 @interface SBValues : NSObject
 
 /*****************************************************************************\
@@ -59,20 +64,16 @@ NS_INLINE SBExtent SBMakeExtent(uint64_t start, uint64_t end)
 - (void) append:(Value128)sample;
 
 /*****************************************************************************\
-|* The first timestamp of data
-\*****************************************************************************/
-- (uint64_t) firstTimestamp;
-
-/*****************************************************************************\
-|* The most-recent timestamp of data
-\*****************************************************************************/
-- (uint64_t) currentTimestamp;
-
-/*****************************************************************************\
 |* Clear all the values
 \*****************************************************************************/
 - (void) clear;
 
+/*****************************************************************************\
+|* Return a subset of the data
+\*****************************************************************************/
+- (nullable Value128 *) subsetFrom:(uint64_t)from
+                                to:(uint64_t)to
+                             count:(NSInteger *)num;
 
 #pragma mark - Properties
 
@@ -85,6 +86,11 @@ NS_INLINE SBExtent SBMakeExtent(uint64_t start, uint64_t end)
 |* Property: The first timestamp of data
 \*****************************************************************************/
 @property(assign, nonatomic) uint64_t               firstTimestamp;
+
+/*****************************************************************************\
+|* Property: The last timestamp of data
+\*****************************************************************************/
+@property(assign, nonatomic) uint64_t               lastTimestamp;
 
 /*****************************************************************************\
 |* Property: The most-recent timestamp of data
