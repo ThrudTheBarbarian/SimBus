@@ -230,7 +230,7 @@
             [text drawAtPoint:CGPointMake(tx, ty) withAttributes:attribs];
             
             // Draw the line back to the group name
-            lastY       = Y - textRect.size.height/2;
+            lastY       = Y - textRect.size.height/2 - 2;
             [signal.colour set];
             
             path = [NSBezierPath bezierPath];
@@ -281,7 +281,7 @@
                     // Draw the connecting lines
                     [path moveToPoint:NSMakePoint(lastX, lastY)];
                     
-                    lastY = Y - textRect.size.height/2;
+                    lastY = Y - textRect.size.height/2 - 2;
                     [path lineToPoint:NSMakePoint(lastX, lastY)];
                     [path lineToPoint:NSMakePoint(tx-4, lastY)];
                     }
@@ -327,7 +327,7 @@
     for (Box *box in _map)
         if ([box contains:p])
             {
-            [_sep toggleSignal:_map[box]];            
+            [_sep toggleSignal:_map[box]];
             NSNotificationCenter *nc = NSNotificationCenter.defaultCenter;
             [nc postNotificationName:kModulesReconfiguredNotification
                               object:self];

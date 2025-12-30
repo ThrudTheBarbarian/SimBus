@@ -46,14 +46,14 @@
 @property(assign, nonatomic) CGFloat                        dataFontHeight;
 
 // Direct methods
-- (NSArray<ColouredPath *> *) _pathsFor1BitSignalAt:(int)y
-                                              using:(SBSignal *)signal
-                                             forBit:(uint32_t)bit
-                                              __attribute__((objc_direct));
+- (NSMutableArray<ColouredPath *> *) _pathsFor1BitSignalAt:(int)y
+                                                     using:(SBSignal *)signal
+                                                    forBit:(uint32_t)bit
+                                                    __attribute__((objc_direct));
 
-- (NSArray<ColouredPath *> *) _pathsForMultiBitSignalAt:(int)y
-                                                  using:(SBSignal *)signal
-                                                  __attribute__((objc_direct));
+- (NSMutableArray<ColouredPath *> *) _pathsForMultiBitSignalAt:(int)y
+                                                         using:(SBSignal *)signal
+                                                        __attribute__((objc_direct));
 
 - (void) _displayHorizontalScale __attribute__((objc_direct));
 
@@ -108,7 +108,7 @@
              object:nil];
              
     _dT             = 20;
-    _dY             = SIGNAL_VSPACE - 7;
+    _dY             = SIGNAL_VSPACE - 10;
     _displayClocks  = YES;
     _xOff           = 5;
     _invalidData    = [NSColor colorWithDeviceRed:0.75 green:0 blue:0 alpha:1];
@@ -144,14 +144,24 @@
         {
         for (SBSignal *signal in plugin.signals)
             {
-            NSArray<ColouredPath *> *paths;
+            NSMutableArray<ColouredPath *> *subpaths;
+            NSMutableArray<ColouredPath *> *paths;
             if (signal.width == 1)
                 paths = [self _pathsFor1BitSignalAt:Y using:signal forBit:1];
             else
                 {
                 paths = [self _pathsForMultiBitSignalAt:Y using:signal];
                 if ([sep isExpanded:signal])
-                    Y += signal.width * SIGNAL_VSPACE;
+                    {
+                    for (int i=0; i<signal.width; i++)
+                        {
+                        Y += SIGNAL_VSPACE;
+                        uint32_t bit = 1<<i;
+                        subpaths = [self _pathsFor1BitSignalAt:Y using:signal forBit:bit];
+                        [paths addObjectsFromArray:subpaths];
+                        }
+                    }
+                    //Y += signal.width * SIGNAL_VSPACE;
                 }
             
             for (ColouredPath *path in paths)
@@ -194,9 +204,9 @@
 /*****************************************************************************\
 |* Create the path to draw for a 1-bit pattern
 \*****************************************************************************/
-- (NSArray<ColouredPath *> *) _pathsFor1BitSignalAt:(int)y
-                                              using:(SBSignal *)signal
-                                             forBit:(uint32_t)bit;
+- (NSMutableArray<ColouredPath *> *) _pathsFor1BitSignalAt:(int)y
+                                                     using:(SBSignal *)signal
+                                                    forBit:(uint32_t)bit;
     {
     NSMutableArray<ColouredPath *> *paths = NSMutableArray.new;
     
@@ -230,9 +240,9 @@
         // Move to the starting position
         for (NSInteger x = 0; x <= num; x++)
             {
-            //int v = data->value;
+            int v = (data->value & bit) ? 1 : 0;
             CGFloat px  = _xOff + (data->cron - minNS ) * scale;
-            CGFloat py  = H - (y - _dY * data->value);
+            CGFloat py  = H - (y - _dY * v);
 
             if (x == 0)
                 {
@@ -263,8 +273,8 @@
 /*****************************************************************************\
 |* Create the path to draw for a multi-bit pattern
 \*****************************************************************************/
-- (NSArray<ColouredPath *> *) _pathsForMultiBitSignalAt:(int)y
-                                                  using:(SBSignal *)signal
+- (NSMutableArray<ColouredPath *> *) _pathsForMultiBitSignalAt:(int)y
+                                                         using:(SBSignal *)signal
     {
     NSMutableArray<ColouredPath *> *paths = NSMutableArray.new;
     
@@ -376,7 +386,7 @@
                                          length:&W];
                 if (W > 0)
                     {
-                    CGRect box = CGRectMake(fx1, Y0-Yh+1, fx2-fx1, Yh*2-4);
+                    CGRect box = CGRectMake(fx1, Y0-Yh+3, fx2-fx1, Yh*2-4);
                     [lbl drawInRect:box withAttributes:attr];
                     }
                 }

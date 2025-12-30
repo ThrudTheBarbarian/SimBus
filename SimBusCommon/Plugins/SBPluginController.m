@@ -74,8 +74,7 @@
 \******************************************************************************/
 - (void) _loadPluginsAt:(NSString *)path
     {
-	NSLog(@"Looking in %@ for plugins", path);
-	
+	//NSLog(@"Looking in %@ for plugins", path);
 	if (path)
 		{
 		NSArray *list = [NSBundle pathsForResourcesOfType:@"sb"
