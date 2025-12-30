@@ -36,6 +36,15 @@
 // Are we marking clocks or time
 @property(assign, nonatomic) BOOL                           displayClocks;
 
+// Are we marking clocks or time
+@property(strong, nonatomic) NSColor *                      invalidData;
+
+// Font for the in-band labels
+@property(strong, nonatomic) NSFont *                       dataFont;
+
+// Font height
+@property(assign, nonatomic) CGFloat                        dataFontHeight;
+
 // Direct methods
 - (NSArray<ColouredPath *> *) _pathsFor1BitSignalAt:(int)y
                                               using:(SBSignal *)signal
@@ -47,6 +56,15 @@
                                                   __attribute__((objc_direct));
 
 - (void) _displayHorizontalScale __attribute__((objc_direct));
+
+- (NSString *)_labelForNs:(int64_t)ns __attribute__((objc_direct));
+
+- (NSString *) _labelFor:(uint32_t)val
+                   width:(uint32_t)width
+                      dx:(CGFloat)dx
+                    attr:(NSDictionary *)attr
+                  length:(CGFloat *)W __attribute__((objc_direct));
+
 @end
 
 @implementation SignalsView
@@ -91,9 +109,13 @@
              
     _dT             = 20;
     _dY             = SIGNAL_VSPACE - 7;
-    _displayClocks  = NO;
+    _displayClocks  = YES;
     _xOff           = 5;
-    }
+    _invalidData    = [NSColor colorWithDeviceRed:0.75 green:0 blue:0 alpha:1];
+    _dataFont       = [NSFont systemFontOfSize:11];
+    _dataFontHeight = _dataFont.ascender + ABS(_dataFont.descender)
+                    + _dataFont.leading;
+   }
 
 - (void) dealloc
     {
@@ -182,10 +204,6 @@
     float H             = self.frame.size.height;
     float W             = self.frame.size.width;
 
-    // 'to' and 'from' are expressed as being in the range 0..1 and represent
-    // a range where 1.0 maps to the last entry in the values array and 0.0
-    // maps to the first entry.
-    
     CGFloat from        = _slider.floatValue;
     int64_t minNS       = from * (_range.last - _range.first);
     
@@ -238,37 +256,186 @@
     CGFloat period      = SBEngine.sharedInstance.period;
     CGFloat H           = self.frame.size.height;
     CGFloat W           = self.frame.size.width;
-    NSInteger count     = signal.values.count;
-
-    CGFloat from        = 0; //_slider.floatValue;
-    CGFloat clocks      = (_range.last - _range.first) / period;
+ 
+    CGFloat from        = _slider.floatValue;
+    int64_t minNS       = from * (_range.last - _range.first);
     
-    float to            = from + W / (1 + clocks * _dT);
-    if (to >= 1.0)
-        to = 1.0;
-        
-    int64_t start      = (int64_t)(from * count);
-    int64_t end        = (int64_t)(to * count) - 1;
-    if (end < start)
-        end = start;
-        
-    Value128 *data      = (Value128 *) (signal.values.data.bytes);
+    NSInteger clocks    = 1 + W / (_dT * 2);
+    int64_t maxNS       = minNS + clocks * period;
+ 
+    float scale         = W / ((float)(maxNS - minNS));
+
+    NSMutableParagraphStyle *style = NSParagraphStyle.defaultParagraphStyle.mutableCopy;
+    style.alignment     = NSTextAlignmentCenter;
+
+    NSDictionary *attr  = @{NSFontAttributeName:_dataFont,
+                            NSForegroundColorAttributeName:signal.colour,
+                            NSParagraphStyleAttributeName: style};
+                            
+    NSInteger num       = 0;
+    NSInteger start     = 0;
+    Value128 *data      = [signal.values subsetFrom:minNS
+                                                 to:maxNS
+                                              count:&num
+                                                 at:&start];
     ColouredPath *path  = ColouredPath.new;
     path.colour         = signal.colour;
+    BOOL undefined      = NO;
+    CGFloat Yh          = (SIGNAL_VSPACE-6)/2;
+    CGFloat Y0          = H-y+Yh;
     
-    [path.path moveToPoint:NSMakePoint(0, H-y)];
-    for (uint64_t x = start; x <= end; x++)
+     if (num > 0)
         {
-        CGFloat px = (x-start) * _dT;
-        CGFloat py = H - (y + _dY * data[x].value);
-        [path.path lineToPoint:NSMakePoint(px, py)];
-        [path.path lineToPoint:NSMakePoint(px+_dT, py)];
+        // Move to the starting position
+        for (NSInteger x = 0; x < num; x++)
+            {
+            int v = data->value;
+            
+            CGFloat rise    = 3;
+            CGFloat px      = _xOff + (data->cron - minNS ) * scale;
+            CGFloat px2     = 0.0;
+ 
+             if (data->flags & SIGNAL_UNDEFINED)
+                undefined = YES;
+            else if (undefined)
+                undefined = NO;
+
+            [path.path moveToPoint:NSMakePoint(px, Y0)];
+
+            BOOL openEnd = NO;
+            if (x < num-1)
+                {
+                data ++;
+                px2 = _xOff + (data->cron - minNS ) * scale;
+                }
+            else
+                {
+                px2 = W;
+                openEnd = YES;
+                }
+            
+            float fx1 = -1;
+            float fx2 = -1;
+            
+            if (undefined)
+                {
+                [path.path lineToPoint:NSMakePoint(px2, Y0)];
+                }
+            else if (openEnd)
+                {
+                [path.path lineToPoint:NSMakePoint(px+rise,Y0+Yh)];
+                [path.path lineToPoint:NSMakePoint(px2, Y0+Yh)];
+                [path.path moveToPoint:NSMakePoint(px, Y0)];
+                [path.path lineToPoint:NSMakePoint(px+rise,Y0-Yh)];
+                [path.path lineToPoint:NSMakePoint(px2, Y0-Yh)];
+                fx1 = px  + rise;
+                fx2 = px2 - rise;
+                }
+            else
+                {
+                [path.path lineToPoint:NSMakePoint(px+rise,Y0+Yh)];
+                [path.path lineToPoint:NSMakePoint(px2-rise, Y0+Yh)];
+                [path.path lineToPoint:NSMakePoint(px2,Y0)];
+                [path.path moveToPoint:NSMakePoint(px, Y0)];
+                [path.path lineToPoint:NSMakePoint(px+rise,Y0-Yh)];
+                [path.path lineToPoint:NSMakePoint(px2-rise, Y0-Yh)];
+                [path.path lineToPoint:NSMakePoint(px2,Y0)];
+                fx1 = px  + 2;
+                fx2 = px2 - 2;
+                }
+            
+            // Place the label if there is space
+            if ((fx2 > 0) && (fx1 > 0))
+                {
+                CGFloat W;
+                NSString *lbl = [self _labelFor:v
+                                          width:signal.width
+                                             dx:fx2-fx1
+                                           attr:attr
+                                         length:&W];
+                if (W > 0)
+                    {
+                    CGRect box = CGRectMake(fx1, Y0-Yh+1, fx2-fx1, Yh*2-4);
+                    [lbl drawInRect:box withAttributes:attr];
+                    }
+                }
+            //NSLog(@"x:%5lld px:%5f py:%5f, val:%d", (int64_t)x, px, py, v);
+            }
         }
-        
+
     [paths addObject:path];
     return paths;
     }
 
+/*****************************************************************************\
+|* Work out the label string for the data in a multi-bit value.
+\*****************************************************************************/
+- (NSString *) _labelFor:(uint32_t)val
+                   width:(uint32_t)width
+                      dx:(CGFloat)dx
+                    attr:(NSDictionary *)attr
+                  length:(CGFloat *)W
+    {
+    NSString *lbl = nil;
+    
+    switch (width)
+        {
+        case 8:
+            lbl = [NSString stringWithFormat:@"0x%02x", val];
+            *W  = [lbl sizeWithAttributes:attr].width;
+            if (*W < dx)
+                return lbl;
+            lbl = [NSString stringWithFormat:@"0x%x", val];
+            *W  = [lbl sizeWithAttributes:attr].width;
+            if (*W < dx)
+                return lbl;
+            lbl = [NSString stringWithFormat:@"%x", val];
+            *W  = [lbl sizeWithAttributes:attr].width;
+            if (*W < dx)
+                return lbl;
+            
+            *W = 0;
+            return @"";
+            break;
+        
+        case 16:
+            lbl = [NSString stringWithFormat:@"0x%04x", val];
+            *W  = [lbl sizeWithAttributes:attr].width;
+            if (*W < dx)
+                return lbl;
+            lbl = [NSString stringWithFormat:@"0x%x", val];
+            *W  = [lbl sizeWithAttributes:attr].width;
+            if (*W < dx)
+                return lbl;
+            lbl = [NSString stringWithFormat:@"%x", val];
+            *W  = [lbl sizeWithAttributes:attr].width;
+            if (*W < dx)
+                return lbl;
+            
+            *W = 0;
+            return @"";
+            break;
+        
+        default:
+            lbl = [NSString stringWithFormat:@"0x%08x", val];
+            *W  = [lbl sizeWithAttributes:attr].width;
+            if (*W < dx)
+                return lbl;
+            lbl = [NSString stringWithFormat:@"0x%x", val];
+            *W  = [lbl sizeWithAttributes:attr].width;
+            if (*W < dx)
+                return lbl;
+            lbl = [NSString stringWithFormat:@"%x", val];
+            *W  = [lbl sizeWithAttributes:attr].width;
+            if (*W < dx)
+                return lbl;
+            
+            *W = 0;
+            return @"";
+            break;
+        }
+    }
+    
 /*****************************************************************************\
 |* Draw the lines that form the horizontal scale.
 \*****************************************************************************/

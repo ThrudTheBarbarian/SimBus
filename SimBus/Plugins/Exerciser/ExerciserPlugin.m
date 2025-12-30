@@ -21,7 +21,8 @@ enum
     OP_ADDRESS = 0,
     OP_READ_RW,
     OP_WRITE_RW,
-    OP_WRITE_DATA
+    OP_WRITE_DATA,
+    OP_WRITE_DATA_INVALID
     };
     
 @interface ExerciserPlugin()
@@ -74,7 +75,15 @@ enum
                                               ofWidth:1
                                                  type:SIGNAL_INPUT];
         [_signals addObject:sig];
-        }
+ 
+        _type       = OP_WRITE;
+        _addrStart  = 0x1000;
+        _addrIncr   = 0x3;
+        _opCount    = 32;
+        _writeValue = 0x10;
+        _writeIncr  = 0x2;
+        _delay      = 0;
+       }
     return self;
     }
     
@@ -166,13 +175,13 @@ enum
                 SBSignal *addr      = [_signals objectAtIndex:0];
                 SBSignal *rw        = [_signals objectAtIndex:2];
                 
-                SBEvent *e          = [SBEvent beforeNextClockHi:0.2];
+                SBEvent *e          = [SBEvent beforeNextClockHi:0.35];
                 e.signal            = addr;
                 e.plugin            = self;
                 e.tag               = OP_ADDRESS;
                 [list addObject:e];
                 
-                e                   = [SBEvent beforeNextClockHi:0.2];
+                e                   = [SBEvent beforeNextClockHi:0.35];
                 e.signal            = rw;
                 e.plugin            = self;
                 e.tag               = OP_READ_RW;
@@ -184,13 +193,13 @@ enum
                 SBSignal *data      = [_signals objectAtIndex:1];
                 SBSignal *rw        = [_signals objectAtIndex:2];
                 
-                SBEvent *e          = [SBEvent beforeNextClockHi:0.2];
+                SBEvent *e          = [SBEvent beforeNextClockHi:0.35];
                 e.signal            = addr;
                 e.plugin            = self;
                 e.tag               = OP_ADDRESS;
                 [list addObject:e];
                 
-                e                   = [SBEvent beforeNextClockHi:0.2];
+                e                   = [SBEvent beforeNextClockHi:0.35];
                 e.signal            = rw;
                 e.plugin            = self;
                 e.tag               = OP_WRITE_RW;
@@ -200,6 +209,12 @@ enum
                 e.signal            = data;
                 e.plugin            = self;
                 e.tag               = OP_WRITE_DATA;
+                [list addObject:e];
+                
+                e                   = [SBEvent afterNextClockLo:0.1];
+                e.signal            = data;
+                e.plugin            = self;
+                e.tag               = OP_WRITE_DATA_INVALID;
                 [list addObject:e];
                 }
             break;
@@ -224,7 +239,8 @@ enum
                       at:event.when
                withFlags:SIGNAL_ASSERT
                  persist:storeValues];
-            break;
+            _address += _addrIncr;
+           break;
         
         case OP_READ_RW:
             [rw update:1
@@ -245,6 +261,14 @@ enum
                       at:event.when
                withFlags:SIGNAL_ASSERT
                  persist:storeValues];
+            _toWrite += _writeIncr;
+            break;
+        
+        case OP_WRITE_DATA_INVALID:
+            [data update:-1
+                      at:event.when
+               withFlags:SIGNAL_UNDEFINED
+                 persist:storeValues];
             break;
         
         default:
@@ -252,8 +276,6 @@ enum
             break;
         }
     
-    _address += _addrIncr;
-    _toWrite += _writeIncr;
     }
     
 @end

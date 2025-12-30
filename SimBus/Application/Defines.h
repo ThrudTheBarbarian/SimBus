@@ -12,5 +12,5 @@
 #define SIGNAL_VSPACE   26
 
 // The vertical space between modules
-#define MODULE_VSPACE   54
+#define MODULE_VSPACE   46
 #endif /* Common_h */
