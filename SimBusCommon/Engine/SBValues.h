@@ -23,18 +23,18 @@ enum
 \*****************************************************************************/
 typedef struct
     {
-    uint64_t cron;          // Timestamp in ns
+    int64_t cron;           // Timestamp in ns
     uint32_t value;         // 32-bit value
     uint32_t flags;         // Flags for this signal value
     } Value128;
 
 typedef struct
     {
-    uint64_t first;         // The first cron timestamp
-    uint64_t last;          // The last cron timestamp
+    int64_t first;          // The first cron timestamp
+    int64_t last;           // The last cron timestamp
     } SBExtent;
     
-NS_INLINE SBExtent SBMakeExtent(uint64_t start, uint64_t end)
+NS_INLINE SBExtent SBMakeExtent(int64_t start, int64_t end)
     {
     SBExtent e;
     e.first  = start;
@@ -42,7 +42,7 @@ NS_INLINE SBExtent SBMakeExtent(uint64_t start, uint64_t end)
     return e;
     }
 
-NS_INLINE uint64_t SBRange(SBExtent extent)
+NS_INLINE int64_t SBRange(SBExtent extent)
     {
     return extent.last - extent.first;
     }
@@ -69,11 +69,17 @@ NS_INLINE uint64_t SBRange(SBExtent extent)
 - (void) clear;
 
 /*****************************************************************************\
+|* Return a pointer to the last value in the set
+\*****************************************************************************/
+- (Value128 *) lastValue;
+
+/*****************************************************************************\
 |* Return a subset of the data
 \*****************************************************************************/
-- (nullable Value128 *) subsetFrom:(uint64_t)from
-                                to:(uint64_t)to
-                             count:(NSInteger *)num;
+- (nullable Value128 *) subsetFrom:(int64_t)from
+                                to:(int64_t)to
+                             count:(NSInteger *)num
+                                at:(NSInteger *)at;
 
 #pragma mark - Properties
 
@@ -85,17 +91,17 @@ NS_INLINE uint64_t SBRange(SBExtent extent)
 /*****************************************************************************\
 |* Property: The first timestamp of data
 \*****************************************************************************/
-@property(assign, nonatomic) uint64_t               firstTimestamp;
+@property(assign, nonatomic) int64_t               firstTimestamp;
 
 /*****************************************************************************\
 |* Property: The last timestamp of data
 \*****************************************************************************/
-@property(assign, nonatomic) uint64_t               lastTimestamp;
+@property(assign, nonatomic) int64_t               lastTimestamp;
 
 /*****************************************************************************\
 |* Property: The most-recent timestamp of data
 \*****************************************************************************/
-@property(assign, nonatomic) uint64_t               currentTimestamp;
+@property(assign, nonatomic) int64_t               currentTimestamp;
 
 @end
 

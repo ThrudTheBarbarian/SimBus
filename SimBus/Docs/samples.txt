@@ -16,7 +16,7 @@ If we use a structure like:
 
 struct
     {
-    uint64_t cron;          // Timestamp of signal in ns
+    int64_t cron;           // Timestamp of signal in ns, int64_t for maths
     uint8_t signals[12];    // 96 bits of signal value
     uint8_t valid[12];      // 96 bits of signal-valid data
     }                       // 256 bits in total = 32 bytes
@@ -38,7 +38,7 @@ Alternatively if we just use per-signal changes,
 
 struct
     {
-    uint64_t cron;          // 64 bits: Timestamp of signal-change
+    int64_t cron;           // 64 bits: Timestamp of signal-change
     int64_t val;            // 64 bits: New value, -ve is undefined
     }                       // 128 bits in total = 16 bytes
 

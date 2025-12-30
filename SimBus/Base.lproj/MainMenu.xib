@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23727" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23727"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -803,14 +804,16 @@
                             <action selector="addButtonWasClicked:" target="6Z3-cq-S59" id="g6H-1j-GrP"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="582495E8-161D-4AC0-A7EE-84F29132211E" label="Settings" paletteLabel="Settings" image="gearshape" catalog="system" sizingBehavior="auto" id="qlO-4f-CIW">
+                    <toolbarItem implicitItemIdentifier="582495E8-161D-4AC0-A7EE-84F29132211E" label="Configure" paletteLabel="Configure" sizingBehavior="auto" id="qlO-4f-CIW">
                         <nil key="toolTip"/>
+                        <imageReference key="image" image="slider.horizontal.below.rectangle" catalog="system" symbolScale="large"/>
                         <button key="view" imageHugsTitle="YES" id="rmG-cW-ehC">
-                            <rect key="frame" x="9" y="14" width="33" height="44"/>
+                            <rect key="frame" x="31" y="14.5" width="20.5" height="19"/>
                             <autoresizingMask key="autoresizingMask"/>
-                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="gearshape" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="bxP-0F-UhO">
+                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="bxP-0F-UhO">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
+                                <imageReference key="image" image="slider.horizontal.below.rectangle" catalog="system" symbolScale="large"/>
                             </buttonCell>
                             <connections>
                                 <action selector="settingsButtonWasClicked:" target="6Z3-cq-S59" id="ZMd-Zf-k8B"/>
@@ -843,9 +846,9 @@
     </objects>
     <resources>
         <image name="NSTouchBarAddDetailTemplate" width="20" height="20"/>
-        <image name="gearshape" catalog="system" width="16" height="16"/>
         <image name="pause" catalog="system" width="9" height="13"/>
         <image name="play" catalog="system" width="12" height="13"/>
         <image name="restart" catalog="system" width="12" height="13"/>
+        <image name="slider.horizontal.below.rectangle" catalog="system" width="20" height="19"/>
     </resources>
 </document>

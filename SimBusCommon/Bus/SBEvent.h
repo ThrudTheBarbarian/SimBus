@@ -31,14 +31,14 @@ typedef enum
 |* Set the designated initialiser
 \*****************************************************************************/
 - (instancetype) init NS_UNAVAILABLE;
-- (instancetype) initWithType:(EventType)type at:(uint64_t)when;
+- (instancetype) initWithType:(EventType)type at:(int64_t)when;
 - (instancetype) initWithType:(EventType)type delay:(float)percentOfClockPeriod;
 
 /*****************************************************************************\
 |* Convenience initialisers
 \*****************************************************************************/
-+ (instancetype) withAbsoluteTime:(uint64_t)ns;
-+ (instancetype) withRelativeTime:(uint64_t)ns;
++ (instancetype) withAbsoluteTime:(int64_t)ns;
++ (instancetype) withRelativeTime:(int64_t)ns;
 + (instancetype) afterNextClockHi:(float)percentOfClockPeriod;
 + (instancetype) afterNextClockLo:(float)percentOfClockPeriod;
 + (instancetype) beforeNextClockHi:(float)percentOfClockPeriod;
@@ -56,7 +56,7 @@ typedef enum
 /*****************************************************************************\
 |* Property: The time-value of the event, in nanoseconds
 \*****************************************************************************/
-@property(assign, nonatomic) uint64_t                               when;
+@property(assign, nonatomic) int64_t                                when;
 
 /*****************************************************************************\
 |* Property: The delay of the event, as a fraction of a clock period. Note

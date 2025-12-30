@@ -62,8 +62,8 @@ static int _identifier  = 100;
     {
     if (_values.count > 0)
         {
-        uint64_t first = _values.firstTimestamp;
-        uint64_t last  = _values.currentTimestamp;
+        int64_t first = _values.firstTimestamp;
+        int64_t last  = _values.currentTimestamp;
         
         return SBMakeExtent(first, last);
         }
@@ -74,7 +74,7 @@ static int _identifier  = 100;
 |* Change a value
 \*****************************************************************************/
 - (void) update:(uint32_t)value
-             at:(uint64_t)cron
+             at:(int64_t)cron
       withFlags:(int)flags
         persist:(BOOL)storeData;
     {

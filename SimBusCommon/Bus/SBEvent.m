@@ -12,7 +12,7 @@
 /*****************************************************************************\
 |* Initialise an instance
 \*****************************************************************************/
-- (instancetype) initWithType:(EventType)type at:(uint64_t)when
+- (instancetype) initWithType:(EventType)type at:(int64_t)when
     {
     if (self = [super init])
         {
@@ -42,12 +42,12 @@
 /*****************************************************************************\
 |* Convenience initialisers
 \*****************************************************************************/
-+ (instancetype) withAbsoluteTime:(uint64_t)ns
++ (instancetype) withAbsoluteTime:(int64_t)ns
     {
     return [[SBEvent alloc] initWithType:AbsoluteTimeEvent at:ns];
     }
     
-+ (instancetype) withRelativeTime:(uint64_t)ns
++ (instancetype) withRelativeTime:(int64_t)ns
     {
     return [[SBEvent alloc] initWithType:RelativeTimeEvent at:ns];
     }

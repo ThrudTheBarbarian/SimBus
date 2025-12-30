@@ -152,7 +152,7 @@ typedef enum
 @property(assign, nonatomic) uint32_t                       period;
 
 // The timestamp at which the trigger happened
-@property(assign, nonatomic) uint64_t                       triggerBase;
+@property(assign, nonatomic) int64_t                        triggerBase;
 
 // The current list of events to process. It is allowable to add to
 // this list while the event-processing is happening, as long as the

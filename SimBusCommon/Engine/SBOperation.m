@@ -57,7 +57,7 @@
     {
     // Set up the 'have we been triggered yet' flag
     BOOL triggered       = (_engine.triggerMode == TriggerNone);
-    uint64_t triggerBase = 0;
+    int64_t triggerBase  = 0;
     
     // We start off by marking ourselves as in-process
     _isRunning = YES;
@@ -225,22 +225,22 @@
                 break;
             
             case AfterNextClockHiEvent:
-                event.when += _cron + (uint64_t)(period * (0.5 + event.delay));
+                event.when += _cron + (int64_t)(period * (0.5 + event.delay));
                 event.type = AbsoluteTimeEvent;
                 break;
             
             case AfterNextClockLoEvent:
-                event.when += _cron + (uint64_t)(period * (1.0 + event.delay));
+                event.when += _cron + (int64_t)(period * (1.0 + event.delay));
                 event.type = AbsoluteTimeEvent;
                 break;
              
             case BeforeNextClockHiEvent:
-                event.when = _cron + (uint64_t)(period * (0.5 - event.delay));
+                event.when = _cron + (int64_t)(period * (0.5 - event.delay));
                 event.type = AbsoluteTimeEvent;
                 break;
            
             case BeforeNextClockLoEvent:
-                event.when = _cron + (uint64_t)(period * (1.0 - event.delay));
+                event.when = _cron + (int64_t)(period * (1.0 - event.delay));
                 event.type = AbsoluteTimeEvent;
                 break;
             
@@ -252,7 +252,7 @@
     
     // Remove any time-based events > 1 clock and put them in the pending list
     NSMutableArray<SBEvent *> *results = NSMutableArray.new;
-    uint64_t limit = _cron + period;
+    int64_t limit = _cron + period;
     
     for (SBEvent *event in list)
     if (event.type == AbsoluteTimeEvent)

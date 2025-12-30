@@ -40,7 +40,7 @@ typedef enum
 |* before
 \*****************************************************************************/
 - (void) update:(uint32_t)value
-             at:(uint64_t)cron
+             at:(int64_t)cron
       withFlags:(int)flags
         persist:(BOOL)storeData;
 

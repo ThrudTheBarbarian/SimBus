@@ -64,11 +64,25 @@ typedef enum
     }
 
 /*****************************************************************************\
+|* Return a pointer to the last value in the set
+\*****************************************************************************/
+- (Value128 *) lastValue
+    {
+    Value128 * base     = (Value128 *) _data.bytes;
+    NSInteger quantum   = sizeof(Value128);
+    NSInteger max       = _data.length;
+    NSInteger count     = max / quantum;
+    return base + count - 1;
+    }
+
+
+/*****************************************************************************\
 |* Return a subset of the data
 \*****************************************************************************/
-- (nullable Value128 *) subsetFrom:(uint64_t)from
-                                to:(uint64_t)to
+- (nullable Value128 *) subsetFrom:(int64_t)from
+                                to:(int64_t)to
                              count:(NSInteger *)num
+                                at:(NSInteger *)at
     {
     NSInteger first     = -1;
     NSInteger last      = -1;
@@ -117,6 +131,7 @@ typedef enum
         }
     
     *num = (last - first) / quantum;
+    *at  = first / quantum;
     return (Value128 *) (_data.bytes + first);
     }
 

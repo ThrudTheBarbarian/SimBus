@@ -370,7 +370,7 @@ NSMutableDictionary<NSNumber *, NSMutableSet<id<SBPlugin>> *> * asyncMap;
             
         case UnitClocks:
             {
-            uint64_t clocks = op.cron / _period;
+            int64_t clocks  = op.cron / _period;
             triggered       = clocks >= _triggerAfterCount;
             break;
             }
@@ -465,7 +465,7 @@ NSMutableDictionary<NSNumber *, NSMutableSet<id<SBPlugin>> *> * asyncMap;
             
         case UnitClocks:
             {
-            uint64_t clocks = (op.cron - _triggerBase) / _period;
+            int64_t clocks  = (op.cron - _triggerBase) / _period;
             terminate       = clocks >= _termAfterCount+1;
             break;
             }
