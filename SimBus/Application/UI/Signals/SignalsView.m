@@ -212,27 +212,42 @@
  
     float scale         = W / ((float)(maxNS - minNS));
 
+    NSInteger max       = signal.values.count;
     NSInteger num       = 0;
     NSInteger start     = 0;
     Value128 *data      = [signal.values subsetFrom:minNS
                                                  to:maxNS
                                               count:&num
                                                  at:&start];
-    
+
+    CGFloat Yh          = _dY/2;
+    CGFloat Y0          = H-y+Yh;
+
     ColouredPath *path  = ColouredPath.new;
     path.colour         = signal.colour;
     if (num > 0)
         {
         // Move to the starting position
-        [path.path moveToPoint:NSMakePoint(_xOff, H-y)];
-        for (NSInteger x = 0; x < num; x++)
+        for (NSInteger x = 0; x <= num; x++)
             {
             //int v = data->value;
             CGFloat px  = _xOff + (data->cron - minNS ) * scale;
             CGFloat py  = H - (y - _dY * data->value);
-            [path.path lineToPoint:NSMakePoint(px,  py)];
+
+            if (x == 0)
+                {
+                if ((px > _xOff))
+                    {
+                    [path.path moveToPoint:NSMakePoint(_xOff, Y0)];
+                    [path.path lineToPoint:NSMakePoint(px, Y0)];
+                    }
+                else
+                    [path.path moveToPoint:NSMakePoint(_xOff, Y0)];
+                }
+                
+            [path.path lineToPoint:NSMakePoint(px, py)];
             
-            if (x < num-1)
+            if ((x < num) && (x < max-1))
                 {
                 data ++;
                 CGFloat px2 = _xOff + (data->cron - minNS ) * scale;
@@ -281,7 +296,7 @@
     ColouredPath *path  = ColouredPath.new;
     path.colour         = signal.colour;
     BOOL undefined      = NO;
-    CGFloat Yh          = (SIGNAL_VSPACE-6)/2;
+    CGFloat Yh          = _dY/2;
     CGFloat Y0          = H-y+Yh;
     
      if (num > 0)
@@ -295,7 +310,13 @@
             CGFloat px      = _xOff + (data->cron - minNS ) * scale;
             CGFloat px2     = 0.0;
  
-             if (data->flags & SIGNAL_UNDEFINED)
+            if ((x == 0) && (px > _xOff))
+                {
+                [path.path moveToPoint:NSMakePoint(_xOff, Y0)];
+                [path.path lineToPoint:NSMakePoint(px, Y0)];
+                }
+                
+            if (data->flags & SIGNAL_UNDEFINED)
                 undefined = YES;
             else if (undefined)
                 undefined = NO;
