@@ -19,7 +19,10 @@
     {
     // Create the engine for simulation
     _engine = [SBEngine sharedInstance];
-    
+
+    // We want mouse-moved events in some of the views
+    self.window.acceptsMouseMovedEvents = YES;
+
     // Load the plugins, each creating a device
     _pluginController = [SBPluginController sharedInstance];
     [_pluginController loadPlugins];

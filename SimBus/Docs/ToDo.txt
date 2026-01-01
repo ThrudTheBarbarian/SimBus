@@ -3,13 +3,23 @@
     - remove 'clocks' from the last option, it's redundant
     - add an 'until signal' option so we can wait on a plugin
 
-- Signal vertical offsets between modules isn't working
-
-- Need test harness module, to exercise A,D,R/W for example
-
 - Plugins should be able to configure whether they have a settings wheel
 
-- Still need ns timings on signals view
+- Add a vertical-line cursor which tracks across all the signals, like a
+  clock-indicator line but brighter
+    - Have another splitview on the RHS which shows the value at cursor
+    - Make cursor 'snap' when within 2 pix ofsignal change, at signal that
+      mouse is over, unless dX for signal is < 4 pix.
+    - eventually allow seek (using arrow keys) for next change for signal
+      that mouse is on, or could also be buttons on RHS screen
+
+ - Add save/load project, also default project to load
+ 
+* Signal vertical offsets between modules isn't working
+
+* Need test harness module, to exercise A,D,R/W for example
+
+* Still need ns timings on signals view
 
 * Signal expansion ought to be based on the module, not the signal, otherwise
   all duplicate modules will expand their signal at once

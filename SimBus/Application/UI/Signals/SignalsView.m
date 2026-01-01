@@ -21,6 +21,9 @@
 // Y-size of a signal
 @property(assign, nonatomic) int                            dY;
 
+// cursor X position
+@property(assign, nonatomic) int                            cursorX;
+
 // X-offset for drawing
 @property(assign, nonatomic) int                            xOff;
 
@@ -107,6 +110,7 @@
                name:NSScrollViewDidLiveScrollNotification
              object:nil];
              
+    _cursorX        = -1;
     _dT             = 20;
     _dY             = SIGNAL_VSPACE - 10;
     _displayClocks  = YES;
@@ -129,9 +133,10 @@
 - (void)drawRect:(NSRect)dirtyRect
     {
     [super drawRect:dirtyRect];
+    NSRect frame = self.frame;
     
     [NSColor.blackColor setFill];
-    NSRectFill(self.bounds);
+    NSRectFill(frame);
     
     // Show the scale
     [self _displayHorizontalScale];
@@ -170,6 +175,15 @@
             Y += SIGNAL_VSPACE;
             }
         Y += MODULE_VSPACE;
+        }
+    
+    if (_cursorX > 0)
+        {
+        [[NSColor whiteColor] set];
+        NSBezierPath *path = [NSBezierPath bezierPath];
+        [path moveToPoint:NSMakePoint(_cursorX, 0)];
+        [path lineToPoint:NSMakePoint(_cursorX, frame.size.height)];
+        [path stroke];
         }
     }
 
@@ -495,13 +509,14 @@
                                            count:&num
                                               at:&start];
         
-    NSColor *white              = [NSColor colorWithWhite:0.7 alpha:0.8];
+    NSColor *white              = [NSColor colorWithWhite:0.7 alpha:0.3];
+    NSColor *text              = [NSColor colorWithWhite:0.7 alpha:0.8];
     NSFont *font                = [NSFont systemFontOfSize:14];
     CGFloat lineHeight          = font.ascender
                                 + ABS(font.descender)
                                 + font.leading;
     NSDictionary *attribs       = @{NSFontAttributeName:font,
-                                    NSForegroundColorAttributeName:white};
+                                    NSForegroundColorAttributeName:text};
     CGFloat py                  = H - lineHeight - 3;
     NSString *lbl               = nil;
 
@@ -566,6 +581,11 @@
 
 #pragma mark - Events
 
+- (BOOL) acceptsFirstResponder
+    {
+    return YES;
+    }
+    
 /*****************************************************************************\
 |* The user scrolled the mouse wheel
 \*****************************************************************************/
@@ -598,6 +618,16 @@
         }
     }
 
+
+/*****************************************************************************\
+|* The user moved the mouse in the window
+\*****************************************************************************/
+- (void) mouseMoved:(NSEvent *)e
+    {
+    NSPoint p       = [self convertPoint:e.locationInWindow fromView:nil];
+    _cursorX        = p.x;
+    [self setNeedsDisplay:YES];
+    }
 #pragma mark - Notifications
 
 /*****************************************************************************\
