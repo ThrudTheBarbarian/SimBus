@@ -14,10 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ModulesItem : NSCollectionViewItem
 
 /*****************************************************************************\
-|* Set the plugin instance
+|* Get/Set the plugin instance
 \*****************************************************************************/
 - (void) setPlugin:(id<SBPlugin>)plugin;
-
+- (id<SBPlugin>) plugin;
 
 @end
 

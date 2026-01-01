@@ -156,7 +156,7 @@
             else
                 {
                 paths = [self _pathsForMultiBitSignalAt:Y using:signal];
-                if ([sep isExpanded:signal])
+                if ([sep isExpanded:signal inPlugin:plugin])
                     {
                     for (int i=0; i<signal.width; i++)
                         {

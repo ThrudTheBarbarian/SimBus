@@ -221,11 +221,11 @@ NSMutableDictionary<NSNumber *, NSMutableSet<id<SBPlugin>> *> * asyncMap;
     {
     for (SBSignal *signal in event.signals)
         {
-        NSMutableSet<id<SBPlugin>> *set = _asyncMap[signal.identifier];
+        NSMutableSet<id<SBPlugin>> *set = _asyncMap[@(signal.identifier)];
         if (set == nil)
             {
             set = NSMutableSet.new;
-            _asyncMap[signal.identifier] = set;
+            _asyncMap[@(signal.identifier)] = set;
             }
         [set addObject:event.plugin];
         }
@@ -237,7 +237,7 @@ NSMutableDictionary<NSNumber *, NSMutableSet<id<SBPlugin>> *> * asyncMap;
 \*****************************************************************************/
 - (void) signal:(SBSignal *)signal changedFrom:(int64_t)oldValue
     {
-    NSMutableSet *plugins   = _asyncMap[signal.identifier];
+    NSMutableSet *plugins   = _asyncMap[@(signal.identifier)];
     if (plugins)
         for (id<SBPlugin> plugin in plugins)
             {

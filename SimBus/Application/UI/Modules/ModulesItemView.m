@@ -93,7 +93,7 @@
     
     [_sep reset];
     for (SBSignal *signal in plugin.signals)
-        [_sep unexpandSignal:signal];
+        [_sep unexpandSignal:signal inPlugin:plugin];
     }
     
 /*****************************************************************************\
@@ -240,7 +240,7 @@
             
             // If we have a triangle, draw it based on whether the plugin
             // is expanded or not
-            BOOL expanded = [_sep isExpanded:signal];
+            BOOL expanded = [_sep isExpanded:signal inPlugin:_plugin];
             
             if (triangle)
                 {
@@ -327,7 +327,7 @@
     for (Box *box in _map)
         if ([box contains:p])
             {
-            [_sep toggleSignal:_map[box]];
+            [_sep toggleSignal:_map[box] inPlugin:_plugin];
             NSNotificationCenter *nc = NSNotificationCenter.defaultCenter;
             [nc postNotificationName:kModulesReconfiguredNotification
                               object:self];

@@ -54,7 +54,7 @@ typedef enum
 /*****************************************************************************\
 |* Property: unique identifier for a signal
 \*****************************************************************************/
-@property (strong, nonatomic) NSNumber *                identifier;
+@property (assign, nonatomic) int                       identifier;
 
 /*****************************************************************************\
 |* Property: bit width of the signal

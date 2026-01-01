@@ -9,7 +9,7 @@
 #import "ModulesItemView.h"
 
 @interface ModulesItem ()
-@property (strong, nonatomic) id<SBPlugin>            plugin;
+@property (strong, nonatomic) id<SBPlugin>            itemPlugin;
 @end
 
 @implementation ModulesItem
@@ -27,8 +27,16 @@
 \*****************************************************************************/
 - (void) setPlugin:(id<SBPlugin>)plugin
     {
-    _plugin = plugin;
+    _itemPlugin = plugin;
     ((ModulesItemView *)(self.view)).plugin = plugin;
+    }
+
+/*****************************************************************************\
+|* Get the plugin instance
+\*****************************************************************************/
+- (id<SBPlugin>) plugin
+    {
+    return _itemPlugin;
     }
 
 @end

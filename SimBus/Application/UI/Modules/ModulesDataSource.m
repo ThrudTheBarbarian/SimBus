@@ -140,7 +140,6 @@ NSMutableDictionary<NSIndexPath *,ModulesItem *> *              itemMap;
     {
     NSSize size                     = NSZeroSize;
 	NSInteger idx                   = indexPath.item;
-    ModulesItem *item               = _itemMap[indexPath];
     SignalExpansionController *sep  = SignalExpansionController.sharedInstance;
    
     // The first time through this loop, the ModulesItem will not have been
@@ -152,7 +151,7 @@ NSMutableDictionary<NSIndexPath *,ModulesItem *> *              itemMap;
         CGFloat height      = 45;
         for (SBSignal *signal in item.signals)
             {
-            BOOL expanded = [sep isExpandedByIdentifer:signal.identifier];
+            BOOL expanded = [sep isExpanded:signal inPlugin:item];
             height += SIGNAL_VSPACE * (expanded ? signal.width + 1 : 1);
             }
         size = NSMakeSize(_splitWidth, height);

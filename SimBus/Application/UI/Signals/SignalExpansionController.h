@@ -15,18 +15,29 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype) init NS_UNAVAILABLE;
 + (instancetype) sharedInstance;
 
-- (BOOL) isExpandedByIdentifer:(NSNumber *)signalIdentifier;
-- (BOOL) isExpanded:(SBSignal *)signal;
+/*****************************************************************************\
+|* Is a signal in a plugin expanded ?
+\*****************************************************************************/
+- (BOOL) isExpanded:(SBSignal *)signal inPlugin:(id<SBPlugin>)plugin;
 
-- (void) expandSignalByIdentifier:(NSNumber *)signalIdentifier;
-- (void) expandSignal:(SBSignal *)signal;
+/*****************************************************************************\
+|* Set a signal in a plugin to be expanded
+\*****************************************************************************/
+- (void) expandSignal:(SBSignal *)signal inPlugin:(id<SBPlugin>)plugin;
 
-- (void) unexpandSignalByIdentifier:(NSNumber *)signalIdentifier;
-- (void) unexpandSignal:(SBSignal *)signal;
+/*****************************************************************************\
+|* Set a signal in a plugin to be not expanded
+\*****************************************************************************/
+- (void) unexpandSignal:(SBSignal *)signal inPlugin:(id<SBPlugin>)plugin;
 
-- (void) toggleSignalByIdentifier:(NSNumber *)signalIdentifier;
-- (void) toggleSignal:(SBSignal *)signal;
+/*****************************************************************************\
+|* Toggle the expanded state of a signal in a plugin
+\*****************************************************************************/
+- (void) toggleSignal:(SBSignal *)signal inPlugin:(id<SBPlugin>)plugin;
 
+/*****************************************************************************\
+|* Clear all records
+\*****************************************************************************/
 - (void) reset;
 @end
 

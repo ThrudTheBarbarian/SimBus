@@ -13,7 +13,7 @@
 |* signal.identifier will be 0|1
 \*****************************************************************************/
 @property(strong, nonatomic)
-NSMutableDictionary<NSNumber *, NSNumber *> *                       expanded;
+NSMutableDictionary<NSString *, NSNumber *> *                       expanded;
 @end
 
 @implementation SignalExpansionController
@@ -56,74 +56,63 @@ NSMutableDictionary<NSNumber *, NSNumber *> *                       expanded;
 /*****************************************************************************\
 |* Return whether a signal is expanded or not
 \*****************************************************************************/
-- (BOOL) isExpandedByIdentifer:(NSNumber *)sid
+- (BOOL) isExpanded:(SBSignal *)signal inPlugin:(nonnull id<SBPlugin>)plugin
     {
-    return [(NSNumber *)(_expanded[sid]) boolValue];
-    }
-    
-- (BOOL) isExpanded:(SBSignal *)signal
-    {
-    return [self isExpandedByIdentifer:signal.identifier];
+    NSString *key = [NSString stringWithFormat:@"%@:%d",
+                    plugin.pluginName, signal.identifier];
+    return [(NSNumber *)(_expanded[key]) boolValue];
     }
 
 /*****************************************************************************\
 |* Expand a signal
 \*****************************************************************************/
-- (void) expandSignalByIdentifier:(NSNumber *)signalIdentifier
+- (void) expandSignal:(SBSignal *)signal inPlugin:(id<SBPlugin>)plugin
     {
-    _expanded[signalIdentifier] = @(1);
+    NSString *key = [NSString stringWithFormat:@"%@:%d",
+                    plugin.pluginName, signal.identifier];
+
+    _expanded[key] = @(1);
     
     NSNotificationCenter *nc = NSNotificationCenter.defaultCenter;
     [nc postNotificationName:kSignalExpansionNotification
                       object:self
                     userInfo:@{
-                            @"identifier" : signalIdentifier,
-                            @"state"      : @(1)
+                            @"key"      : key,
+                            @"state"    : @(1)
                             }];
     }
-    
-- (void) expandSignal:(SBSignal *)signal
-    {
-    [self expandSignalByIdentifier:signal.identifier];
-    }
-    
+        
 
 /*****************************************************************************\
 |* Unexpand a signal
 \*****************************************************************************/
-- (void) unexpandSignalByIdentifier:(NSNumber *)signalIdentifier
+- (void) unexpandSignal:(SBSignal *)signal inPlugin:(id<SBPlugin>)plugin
     {
-    _expanded[signalIdentifier] = @(0);
+    NSString *key = [NSString stringWithFormat:@"%@:%d",
+                    plugin.pluginName, signal.identifier];
+
+    _expanded[key] = @(0);
     
     NSNotificationCenter *nc = NSNotificationCenter.defaultCenter;
     [nc postNotificationName:kSignalExpansionNotification
                       object:self
                     userInfo:@{
-                            @"identifier" : signalIdentifier,
-                            @"state"      : @(0)
+                            @"key"      : key,
+                            @"state"    : @(0)
                             }];
     }
 
-- (void) unexpandSignal:(SBSignal *)signal;
-    {
-    [self unexpandSignalByIdentifier:signal.identifier];
-    }
 
 /*****************************************************************************\
 |* Toggle a signal's expansion state
 \*****************************************************************************/
-- (void) toggleSignalByIdentifier:(NSNumber *)signalIdentifier
+- (void) toggleSignal:(SBSignal *)signal inPlugin:(id<SBPlugin>)plugin
     {
-    if ([self isExpandedByIdentifer:signalIdentifier])
-        [self unexpandSignalByIdentifier:signalIdentifier];
+    if ([self isExpanded:signal inPlugin:plugin])
+        [self unexpandSignal:signal inPlugin:plugin];
     else
-        [self expandSignalByIdentifier:signalIdentifier];
+        [self expandSignal:signal inPlugin:plugin];
     }
     
-- (void) toggleSignal:(SBSignal *)signal
-    {
-    [self toggleSignalByIdentifier:signal.identifier];
-    }
-
 
 @end
