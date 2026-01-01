@@ -343,5 +343,5 @@
     {
     [self setNeedsDisplay:YES];
     }
-    
+
 @end

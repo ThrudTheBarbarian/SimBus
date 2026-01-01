@@ -200,6 +200,9 @@ NSMutableDictionary<NSNumber *, NSMutableSet<id<SBPlugin>> *> * asyncMap;
 \*****************************************************************************/
 - (void) run
     {
+    NSNotificationCenter *nc = NSNotificationCenter.defaultCenter;
+    [nc postNotificationName:kAboutToSimulateNotification object:self];
+    
     // Do an implicit reset if we've never run before
     if (!_hasRun)
         {

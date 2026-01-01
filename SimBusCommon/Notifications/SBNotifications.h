@@ -14,3 +14,4 @@ extern NSString * const kClockChangedNotification;
 extern NSString * const kInterfaceShouldUpdateNotification;
 extern NSString * const kModulesScrollbarNotification;
 extern NSString * const kSignalExpansionNotification;
+extern NSString * const kAboutToSimulateNotification;

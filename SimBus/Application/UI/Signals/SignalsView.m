@@ -48,6 +48,9 @@
 // Font height
 @property(assign, nonatomic) CGFloat                        dataFontHeight;
 
+// Have we got run-data
+@property(assign, nonatomic) BOOL                                       haveRun;
+
 // Direct methods
 - (NSMutableArray<ColouredPath *> *) _pathsFor1BitSignalAt:(int)y
                                                      using:(SBSignal *)signal
@@ -110,6 +113,12 @@
                name:NSScrollViewDidLiveScrollNotification
              object:nil];
              
+    [nc addObserver:self
+           selector:@selector(_aboutToRun:)
+               name:kAboutToSimulateNotification
+             object:nil];
+             
+    _haveRun        = NO;
     _cursorX        = -1;
     _dT             = 20;
     _dY             = SIGNAL_VSPACE - 10;
@@ -624,9 +633,12 @@
 \*****************************************************************************/
 - (void) mouseMoved:(NSEvent *)e
     {
-    NSPoint p       = [self convertPoint:e.locationInWindow fromView:nil];
-    _cursorX        = p.x;
-    [self setNeedsDisplay:YES];
+    if (_haveRun)
+        {
+        NSPoint p       = [self convertPoint:e.locationInWindow fromView:nil];
+        _cursorX        = p.x;
+        [self setNeedsDisplay:YES];
+        }
     }
 #pragma mark - Notifications
 
@@ -679,6 +691,15 @@
     
     [self setNeedsDisplay:YES];
     }
+
+/*****************************************************************************\
+|* The user clicked Run
+\*****************************************************************************/
+- (void) _aboutToRun:(NSNotification *)n
+    {
+    _haveRun = YES;
+    }
+    
 
 #pragma mark - Actions
 
